@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { MercadoPagoConfig, Payment } from "mercadopago";
+import { MercadoPagoConfig } from "mercadopago";
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { getPaymentData, validateHMAC } from "@/utils/mpLogic";
+import { validateHMAC } from "@/utils/mpLogic";
+import { redirect } from "next/navigation";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
@@ -15,13 +15,11 @@ export default async function POST(
   const body = await request;
 
   const isValidHMAC = validateHMAC(body);
-  if (isValidHMAC) {
+  if (await isValidHMAC) {
     const id = body.body.data.id as string;
-    console.log("id", id);
-    // getPaymentData(id);
     console.log("HMAC verification passed");
   } else {
-    console.log("HMAC verification failed");
+    redirect("http://localhost:3000/failed");
   }
   res.status(200).json({ succcess: true });
 }

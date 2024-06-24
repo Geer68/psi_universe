@@ -1,5 +1,5 @@
-import { Cliente } from "@/pages/CompraExitosa";
 import { createClient } from "@supabase/supabase-js";
+import { Cliente, Pago, Sesion } from "./types";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -10,7 +10,6 @@ export const insertNewClient = async (
   cliente: Cliente
 ): Promise<string | null> => {
   try {
-    // Buscar si el cliente ya existe por su email
     const { data: existingData, error: existingError } = await supabase
       .from("Clientes")
       .select("id")
@@ -19,10 +18,9 @@ export const insertNewClient = async (
 
     if (existingData) {
       console.log("Cliente ya existe");
-      return existingData.id; // Devolver el ID del cliente existente
+      return existingData.id;
     }
 
-    // Insertar el nuevo cliente
     const { data, error } = await supabase
       .from("Clientes")
       .upsert(cliente)
@@ -30,17 +28,120 @@ export const insertNewClient = async (
 
     if (error) {
       console.error("Error al insertar el cliente:", error.message);
-      return null; // Manejar el error como sea necesario
+      return null;
     }
 
     if (data) {
       console.log("Cliente insertado exitosamente:", data);
-      return data[0].id; // Devolver el ID del nuevo cliente insertado
+      return data[0].id;
     }
 
-    return null; // Manejar caso inesperado sin data ni error
+    return null;
   } catch (error) {
     console.error("Error al ejecutar la operación:", error.message);
-    return null; // Manejar el error general
+    return null;
+  }
+};
+
+export const insertNewPayment = async (pago: Pago) => {
+  try {
+    const { data: existingData, error: existingError } = await supabase
+      .from("Pago")
+      .select("id")
+      .eq("idMP", pago.idMP)
+      .single();
+
+    if (existingData) {
+      console.log("Pago ya existe");
+      return existingData.id;
+    }
+
+    const { data, error } = await supabase
+      .from("Pago")
+      .insert(pago)
+      .select("id");
+
+    if (error) {
+      console.error("Error al insertar el pago:", error.message);
+      return null;
+    }
+
+    if (data) {
+      console.log("Pago insertado exitosamente:", data);
+      return data[0].id;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error al ejecutar la operación:", error.message);
+    return null;
+  }
+};
+
+export type Psicologo = {
+  id: number;
+  nombre: string;
+  apellido: string;
+  emailPersonal: string;
+  precioSesion: number;
+  img: string;
+  especialidad: string;
+  descripcion: string;
+  linkCV: string;
+  linkedin: string;
+};
+
+export const listPsicologos = async (): Promise<Psicologo[] | null> => {
+  try {
+    const { data, error } = await supabase.from("Psicologos").select("*");
+
+    if (error) {
+      console.error("Error al listar psicologos:", error.message);
+      return null;
+    }
+
+    if (data) {
+      console.log("Listado de psicologos:", data);
+      return data;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error al ejecutar la operación:", error.message);
+    return null;
+  }
+};
+
+export const insertNewSesion = async (sesion: Sesion) => {
+  try {
+    const { data: existingData, error: existingError } = await supabase
+      .from("Sesiones")
+      .select("id")
+      .eq("idCliente", sesion.idCliente)
+      .eq("idPago", sesion.idPago)
+      .eq("idPsicologo", sesion.idPsicologo)
+      .single();
+
+    if (existingData) {
+      console.log("Sesion ya existe");
+      return existingData.id;
+    }
+
+    const { data, error } = await supabase.from("Sesiones").insert(sesion);
+
+    if (error) {
+      console.error("Error al insertar la sesion:", error.message);
+      return null;
+    }
+
+    if (data) {
+      console.log("Sesion insertada exitosamente:", data);
+      return data;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error al ejecutar la operación:", error.message);
+    return null;
   }
 };

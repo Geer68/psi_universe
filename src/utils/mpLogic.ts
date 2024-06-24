@@ -1,11 +1,48 @@
+"use server";
 import crypto from "crypto";
-import { MercadoPagoConfig, Payment } from "mercadopago";
+import { MercadoPagoConfig, Preference } from "mercadopago";
+import { redirect } from "next/navigation";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
 });
 
-export function validateHMAC(body: any): boolean {
+export async function pagar(formData: FormData) {
+  const queryParams = new URLSearchParams();
+  formData.forEach((value, key) => {
+    queryParams.append(key, value.toString());
+  });
+
+  const successUrl = `http://localhost:3000/compraExitosa?${queryParams.toString()}`;
+
+  const preference = await new Preference(client).create({
+    body: {
+      items: [
+        {
+          id: "donacion",
+          title: formData.get("message") as string,
+          quantity: 1,
+          unit_price: Number(formData.get("monto")),
+        },
+      ],
+      auto_return: "approved",
+      back_urls: {
+        success: successUrl,
+        failure: "https://www.youtube.com/",
+        pending: "http://localhost:3000/pending",
+      },
+      redirect_urls: {
+        success: successUrl,
+        failure: "https://www.youtube.com/",
+        pending: "http://localhost:3000/pending",
+      },
+    },
+  });
+
+  redirect(preference.init_point!);
+}
+
+export async function validateHMAC(body: any): Promise<boolean> {
   const xSignature = body.headers["x-signature"];
   const xRequestId = body.headers["x-request-id"];
   const urlParams = new URLSearchParams(body.url?.split("?")[1]);
