@@ -4,16 +4,16 @@ import { insertNewClient, insertNewPayment } from "@/utils/supabaseLogic";
 import { Cliente, Pago, Sesion } from "@/utils/types";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 function parseDateToTimestamp(): number {
   const date = new Date();
   const timestamp = date.getTime();
-  console.log("Timestamp:", timestamp);
   return timestamp;
 }
 
 export default function CompraExitosa() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [queryParams, setQueryParams] = useState<{ collection_id?: string }>(
     {}
@@ -30,28 +30,30 @@ export default function CompraExitosa() {
 
     const payment = await fetchData(ordenMP);
 
-    console.log("Cliente:", idCliente);
-    console.log("Pago:", payment);
+    if (payment != null) {
+      const pago: Pago = {
+        idCliente: idCliente,
+        idMP: payment?.idMP,
+        recibido: payment?.recibido,
+        comisiones: payment?.comisiones,
+        neto: payment?.neto,
+        fechaPago: payment?.fechaPago,
+        payerMP: payment?.payerMP,
+      };
 
-    const pago: Pago = {
-      idCliente: idCliente,
-      idMP: payment?.idMP,
-      recibido: payment?.recibido,
-      comisiones: payment?.comisiones,
-      neto: payment?.neto,
-      fechaPago: payment?.fechaPago,
-      payerMP: payment?.payerMP,
-    };
+      const idPago = await insertNewPayment(pago);
 
-    const idPago = await insertNewPayment(pago);
-
-    const sesionPagada: Sesion = {
-      idCliente: parseInt(idCliente),
-      idPago: parseInt(idPago),
-      idPsicologo: parseInt(queryParams.idPsicologo),
-      sesion: parseDateToTimestamp(),
-      linkSesion: null,
-    };
+      const sesionPagada: Sesion = {
+        idCliente: parseInt(idCliente),
+        idPago: parseInt(idPago),
+        idPsicologo: parseInt(queryParams.idPsicologo),
+        sesion: parseDateToTimestamp(),
+        linkSesion: null,
+      };
+    } else {
+      //Si el numero de payment es invalido redirigir a la pagina de inicio
+      router.push("/");
+    }
   }
 
   useEffect(() => {

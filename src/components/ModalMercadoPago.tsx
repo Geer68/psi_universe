@@ -51,7 +51,7 @@ export default function ModalMercadoPago() {
                     key={psicologo.id}
                     value={psicologo.id.toString()}
                   >
-                    {psicologo.nombre}
+                    {psicologo.apellido + " " + psicologo.nombre}
                   </SelectItem>
                 ))}
               </SelectContent>
