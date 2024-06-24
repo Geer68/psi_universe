@@ -38,20 +38,35 @@ export function validateHMAC(body: any): boolean {
   return sha === hash;
 }
 
+const BASE_URL = "https://api.mercadopago.com/v1/payments";
+const TOKEN = process.env.NEXT_PUBLIC_MP_ACCESS_TK!;
+
 export async function getPaymentData(idBody: string) {
+  const url = `${BASE_URL}/${idBody}?access_token=${TOKEN}`;
+
   try {
-    const payment = await new Payment(client).get({ id: idBody });
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const payment = await response.json();
 
     if (payment.transaction_details !== undefined) {
       const pagoSesion = {
         idMP: payment.id,
         neto: payment.transaction_details.net_received_amount,
         recibido: payment.transaction_details.total_paid_amount,
-        comisiones: payment.fee_details[0].amount || 0,
+        comisiones:
+          payment.fee_details.length > 0 ? payment.fee_details[0].amount : 0,
         fechaPago: payment.date_approved,
         payerMP: payment.payer,
       };
-      console.log(pagoSesion);
       return pagoSesion;
     }
   } catch (error) {

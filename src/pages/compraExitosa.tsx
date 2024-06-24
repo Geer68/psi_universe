@@ -15,9 +15,26 @@ export default function CompraExitosa() {
   const [client, setClient] = useState<Cliente | {}>({});
 
   async function fetchData(id: string) {
-    console.log("id", id);
     const payment = await getPaymentData(id);
-    console.log("payment", payment);
+    return payment;
+  }
+
+  async function insertNewPago(client: Cliente, idPago: string) {
+    const idCliente = (await insertNewClient(client)) as string;
+
+    const payment = await fetchData(idPago);
+
+    console.log("Cliente:", idCliente);
+    console.log("Pago:", payment);
+
+    const pago = {
+      idCliente: idCliente,
+      idMP: payment?.idMP,
+      recibido: payment?.recibido,
+      comisiones: payment?.comisiones,
+      neto: payment?.neto,
+      fechaPago: payment?.fechaPago,
+    };
   }
 
   useEffect(() => {
@@ -32,11 +49,10 @@ export default function CompraExitosa() {
       };
 
       setClient(client);
-      insertNewClient(client);
 
       const id = query.collection_id as string;
 
-      fetchData(id);
+      insertNewPago(client, id);
     }
   }, [router.isReady]);
 
