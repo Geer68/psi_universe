@@ -2,7 +2,6 @@ import { MercadoPagoConfig } from "mercadopago";
 
 import { NextApiRequest, NextApiResponse } from "next";
 import { validateHMAC } from "@/utils/mpLogic";
-import { redirect } from "next/navigation";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,

@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Psicologo } from "@/utils/supabaseLogic";
+import { Psicologo } from "@/utils/serverSupabase";
 import { pagar } from "@/utils/mpLogic";
 import {
   AlertDialog,
