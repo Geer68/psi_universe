@@ -3,10 +3,27 @@ import { google } from "googleapis";
 // If modifying these scopes, delete token.json.
 const SCOPES = ["https://www.googleapis.com/auth/calendar"];
 
-export enum EVENTS_STATE_ENUM {
-  success,
-  empty,
-  error,
+export interface Event {
+  kind?: string;
+  etag?: string;
+  id?: string;
+  status?: string;
+  htmlLink?: string;
+  created?: string;
+  updated?: string;
+  summary?: string;
+  creator?: { email: string };
+  organizer?: { email: string; displayName: string; self: boolean };
+  start?: { dateTime: string; timeZone: string }; // inicio
+  end?: { dateTime: string; timeZone: string }; // fin
+  recurringEventId?: string;
+  originalStartTime?: { dateTime: string; timeZone: string };
+  iCalUID?: string;
+  sequence?: number;
+  hangoutLink?: string; // tiene meet?
+  reminders?: { useDefault: boolean };
+  eventType?: string;
+  extendedProperties?: Object;
 }
 
 async function getAuth() {
@@ -22,9 +39,37 @@ async function getAuth() {
 const id =
   "93017179a9fcdc0fa6c93be29c6c63e4ef00a591b9535d0fc09629de00194b9c@group.calendar.google.com";
 
-export async function listEvents(
-  calendarId: string
-): Promise<EVENTS_STATE_ENUM | Array<Object>> {
+export async function setEventBooked(calendarId: string, eventId: string) {
+  const auth = await getAuth();
+  const calendar = google.calendar({ version: "v3", auth });
+  const res = await calendar.events.patch({
+    calendarId,
+    eventId,
+    requestBody: {
+      extendedProperties: {
+        private: {
+          booked: "true",
+        },
+      },
+    },
+  });
+  return res.data;
+}
+
+export async function getEventByID(calendarId: string, eventId: string) {
+  const auth = await getAuth();
+  const calendar = google.calendar({ version: "v3", auth });
+  const res = await calendar.events.get({
+    calendarId,
+    eventId,
+  });
+  return res.data;
+}
+
+export async function getEvents(
+  calendarId: string,
+  maxResults: number = 40
+): Promise<Array<Event> | null> {
   try {
     const auth = await getAuth();
     const calendar = google.calendar({ version: "v3", auth });
@@ -32,19 +77,19 @@ export async function listEvents(
     const res = await calendar.events.list({
       calendarId,
       timeMin: new Date().toISOString(),
-      maxResults: 40,
+      maxResults,
       singleEvents: true,
       orderBy: "startTime",
     });
     const events = res.data.items;
     if (!events || events.length === 0) {
       console.log("No upcoming events found.");
-      return EVENTS_STATE_ENUM.empty;
+      return [];
     }
-    return events;
+    return events as Array<Event>;
   } catch (e) {
     console.error("Error: ", e);
-    return EVENTS_STATE_ENUM.error;
+    return null;
   }
   //   events.map((event: any, i: number) => {
   //     const start = event.start.dateTime || event.start.date;
