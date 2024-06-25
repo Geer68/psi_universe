@@ -36,9 +36,6 @@ async function getAuth() {
   return client;
 }
 
-const id =
-  "93017179a9fcdc0fa6c93be29c6c63e4ef00a591b9535d0fc09629de00194b9c@group.calendar.google.com";
-
 export async function setEventBooked(calendarId: string, eventId: string) {
   const auth = await getAuth();
   const calendar = google.calendar({ version: "v3", auth });

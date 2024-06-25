@@ -26,7 +26,7 @@ const createSendEmailCommand = (toAddress: string, fromAddress: string) => {
   });
 };
 
-const sendEmail = async (toAddress: string, fromAddress: string) => {
+export const sendEmail = async (toAddress?: string, fromAddress?: string) => {
   const sendEmailCommand = createSendEmailCommand(
     toAddress || "grperezdiez@gmail.com",
     fromAddress || "soporte@psiuniverse.com"
