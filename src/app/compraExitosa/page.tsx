@@ -1,19 +1,23 @@
 "use client";
 import { getPaymentData } from "@/utils/mpLogic";
-import { insertNewClient, insertNewPayment } from "@/utils/supabaseLogic";
+import {
+  insertNewClient,
+  insertNewPayment,
+  insertNewSesion,
+} from "@/utils/serverSupabase";
 import { Cliente, Pago, Sesion } from "@/utils/types";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 function parseDateToTimestamp(): number {
   const date = new Date();
   const timestamp = date.getTime();
-  console.log("Timestamp:", timestamp);
   return timestamp;
 }
 
 export default function CompraExitosa() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [queryParams, setQueryParams] = useState<{ collection_id?: string }>(
     {}
@@ -30,28 +34,43 @@ export default function CompraExitosa() {
 
     const payment = await fetchData(ordenMP);
 
-    console.log("Cliente:", idCliente);
-    console.log("Pago:", payment);
+    if (payment != null) {
+      const pago: Pago = {
+        idCliente: idCliente,
+        idMP: payment?.idMP,
+        recibido: payment?.recibido,
+        comisiones: payment?.comisiones,
+        neto: payment?.neto,
+        fechaPago: payment?.fechaPago,
+        payerMP: payment?.payerMP,
+      };
 
-    const pago: Pago = {
-      idCliente: idCliente,
-      idMP: payment?.idMP,
-      recibido: payment?.recibido,
-      comisiones: payment?.comisiones,
-      neto: payment?.neto,
-      fechaPago: payment?.fechaPago,
-      payerMP: payment?.payerMP,
-    };
+      const idPago = await insertNewPayment(pago);
 
-    const idPago = await insertNewPayment(pago);
+      const sesionPagada: Sesion = {
+        idCliente: parseInt(idCliente),
+        idPago: parseInt(idPago),
+        idPsicologo: parseInt(queryParams.idPsicologo),
+        sesion: parseDateToTimestamp(),
+        linkSesion: null,
+      };
+      return [idCliente, idPago];
+    } else {
+      //Si el numero de payment es invalido redirigir a la pagina de inicio
+      router.push("/");
+    }
+  }
 
-    const sesionPagada: Sesion = {
+  async function formatSesion(idCliente: string, idPago: any, queryDatos: any) {
+    const sesion: Sesion = {
       idCliente: parseInt(idCliente),
       idPago: parseInt(idPago),
-      idPsicologo: parseInt(queryParams.idPsicologo),
+      idPsicologo: parseInt(queryDatos.idPsicologo),
       sesion: parseDateToTimestamp(),
       linkSesion: null,
     };
+    // insertNewSesion(sesion);
+    return sesion;
   }
 
   useEffect(() => {
@@ -72,7 +91,7 @@ export default function CompraExitosa() {
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
       <div className="mx-auto max-w-2xl px-4 2xl:px-0">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
+        <h2 className=" text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
           Gracias por reservar!
         </h2>
         <p className="text-gray-500 dark:text-gray-400 mb-6 md:mb-8">

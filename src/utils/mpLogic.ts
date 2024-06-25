@@ -88,25 +88,28 @@ export async function getPaymentData(idBody: string) {
       },
     });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    if (response.ok == false) {
+      throw new Error(
+        `Network response error: ${response.status} - ${response.statusText}`
+      );
+    } else {
+      const payment = await response.json();
 
-    const payment = await response.json();
-
-    if (payment.transaction_details !== undefined) {
-      const pagoSesion = {
-        idMP: payment.id,
-        neto: payment.transaction_details.net_received_amount,
-        recibido: payment.transaction_details.total_paid_amount,
-        comisiones:
-          payment.fee_details.length > 0 ? payment.fee_details[0].amount : 0,
-        fechaPago: payment.date_approved,
-        payerMP: payment.payer,
-      };
-      return pagoSesion;
+      if (payment.transaction_details !== undefined) {
+        const pagoSesion = {
+          idMP: payment.id,
+          neto: payment.transaction_details.net_received_amount,
+          recibido: payment.transaction_details.total_paid_amount,
+          comisiones:
+            payment.fee_details.length > 0 ? payment.fee_details[0].amount : 0,
+          fechaPago: payment.date_approved,
+          payerMP: payment.payer,
+        };
+        return pagoSesion;
+      }
     }
   } catch (error) {
     console.error(error);
+    return null;
   }
 }
