@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        satoshi: ["var(--font-satoshi)"],
+        "mort-modern": ["var(--font-mort-modern)"],
+        "mort-modern-condensed": ["var(--font-mort-modern-condensed)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
