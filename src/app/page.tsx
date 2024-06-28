@@ -8,9 +8,9 @@ export default function Home() {
     <Container className="grid grid-cols-1 gap-10">
       <HeroSection />
       <CardConFrase />
+      <div className="w-full flex justify-center m-20">
+        <ModalMercadoPago />
+      </div>
     </Container>
-    // <div className="w-full flex justify-center m-20">
-    //   <ModalMercadoPago />
-    // </div>
   );
 }

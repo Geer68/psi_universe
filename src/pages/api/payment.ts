@@ -11,16 +11,14 @@ export default async function POST(
   request: NextApiRequest,
   res: NextApiResponse
 ) {
-  const body = await request;
-
-  const isValidHMAC = validateHMAC(body);
-  if (await isValidHMAC) {
-    const id = body.body.data.id as string;
-    console.log("HMAC verification passed");
-    res.status(200).json({ succcess: true });
-  } else {
-    console.error("HMAC verification failed");
-    res.status(400).json({ succcess: false });
-    // redirect("http://localhost:3000/");
-  }
+  // const body = await request;
+  // console.log("bodyLOG", body);
+  // const isValidHMAC = validateHMAC(body);
+  // if (await isValidHMAC) {
+  //   const id = body.body.data.id as string;
+  //   console.log("HMAC verification passed");
+  // } else {
+  //   console.error("HMAC verification failed");
+  // }
+  res.status(200).json({ succcess: true });
 }

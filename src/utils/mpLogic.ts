@@ -20,7 +20,7 @@ export async function pagar(formData: FormData) {
       items: [
         {
           id: "donacion",
-          title: formData.get("message") as string,
+          title: formData.get("psicologo") as string,
           quantity: 1,
           unit_price: Number(formData.get("monto")),
         },
@@ -52,7 +52,8 @@ export async function validateHMAC(body: any): Promise<boolean> {
   let ts;
   let hash;
 
-  parts.forEach((part: any) => {
+  parts.forEach((part) => {
+    // Split each part into key and value
     const [key, value] = part.split("=");
     if (key && value) {
       const trimmedKey = key.trim();
