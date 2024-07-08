@@ -14,8 +14,6 @@ export interface Event {
   summary?: string;
   creator?: { email: string };
   organizer?: { email: string; displayName: string; self: boolean };
-  start?: { dateTime: string; timeZone: string }; // inicio
-  end?: { dateTime: string; timeZone: string }; // fin
   recurringEventId?: string;
   originalStartTime?: { dateTime: string; timeZone: string };
   iCalUID?: string;
@@ -24,6 +22,9 @@ export interface Event {
   reminders?: { useDefault: boolean };
   eventType?: string;
   extendedProperties?: Object;
+  start: string;
+  end: string;
+  booked?: boolean;
 }
 
 async function getAuth() {
@@ -70,7 +71,7 @@ export async function getEvents(
   try {
     const auth = await getAuth();
     const calendar = google.calendar({ version: "v3", auth });
-    console.log("Calendar", calendar);
+
     const res = await calendar.events.list({
       calendarId,
       timeMin: new Date().toISOString(),
@@ -78,7 +79,18 @@ export async function getEvents(
       singleEvents: true,
       orderBy: "startTime",
     });
-    const events = res.data.items;
+
+    const events = res.data.items?.map((event) => {
+      let startTime = event.start?.dateTime;
+      let endTime = event.end?.dateTime;
+
+      return {
+        ...event,
+        start: startTime,
+        end: endTime,
+      };
+    });
+
     if (!events || events.length === 0) {
       console.log("No upcoming events found.");
       return [];

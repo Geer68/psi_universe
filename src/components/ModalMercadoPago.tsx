@@ -23,7 +23,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { fetchPsicologos } from "@/utils/clientSupabase";
 
-export default function ModalMercadoPago() {
+export default function ModalMercadoPago({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (arg0: boolean) => void;
+}) {
   const [psicologos, setPsicologos] = useState<Psicologo[]>([]);
 
   useEffect(() => {
@@ -34,8 +40,8 @@ export default function ModalMercadoPago() {
   }, []);
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>Pagar</AlertDialogTrigger>
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      {/* <AlertDialogTrigger>Pagar</AlertDialogTrigger> */}
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Reserva de la sesión</AlertDialogTitle>
