@@ -4,17 +4,12 @@ import {
   insertNewClient,
   insertNewPayment,
   insertNewSesion,
+  parseDateToTimestamp,
 } from "@/utils/serverSupabase";
 import { Cliente, Pago, Sesion } from "@/utils/types";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-
-function parseDateToTimestamp(): number {
-  const date = new Date();
-  const timestamp = date.getTime();
-  return timestamp;
-}
 
 export default function CompraExitosa() {
   const router = useRouter();
@@ -74,7 +69,7 @@ export default function CompraExitosa() {
   }
 
   useEffect(() => {
-    const query = Object.fromEntries(searchParams.entries());
+    const query = Object.fromEntries(searchParams!.entries());
     setQueryParams(query);
 
     const client: Cliente = {

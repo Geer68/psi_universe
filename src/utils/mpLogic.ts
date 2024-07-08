@@ -13,7 +13,7 @@ export async function pagar(formData: FormData) {
     queryParams.append(key, value.toString());
   });
 
-  const successUrl = `http://localhost:3000/compraExitosa?${queryParams.toString()}`;
+  const successUrl = `http://localhost:3000/verificarPago?${queryParams.toString()}`;
 
   const preference = await new Preference(client).create({
     body: {

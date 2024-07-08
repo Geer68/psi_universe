@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { Cliente, Pago, Sesion } from "./types";
+import { Cliente, Pago, Psicologo, Sesion } from "./types";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -78,19 +78,6 @@ export const insertNewPayment = async (pago: Pago) => {
   }
 };
 
-export type Psicologo = {
-  id: number;
-  nombre: string;
-  apellido: string;
-  emailPersonal: string;
-  precioSesion: number;
-  img: string;
-  especialidad: string;
-  descripcion: string;
-  linkCV: string;
-  linkedin: string;
-};
-
 export const listPsicologos = async (): Promise<Psicologo[] | null> => {
   try {
     const { data, error } = await supabase.from("Psicologos").select("*");
@@ -116,15 +103,12 @@ export const insertNewSesion = async (sesion: Sesion) => {
   try {
     const { data: existingData, error: existingError } = await supabase
       .from("Sesiones")
-      .select("id")
-      .eq("idCliente", sesion.idCliente)
-      .eq("idPago", sesion.idPago)
-      .eq("idPsicologo", sesion.idPsicologo)
-      .single();
+      .insert(sesion)
+      .select("id");
 
     if (existingData) {
       console.log("Sesion ya existe");
-      return existingData.id;
+      return;
     }
 
     const { data, error } = await supabase.from("Sesiones").insert(sesion);
@@ -145,3 +129,9 @@ export const insertNewSesion = async (sesion: Sesion) => {
     return null;
   }
 };
+
+export function parseDateToTimestamp(): number {
+  const date = new Date();
+  const timestamp = date.getTime();
+  return timestamp;
+}
