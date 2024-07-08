@@ -65,7 +65,9 @@ function renderEventContent(eventInfo: { event: any }) {
   if (isBooked == "true") {
     return (
       <div className="w-full h-full cursor-not-allowed">
-        <b>Turno ocupado</b>
+        <b>
+          {startString} - {endString} Turno ocupado
+        </b>
       </div>
     );
   }
