@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,18 +26,20 @@ import { fetchPsicologos } from "@/utils/clientSupabase";
 export default function ModalMercadoPago({
   open,
   setOpen,
+  psicologoId,
 }: {
   open: boolean;
-  setOpen: (arg0: boolean) => void;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  psicologoId: string;
 }) {
-  const [psicologos, setPsicologos] = useState<Psicologo[]>([]);
+  // const [psicologos, setPsicologos] = useState<Psicologo[]>([]);
 
-  useEffect(() => {
-    //a modo prueba, esto debe ser pasado por props
-    fetchPsicologos().then((listadoPsicologos) => {
-      setPsicologos(listadoPsicologos);
-    });
-  }, []);
+  // useEffect(() => {
+  //   //a modo prueba, esto debe ser pasado por props
+  //   fetchPsicologos().then((listadoPsicologos) => {
+  //     setPsicologos(listadoPsicologos);
+  //   });
+  // }, []);
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -46,8 +48,13 @@ export default function ModalMercadoPago({
         <AlertDialogHeader>
           <AlertDialogTitle>Reserva de la sesión</AlertDialogTitle>
 
-          <form action={pagar} className="grid grid-cols-1 gap-5">
-            <Select name="psicologo" required>
+          <form
+            action={(formData) => {
+              pagar(psicologoId, formData);
+            }}
+            className="grid grid-cols-1 gap-5"
+          >
+            {/* <Select name="psicologo" required>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Psicólogo" />
               </SelectTrigger>
@@ -61,7 +68,7 @@ export default function ModalMercadoPago({
                   </SelectItem>
                 ))}
               </SelectContent>
-            </Select>
+            </Select> */}
             <Label>
               <span>Monto</span>
               <Input name="monto" type="number" />

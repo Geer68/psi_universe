@@ -7,8 +7,9 @@ const client = new MercadoPagoConfig({
   accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
 });
 
-export async function pagar(formData: FormData) {
+export async function pagar(psicologoId: string, formData: FormData) {
   const queryParams = new URLSearchParams();
+  queryParams.append("psicologoId", psicologoId);
   formData.forEach((value, key) => {
     queryParams.append(key, value.toString());
   });
@@ -20,7 +21,7 @@ export async function pagar(formData: FormData) {
       items: [
         {
           id: "donacion",
-          title: formData.get("psicologo") as string,
+          title: psicologoId,
           quantity: 1,
           unit_price: Number(formData.get("monto")),
         },

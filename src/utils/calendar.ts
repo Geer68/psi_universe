@@ -21,7 +21,8 @@ export interface Event {
   hangoutLink?: string; // tiene meet?
   reminders?: { useDefault: boolean };
   eventType?: string;
-  extendedProperties?: Object;
+  extendedProperties?: { private: { booked: boolean | string } };
+  backgroundColor: string;
   start: string;
   end: string;
   booked?: boolean;
@@ -80,14 +81,25 @@ export async function getEvents(
       orderBy: "startTime",
     });
 
-    const events = res.data.items?.map((event) => {
+    const fetchedEvents = res.data.items;
+
+    const events = fetchedEvents?.map((event) => {
       let startTime = event.start?.dateTime;
       let endTime = event.end?.dateTime;
+
+      let backgroundColor = "#7643BE";
+      let borderColor = "#e8e7e6";
+
+      if (event.extendedProperties?.private?.booked) {
+        backgroundColor = "#D3D3D3";
+      }
 
       return {
         ...event,
         start: startTime,
         end: endTime,
+        backgroundColor,
+        borderColor,
       };
     });
 
