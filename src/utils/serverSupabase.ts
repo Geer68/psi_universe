@@ -130,8 +130,8 @@ export const insertNewSesion = async (sesion: Sesion) => {
   }
 };
 
-export function parseDateToTimestamp(): number {
+export function parseDateToTimestamp(): string {
   const date = new Date();
-  const timestamp = date.getTime();
+  const timestamp = date.toLocaleString("es-AR");
   return timestamp;
 }
