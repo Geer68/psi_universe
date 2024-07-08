@@ -129,3 +129,9 @@ export const insertNewSesion = async (sesion: Sesion) => {
     return null;
   }
 };
+
+export function parseDateToTimestamp(): number {
+  const date = new Date();
+  const timestamp = date.getTime();
+  return timestamp;
+}

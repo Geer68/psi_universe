@@ -57,6 +57,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        custom: {
+          violetaPrimario: "#7643BE",
+          textClarito: "#414141",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

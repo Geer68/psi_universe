@@ -9,14 +9,13 @@ export default function Profesionales() {
   const [psicologos, setPsicologos] = useState<Psicologo[]>([]);
 
   useEffect(() => {
-    //a modo prueba, esto debe ser pasado por props
     fetchPsicologos().then((listadoPsicologos) => {
       setPsicologos(listadoPsicologos);
     });
   }, []);
 
   return (
-    <Container className="grid grid-cols-4">
+    <Container className="grid grid-cols-4 gap-5 items-start mt-20">
       {psicologos.map((psicologo) => (
         <CardPsicologo key={psicologo.id} psicologo={psicologo} />
       ))}
