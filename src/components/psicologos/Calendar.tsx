@@ -25,26 +25,33 @@ export default function Calendar({
         open={openModal}
         setOpen={setOpenModal}
         psicologo={psicologo}
-        eventoElegido={eventoElegido as Event}
+        eventoElegido={eventoElegido}
       />
       <FullCalendar
         locale="es"
         weekends={false}
         plugins={[timeGridPlugin]}
         events={events}
+        progressiveEventRendering={true}
         eventContent={renderEventContent}
         eventClick={(eventInfo) => {
-          console.log(eventInfo);
           const eventClicked = eventInfo.event.extendedProps;
           const isBooked = eventClicked.extendedProperties?.private.booked;
           console.log(eventClicked);
-          if (isBooked == "true") {
+          if (
+            isBooked == "true" ||
+            eventInfo.event.start == null ||
+            eventInfo.event.end == null
+          ) {
             return;
-          } else {
-            console.log("Evento clickeado esta disponible");
           }
           setOpenModal(true);
-          setEventoElegido(eventClicked as Event);
+          setEventoElegido({
+            ...eventClicked.extendedProps,
+            start: eventInfo.event.start.toLocaleString(),
+            end: eventInfo.event.end.toLocaleString(),
+            booked: eventClicked.extendedProps?.private.booked || null,
+          });
         }}
         height="auto"
         initialView="timeGridWeek"
@@ -76,7 +83,7 @@ function renderEventContent(eventInfo: { event: any }) {
   if (isBooked == "true") {
     return (
       <div className="w-full h-full cursor-not-allowed">
-        <b>
+        <b className="text-gray-800">
           {startString} - {endString} Sesión ocupada
         </b>
       </div>

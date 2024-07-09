@@ -33,16 +33,20 @@ export default function ModalMercadoPago({
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   psicologo: Psicologo;
-  eventoElegido: Event;
+  eventoElegido: Event | null;
 }) {
-  // const [psicologos, setPsicologos] = useState<Psicologo[]>([]);
-
-  // useEffect(() => {
-  //   //a modo prueba, esto debe ser pasado por props
-  //   fetchPsicologos().then((listadoPsicologos) => {
-  //     setPsicologos(listadoPsicologos);
-  //   });
-  // }, []);
+  let dateSesion: Date;
+  if (eventoElegido) {
+    console.log(eventoElegido);
+    dateSesion = new Date(eventoElegido.start);
+  } else {
+    dateSesion = new Date();
+  }
+  const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -50,12 +54,27 @@ export default function ModalMercadoPago({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Reserva de la sesión</AlertDialogTitle>
-
+          <div className="pb-4">
+            <p>
+              <span className="text-gray-500">Psicólogo</span>:{" "}
+              {psicologo.apellido}, {psicologo.nombre}
+            </p>
+            <p>
+              <span className="text-gray-500">Día</span>:{" "}
+              {String(dateSesion.getDate()).padStart(2, "0")}/
+              {String(dateSesion.getMonth() + 1).padStart(2, "0")}
+            </p>
+            <p>
+              <span className="text-gray-500">Hora</span>: {formattedTime}
+            </p>
+          </div>
           <form
             action={(formData) => {
-              pagar(psicologo, eventoElegido, formData);
+              if (eventoElegido !== null) {
+                pagar(psicologo, eventoElegido, formData);
+              }
             }}
-            className="grid grid-cols-1 gap-5"
+            className="grid grid-cols-1 gap-5 "
           >
             <div className="flex gap-4">
               <Label>

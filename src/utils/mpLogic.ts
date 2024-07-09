@@ -23,19 +23,25 @@ export async function pagar(
 
   const successUrl = `http://localhost:3000/verificarPago?${queryParams.toString()}`;
 
-  const dateSesion = new Date(eventoElegido.start);
-  console.log(eventoElegido);
-  console.log(dateSesion);
-  const inicioSesion = dateSesion.toLocaleTimeString([], {
-    month: "2-digit",
-    day: "2-digit",
+  let dateSesion = new Date(eventoElegido.start);
+
+  // Dia
+  const day = String(dateSesion.getDate()).padStart(2, "0");
+  const month = String(dateSesion.getMonth() + 1).padStart(2, "0");
+  const year = dateSesion.getFullYear();
+  const formattedDate = `${day}.${month}.${year}`;
+
+  // Hora
+  const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: false,
   });
 
+  const inicioSesion = `${formattedDate} - ${formattedTime}`;
+
   const tituloMP = `
-    Sesión - ${psicologo.nombre} ${
-    psicologo.apellido
-  } - ${dateSesion.getDay()}/${dateSesion.getMonth()} ${inicioSesion}hs
+    Sesión - ${psicologo.nombre} ${psicologo.apellido} ${inicioSesion}hs
   `;
 
   const preference = await new Preference(client).create({
