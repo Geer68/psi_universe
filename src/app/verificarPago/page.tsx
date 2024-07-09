@@ -5,7 +5,7 @@ import { Cliente, PaymentURL } from "@/utils/types";
 import Container from "@/components/Container";
 import { fetchData } from "@/utils/paymentLogic";
 
-const VerificarPago = () => {
+export default function VerificarPago() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [queryParams, setQueryParams] = useState<PaymentURL>();
@@ -17,12 +17,16 @@ const VerificarPago = () => {
       const query = Object.fromEntries(searchParams!.entries()) as PaymentURL;
       setQueryParams(query);
 
-      const validPayment = await fetchData(query.collection_id!, query);
-      if (validPayment) {
-        const queryString = new URLSearchParams(
-          query as Record<string, string>
-        ).toString();
-        router.push(`/compraExitosa?${queryString}`);
+      try {
+        const validPayment = await fetchData(query.collection_id!, query);
+        if (validPayment) {
+          const queryString = new URLSearchParams(
+            query as Record<string, string>
+          ).toString();
+          router.push(`/compraExitosa?${queryString}`);
+        }
+      } catch (error: any) {
+        router.push(`/compraFallida`);
       }
     };
 
@@ -53,6 +57,4 @@ const VerificarPago = () => {
       </div>
     </Container>
   );
-};
-
-export default VerificarPago;
+}

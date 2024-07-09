@@ -50,7 +50,7 @@ export type PaymentURL = {
   payment_type: string;
   preference_id: string;
   processing_mode: string;
-  psicologo: string;
+  psicologoId: string;
   site_id: string;
   status: string;
 };

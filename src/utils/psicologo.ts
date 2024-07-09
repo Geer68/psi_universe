@@ -31,3 +31,24 @@ export const getPsicologo = async (
     return null;
   }
 };
+
+export const listPsicologos = async (): Promise<Psicologo[] | null> => {
+  try {
+    const { data, error } = await supabase.from("Psicologos").select("*");
+
+    if (error) {
+      console.error("Error al listar psicologos:", error.message);
+      return null;
+    }
+
+    if (data) {
+      console.log("Listado de psicologos:", data);
+      return data;
+    }
+
+    return null;
+  } catch (error: any) {
+    console.error("Error al ejecutar la operación:", error.message);
+    return null;
+  }
+};

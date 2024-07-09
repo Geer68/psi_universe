@@ -1,7 +1,7 @@
 "use client";
 import CardPsicologo from "@/components/CardPsicologo";
 import Container from "@/components/Container";
-import { fetchPsicologos } from "@/utils/clientSupabase";
+import { listPsicologos } from "@/utils/psicologo";
 import { Psicologo } from "@/utils/types";
 import { useEffect, useState } from "react";
 
@@ -9,8 +9,8 @@ export default function Profesionales() {
   const [psicologos, setPsicologos] = useState<Psicologo[]>([]);
 
   useEffect(() => {
-    fetchPsicologos().then((listadoPsicologos) => {
-      setPsicologos(listadoPsicologos);
+    listPsicologos().then((listadoPsicologos) => {
+      setPsicologos(listadoPsicologos || []);
     });
   }, []);
 
