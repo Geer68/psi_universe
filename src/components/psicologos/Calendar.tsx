@@ -34,17 +34,24 @@ export default function Calendar({
         events={events}
         eventContent={renderEventContent}
         eventClick={(eventInfo) => {
-          console.log(eventInfo);
           const eventClicked = eventInfo.event.extendedProps;
           const isBooked = eventClicked.extendedProperties?.private.booked;
-          console.log(eventClicked);
-          if (isBooked == "true") {
+          if (
+            isBooked == "true" ||
+            !eventInfo.event.start ||
+            !eventInfo.event.end
+          ) {
             return;
           } else {
             console.log("Evento clickeado esta disponible");
           }
           setOpenModal(true);
-          setEventoElegido(eventClicked as Event);
+          setEventoElegido({
+            ...eventClicked.extendedProps,
+            start: eventInfo.event.start.toLocaleString(),
+            end: eventInfo.event.end.toLocaleString(),
+            booked: eventClicked.extendedProps?.private.booked || null,
+          });
         }}
         height="auto"
         initialView="timeGridWeek"

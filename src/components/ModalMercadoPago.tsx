@@ -35,27 +35,37 @@ export default function ModalMercadoPago({
   psicologo: Psicologo;
   eventoElegido: Event;
 }) {
-  // const [psicologos, setPsicologos] = useState<Psicologo[]>([]);
-
-  // useEffect(() => {
-  //   //a modo prueba, esto debe ser pasado por props
-  //   fetchPsicologos().then((listadoPsicologos) => {
-  //     setPsicologos(listadoPsicologos);
-  //   });
-  // }, []);
-
+  const dateSesion = new Date(eventoElegido.start);
+  const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       {/* <AlertDialogTrigger>Pagar</AlertDialogTrigger> */}
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Reserva de la sesión</AlertDialogTitle>
-
+          <div className="pb-4">
+            <p>
+              <span className="text-gray-500">Psicólogo</span>:{" "}
+              {psicologo.apellido}, {psicologo.nombre}
+            </p>
+            <p>
+              <span className="text-gray-500">Día</span>:{" "}
+              {String(dateSesion.getDate()).padStart(2, "0")}/
+              {String(dateSesion.getMonth() + 1).padStart(2, "0")}
+            </p>
+            <p>
+              <span className="text-gray-500">Hora</span>: {formattedTime}
+            </p>
+          </div>
           <form
             action={(formData) => {
               pagar(psicologo, eventoElegido, formData);
             }}
-            className="grid grid-cols-1 gap-5"
+            className="grid grid-cols-1 gap-5 "
           >
             <div className="flex gap-4">
               <Label>
