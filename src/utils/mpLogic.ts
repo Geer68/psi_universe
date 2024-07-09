@@ -2,28 +2,50 @@
 import crypto from "crypto";
 import { MercadoPagoConfig, Preference } from "mercadopago";
 import { redirect } from "next/navigation";
+import { Psicologo } from "./types";
+import { Event } from "./calendar";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
 });
 
-export async function pagar(psicologoId: string, formData: FormData) {
+export async function pagar(
+  psicologo: Psicologo,
+  eventoElegido: Event,
+  formData: FormData
+) {
   const queryParams = new URLSearchParams();
-  queryParams.append("psicologoId", psicologoId);
+  queryParams.append("psicologoId", psicologo.id.toString());
+  queryParams.append("monto", psicologo.precioSesion.toString());
   formData.forEach((value, key) => {
     queryParams.append(key, value.toString());
   });
 
   const successUrl = `http://localhost:3000/verificarPago?${queryParams.toString()}`;
 
+  const dateSesion = new Date(eventoElegido.start);
+  console.log(eventoElegido);
+  console.log(dateSesion);
+  const inicioSesion = dateSesion.toLocaleTimeString([], {
+    month: "2-digit",
+    day: "2-digit",
+    hour12: false,
+  });
+
+  const tituloMP = `
+    Sesión - ${psicologo.nombre} ${
+    psicologo.apellido
+  } - ${dateSesion.getDay()}/${dateSesion.getMonth()} ${inicioSesion}hs
+  `;
+
   const preference = await new Preference(client).create({
     body: {
       items: [
         {
           id: "donacion",
-          title: psicologoId,
+          title: tituloMP,
           quantity: 1,
-          unit_price: Number(formData.get("monto")),
+          unit_price: psicologo.precioSesion,
         },
       ],
       auto_return: "approved",

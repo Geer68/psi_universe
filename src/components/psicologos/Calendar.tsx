@@ -1,23 +1,31 @@
 import { Event } from "@/utils/calendar";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalMercadoPago from "../ModalMercadoPago";
+import { Psicologo } from "@/utils/types";
 
 export default function Calendar({
   events,
-  psicologoId,
+  psicologo,
 }: {
   events: Array<Object>;
-  psicologoId: string;
+  psicologo: Psicologo;
 }) {
   const [openModal, setOpenModal] = useState(false);
+  const [eventoElegido, setEventoElegido] = useState<Event | null>(null);
+
+  useEffect(() => {
+    console.log(eventoElegido);
+  }, [eventoElegido]);
+
   return (
     <>
       <ModalMercadoPago
         open={openModal}
         setOpen={setOpenModal}
-        psicologoId={psicologoId}
+        psicologo={psicologo}
+        eventoElegido={eventoElegido as Event}
       />
       <FullCalendar
         locale="es"
@@ -26,6 +34,7 @@ export default function Calendar({
         events={events}
         eventContent={renderEventContent}
         eventClick={(eventInfo) => {
+          console.log(eventInfo);
           const eventClicked = eventInfo.event.extendedProps;
           const isBooked = eventClicked.extendedProperties?.private.booked;
           console.log(eventClicked);
@@ -35,7 +44,9 @@ export default function Calendar({
             console.log("Evento clickeado esta disponible");
           }
           setOpenModal(true);
+          setEventoElegido(eventClicked as Event);
         }}
+        height="auto"
         initialView="timeGridWeek"
         allDaySlot={false}
         slotMinTime={"07:00:00"}
@@ -66,7 +77,7 @@ function renderEventContent(eventInfo: { event: any }) {
     return (
       <div className="w-full h-full cursor-not-allowed">
         <b>
-          {startString} - {endString} Turno ocupado
+          {startString} - {endString} Sesión ocupada
         </b>
       </div>
     );
@@ -74,7 +85,7 @@ function renderEventContent(eventInfo: { event: any }) {
   return (
     <div className="w-full h-full cursor-pointer">
       <b className="w-full">
-        {startString} - {endString} Turno desocupado
+        {startString} - {endString} Sesión libre
       </b>
     </div>
   );

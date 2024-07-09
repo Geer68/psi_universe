@@ -10,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Psicologo } from "@/utils/serverSupabase";
 import { pagar } from "@/utils/mpLogic";
 import {
   AlertDialog,
@@ -22,15 +21,19 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { fetchPsicologos } from "@/utils/clientSupabase";
+import { Psicologo } from "@/utils/types";
+import { Event } from "@/utils/calendar";
 
 export default function ModalMercadoPago({
   open,
   setOpen,
-  psicologoId,
+  psicologo,
+  eventoElegido,
 }: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  psicologoId: string;
+  psicologo: Psicologo;
+  eventoElegido: Event;
 }) {
   // const [psicologos, setPsicologos] = useState<Psicologo[]>([]);
 
@@ -50,29 +53,10 @@ export default function ModalMercadoPago({
 
           <form
             action={(formData) => {
-              pagar(psicologoId, formData);
+              pagar(psicologo, eventoElegido, formData);
             }}
             className="grid grid-cols-1 gap-5"
           >
-            {/* <Select name="psicologo" required>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Psicólogo" />
-              </SelectTrigger>
-              <SelectContent>
-                {psicologos.map((psicologo) => (
-                  <SelectItem
-                    key={psicologo.id}
-                    value={psicologo.id.toString()}
-                  >
-                    {psicologo.apellido + " " + psicologo.nombre}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select> */}
-            <Label>
-              <span>Monto</span>
-              <Input name="monto" type="number" />
-            </Label>
             <div className="flex gap-4">
               <Label>
                 <span>Nombre</span>
