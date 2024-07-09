@@ -1,34 +1,42 @@
 import { SendEmailCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./sesConfig";
 
-const createSendEmailCommand = (toAddress: string, fromAddress: string) => {
+const createSendEmailCommand = (
+  subject: string,
+  body: string,
+  toAddress: string,
+  fromAddress: string
+) => {
   return new SendEmailCommand({
     Destination: {
       ToAddresses: [toAddress, "psi.universe.uy@gmail.com"],
     },
     Message: {
       Body: {
-        Html: {
-          Charset: "UTF-8",
-          Data: "HTML_FORMAT_BODY",
-        },
         Text: {
           Charset: "UTF-8",
-          Data: "TEXT_FORMAT_BODY",
+          Data: body,
         },
       },
       Subject: {
         Charset: "UTF-8",
-        Data: "EMAIL_SUBJECT",
+        Data: subject,
       },
     },
     Source: fromAddress,
   });
 };
 
-export const sendEmail = async (toAddress?: string, fromAddress?: string) => {
+export const sendEmail = async (
+  subject: string,
+  body: string,
+  toAddress: string,
+  fromAddress?: string
+) => {
   const sendEmailCommand = createSendEmailCommand(
-    toAddress || "grperezdiez@gmail.com",
+    subject,
+    body,
+    toAddress,
     fromAddress || "soporte@psiuniverse.com"
   );
 
