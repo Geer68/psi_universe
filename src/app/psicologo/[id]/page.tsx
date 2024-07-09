@@ -18,7 +18,7 @@ export default function Home({ params }: { params: { id: string } }) {
         `/api/psicologo?id=${params.id}`
       ).then((res) => res.json());
       setEvents(events);
-      console.log("Eventos: ", events);
+      console.log("Psicologo: ", psicologo);
       setPsicologo(psicologo);
     }
     fetchEvents();

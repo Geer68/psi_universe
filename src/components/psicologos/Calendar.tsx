@@ -25,25 +25,25 @@ export default function Calendar({
         open={openModal}
         setOpen={setOpenModal}
         psicologo={psicologo}
-        eventoElegido={eventoElegido as Event}
+        eventoElegido={eventoElegido}
       />
       <FullCalendar
         locale="es"
         weekends={false}
         plugins={[timeGridPlugin]}
         events={events}
+        progressiveEventRendering={true}
         eventContent={renderEventContent}
         eventClick={(eventInfo) => {
           const eventClicked = eventInfo.event.extendedProps;
           const isBooked = eventClicked.extendedProperties?.private.booked;
+          console.log(eventClicked);
           if (
             isBooked == "true" ||
-            !eventInfo.event.start ||
-            !eventInfo.event.end
+            eventInfo.event.start == null ||
+            eventInfo.event.end == null
           ) {
             return;
-          } else {
-            console.log("Evento clickeado esta disponible");
           }
           setOpenModal(true);
           setEventoElegido({
@@ -83,7 +83,7 @@ function renderEventContent(eventInfo: { event: any }) {
   if (isBooked == "true") {
     return (
       <div className="w-full h-full cursor-not-allowed">
-        <b>
+        <b className="text-gray-800">
           {startString} - {endString} Sesión ocupada
         </b>
       </div>

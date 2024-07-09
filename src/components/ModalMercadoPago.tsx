@@ -33,14 +33,21 @@ export default function ModalMercadoPago({
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   psicologo: Psicologo;
-  eventoElegido: Event;
+  eventoElegido: Event | null;
 }) {
-  const dateSesion = new Date(eventoElegido.start);
+  let dateSesion: Date;
+  if (eventoElegido) {
+    console.log(eventoElegido);
+    dateSesion = new Date(eventoElegido.start);
+  } else {
+    dateSesion = new Date();
+  }
   const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
   });
+
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       {/* <AlertDialogTrigger>Pagar</AlertDialogTrigger> */}
@@ -63,7 +70,9 @@ export default function ModalMercadoPago({
           </div>
           <form
             action={(formData) => {
-              pagar(psicologo, eventoElegido, formData);
+              if (eventoElegido !== null) {
+                pagar(psicologo, eventoElegido, formData);
+              }
             }}
             className="grid grid-cols-1 gap-5 "
           >

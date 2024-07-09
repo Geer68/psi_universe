@@ -30,6 +30,7 @@ export async function pagar(
   const month = String(dateSesion.getMonth() + 1).padStart(2, "0");
   const year = dateSesion.getFullYear();
   const formattedDate = `${day}.${month}.${year}`;
+
   // Hora
   const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
     hour: "2-digit",
