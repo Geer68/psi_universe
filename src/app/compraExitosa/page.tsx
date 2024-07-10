@@ -2,18 +2,34 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { PaymentURL } from "@/utils/types";
+import { PaymentURL, Psicologo } from "@/utils/types";
 import Container from "@/components/Container";
+import { getPsicologo } from "@/utils/psicologo";
+import { Event } from "@/utils/calendar";
+import { getCookieEvento } from "@/utils/mpLogic";
+import { extractDateTime } from "@/components/ModalMercadoPago";
 
 export default function CompraExitosa() {
   const searchParams = useSearchParams();
   const [queryParams, setQueryParams] = useState<PaymentURL | null>(null);
+  const [psicologo, setPsicologo] = useState<Psicologo | null>(null);
+  const [evento, setEvento] = useState<Event | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const query = Object.fromEntries(searchParams!.entries()) as PaymentURL;
         setQueryParams(query);
+
+        const psico = await getPsicologo(query.psicologoId!);
+        setPsicologo(psico);
+
+        const fetchEvento = await getCookieEvento();
+        if (!fetchEvento) {
+          throw new Error("Error al obtener el evento");
+        }
+        const eventoJSON: Event = JSON.parse(fetchEvento.value);
+        setEvento(eventoJSON);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -81,7 +97,7 @@ export default function CompraExitosa() {
               Fecha de la sesión
             </dt>
             <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-              14 de mayo de 2024
+              {extractDateTime(evento?.start || "").date}
             </dd>
           </dl>
           <dl className="sm:flex items-center justify-between gap-4">
@@ -89,7 +105,7 @@ export default function CompraExitosa() {
               Hora
             </dt>
             <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-              18:00
+              {extractDateTime(evento?.start || "").time}
             </dd>
           </dl>
           <dl className="sm:flex items-center justify-between gap-4">
@@ -97,7 +113,7 @@ export default function CompraExitosa() {
               Sesión reservada con
             </dt>
             <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-              Marcela Figueroa
+              {psicologo?.nombre + " " + psicologo?.apellido}
             </dd>
           </dl>
         </div>
@@ -109,14 +125,14 @@ export default function CompraExitosa() {
             Volver al inicio
           </Link>
         </div>
-        <ul>
+        {/* <ul>
           {Object.entries(queryParams).map(([key, value]) => (
             <li key={key}>
               <strong>{key}: </strong>
               {value}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </section>
   );
