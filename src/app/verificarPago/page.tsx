@@ -1,9 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Cliente, PaymentURL } from "@/utils/types";
+import { Cliente, Pago, PaymentURL } from "@/utils/types";
 import Container from "@/components/Container";
 import { fetchData } from "@/utils/paymentLogic";
+import { getPsicologo } from "@/utils/psicologo";
+import { sendEmail } from "@/utils/sendEmail";
+import { Event } from "@/utils/calendar";
 
 export default function VerificarPago() {
   const router = useRouter();
@@ -26,6 +29,7 @@ export default function VerificarPago() {
           router.push(`/compraExitosa?${queryString}`);
         }
       } catch (error: any) {
+        console.log(error);
         router.push(`/compraFallida`);
       }
     };
@@ -53,7 +57,7 @@ export default function VerificarPago() {
             fill="currentFill"
           />
         </svg>
-        <span className="sr-only">Loading...</span>
+        <span className="sr-only">Cargando...</span>
       </div>
     </Container>
   );

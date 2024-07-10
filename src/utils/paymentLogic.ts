@@ -5,13 +5,14 @@ import {
   parseDateToTimestamp,
 } from "./sesion";
 import { Cliente, Pago, PaymentURL, Sesion } from "./types";
-import { getPaymentData } from "./mpLogic";
+import { getCookieEvento, getPaymentData } from "./mpLogic";
+import { Event } from "./calendar";
 
-export async function fetchData(id: string, query: PaymentURL) {
+export async function fetchData(id: string, query: PaymentURL, evento: Event) {
   try {
     const payment = await getPaymentData(id);
     if (payment) {
-      await preparePaymentDB(payment, query);
+      await preparePaymentDB(payment, query, evento);
     }
     return payment;
   } catch (error: any) {
@@ -19,7 +20,11 @@ export async function fetchData(id: string, query: PaymentURL) {
   }
 }
 
-async function preparePaymentDB(paymentData: any, query: PaymentURL) {
+async function preparePaymentDB(
+  paymentData: any,
+  query: PaymentURL,
+  evento: Event
+) {
   try {
     const client: Cliente = {
       nombre: query.nombre,
@@ -48,12 +53,19 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
         throw new Error("Error al insertar el pago");
       }
 
+      const event = await getCookieEvento();
+      if (!event) {
+        throw new Error("Error al obtener el evento");
+      }
+      const eventoJSON: Event = JSON.parse(event.value);
+      const evento = eventoJSON;
+
       const sesionPagada: Sesion = {
         idCliente: parseInt(idCliente),
         idPago: parseInt(idPago),
         idPsicologo: parseInt(query.psicologoId!),
         sesion: parseDateToTimestamp(),
-        link: null,
+        link: eventoJSON.hangoutLink || "https://nohaylinkmalditogabi",
       };
 
       const idSesion = await insertNewSesion(sesionPagada);
@@ -61,10 +73,21 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
         throw new Error("Error al insertar la sesión");
       }
 
-      return true;
+      fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ evento: eventoJSON, query, sesionPagada }),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log("Success:", data))
+        .catch((error) => console.error("Error:", error));
     }
 
-    return false;
+    // fetch("/api/email", { method: "POST" });
+    // enviarCorreoCliente(pago, query, eventoJSON);
+    return true;
   } catch (error: any) {
     console.error("Error en preparePaymentDB:", error.message);
     throw error; // Propaga el error para ser manejado por el llamador

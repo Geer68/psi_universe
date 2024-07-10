@@ -1,15 +1,8 @@
 "use client";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { pagar } from "@/utils/mpLogic";
 import {
   AlertDialog,
@@ -18,12 +11,19 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { fetchPsicologos } from "@/utils/clientSupabase";
 import { Psicologo } from "@/utils/types";
 import { Event } from "@/utils/calendar";
 
+export function extractDateTime(fechaString: string) {
+  if (fechaString === "") {
+    return { date: "", time: "" };
+  } else {
+    const [datePart, timePart] = fechaString.split(", ");
+    const sinsegundos = timePart.slice(0, -3);
+    return { date: datePart, time: sinsegundos };
+  }
+}
 export default function ModalMercadoPago({
   open,
   setOpen,
@@ -35,18 +35,22 @@ export default function ModalMercadoPago({
   psicologo: Psicologo;
   eventoElegido: Event | null;
 }) {
-  let dateSesion: Date;
-  if (eventoElegido) {
-    console.log(eventoElegido);
-    dateSesion = new Date(eventoElegido.start);
-  } else {
-    dateSesion = new Date();
-  }
-  const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
+  const inicio = extractDateTime(eventoElegido?.start || "");
+  const fin = extractDateTime(eventoElegido?.end || "");
+
+  // let dateSesion: Date;
+  // console.log(eventoElegido?.start);
+  // if (eventoElegido) {
+  //   dateSesion = new Date(eventoElegido.start);
+  //   console.log(dateSesion);
+  // } else {
+  //   dateSesion = new Date();
+  // }
+  // const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  //   hour12: false,
+  // });
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -60,12 +64,11 @@ export default function ModalMercadoPago({
               {psicologo.apellido}, {psicologo.nombre}
             </p>
             <p>
-              <span className="text-gray-500">Día</span>:{" "}
-              {String(dateSesion.getDate()).padStart(2, "0")}/
-              {String(dateSesion.getMonth() + 1).padStart(2, "0")}
+              <span className="text-gray-500">Día</span>: {inicio.date}
             </p>
             <p>
-              <span className="text-gray-500">Hora</span>: {formattedTime}
+              <span className="text-gray-500">Hora</span>: {inicio.time} -{" "}
+              {fin.time}
             </p>
           </div>
           <form

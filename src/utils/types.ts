@@ -1,3 +1,5 @@
+import { Event } from "./calendar";
+
 export type Cliente = {
   nombre: string;
   apellido: string;

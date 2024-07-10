@@ -16,7 +16,7 @@ export default function Calendar({
   const [eventoElegido, setEventoElegido] = useState<Event | null>(null);
 
   useEffect(() => {
-    console.log(eventoElegido);
+    // console.log(eventoElegido);
   }, [eventoElegido]);
 
   return (
@@ -37,7 +37,6 @@ export default function Calendar({
         eventClick={(eventInfo) => {
           const eventClicked = eventInfo.event.extendedProps;
           const isBooked = eventClicked.extendedProperties?.private.booked;
-          console.log(eventClicked);
           if (
             isBooked == "true" ||
             eventInfo.event.start == null ||
@@ -47,11 +46,12 @@ export default function Calendar({
           }
           setOpenModal(true);
           setEventoElegido({
-            ...eventClicked.extendedProps,
+            ...eventClicked,
             start: eventInfo.event.start.toLocaleString(),
             end: eventInfo.event.end.toLocaleString(),
-            booked: eventClicked.extendedProps?.private.booked || null,
-          });
+            booked: eventClicked.extendedProperties?.private.booked || null,
+            backgroundColor: eventClicked.backgroundColor || "",
+          } as Event);
         }}
         height="auto"
         initialView="timeGridWeek"

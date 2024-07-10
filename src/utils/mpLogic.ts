@@ -4,6 +4,7 @@ import { MercadoPagoConfig, Preference } from "mercadopago";
 import { redirect } from "next/navigation";
 import { Psicologo } from "./types";
 import { Event } from "./calendar";
+import { cookies } from "next/headers";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
@@ -15,8 +16,12 @@ export async function pagar(
   formData: FormData
 ) {
   const queryParams = new URLSearchParams();
+
   queryParams.append("psicologoId", psicologo.id.toString());
   queryParams.append("monto", psicologo.precioSesion.toString());
+  cookies().set("evento", JSON.stringify(eventoElegido), { httpOnly: true });
+  // queryParams.append("event", JSON.stringify(eventoElegido));
+
   formData.forEach((value, key) => {
     queryParams.append(key, value.toString());
   });
@@ -26,22 +31,34 @@ export async function pagar(
   let dateSesion = new Date(eventoElegido.start);
 
   // Dia
-  const day = String(dateSesion.getDate()).padStart(2, "0");
-  const month = String(dateSesion.getMonth() + 1).padStart(2, "0");
-  const year = dateSesion.getFullYear();
-  const formattedDate = `${day}.${month}.${year}`;
+  function extractDateTime(fechaString: string) {
+    if (fechaString === "") {
+      return { date: "", time: "" };
+    } else {
+      const [datePart, timePart] = fechaString.split(", ");
+      const sinsegundos = timePart.slice(0, -3);
+      const formattedDate = datePart.replace(/\//g, "-");
+      return { date: formattedDate, time: sinsegundos };
+    }
+  }
+  const inicio = extractDateTime(eventoElegido?.start || "");
+  const fin = extractDateTime(eventoElegido?.end || "");
+  // const day = String(dateSesion.getDate()).padStart(2, "0");
+  // const month = String(dateSesion.getMonth() + 1).padStart(2, "0");
+  // const year = dateSesion.getFullYear();
+  // const formattedDate = `${day}.${month}.${year}`;
 
-  // Hora
+  // // Hora
   const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
   });
 
-  const inicioSesion = `${formattedDate} - ${formattedTime}`;
+  const inicioSesion = `${inicio.date} - ${inicio.time} ${fin.time}`;
 
   const tituloMP = `
-    Sesión - ${psicologo.nombre} ${psicologo.apellido} ${inicioSesion}hs
+    Sesión - ${psicologo.nombre} ${psicologo.apellido} de ${inicioSesion}hs
   `;
 
   const preference = await new Preference(client).create({
@@ -108,6 +125,21 @@ export async function getPaymentData(idBody: string) {
     console.error(error);
     throw error;
   }
+}
+
+export async function getCookieEvento() {
+  const evento = cookies().get("evento");
+  return evento;
+}
+
+export async function getCookieSesion() {
+  const sesion = cookies().get("sesion");
+  return sesion;
+}
+
+export async function getCookieQuery() {
+  const query = cookies().get("query");
+  return query;
 }
 
 // export async function validateHMAC(body: any): Promise<boolean> {
