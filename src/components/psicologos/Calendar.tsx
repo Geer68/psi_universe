@@ -15,7 +15,8 @@ export default function Calendar({
   const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
 
   useEffect(() => {
-    // console.log(eventoElegido);
+    console.log(eventoElegido);
+    console.log(events);
   }, [eventoElegido]);
 
   return (
@@ -50,6 +51,7 @@ export default function Calendar({
             end: eventInfo.event.end.toLocaleString(),
             booked: eventClicked.extendedProperties?.private.booked || null,
             backgroundColor: eventClicked.backgroundColor || "",
+            id: eventClicked.id || "",
           } as GoogleEvent);
         }}
         height="auto"

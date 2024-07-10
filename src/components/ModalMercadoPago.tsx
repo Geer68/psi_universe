@@ -73,6 +73,7 @@ export default function ModalMercadoPago({
           <form
             action={(formData) => {
               if (eventoElegido !== null) {
+                console.log("eventoElegido", eventoElegido);
                 pagar(psicologo, eventoElegido, formData);
               }
             }}

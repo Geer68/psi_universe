@@ -13,7 +13,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 
   console.log(eventoSeleccionado);
   try {
-    await setEventBooked(eventoSeleccionado.calendarId, eventoSeleccionado.id!);
+    await setEventBooked(eventoSeleccionado.calendarId, eventoSeleccionado.id);
     res.send({ test: true });
   } catch (error: any) {
     console.log(error);
