@@ -87,7 +87,7 @@ export default function RootLayout({
       className={`${satoshi.variable} ${mortModern.variable} ${mortModernCondensed.variable}`}
       lang="es"
     >
-      <body className={inter.className}>
+      <body className={`${inter.className} relative`}>
         <NavBar />
         {children}
       </body>
