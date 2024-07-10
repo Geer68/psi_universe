@@ -3,7 +3,7 @@
 import { MercadoPagoConfig, Preference } from "mercadopago";
 import { redirect } from "next/navigation";
 import { Psicologo } from "./types";
-import { Event } from "./calendar";
+import { GoogleEvent } from "./types";
 import { cookies } from "next/headers";
 
 const client = new MercadoPagoConfig({
@@ -12,7 +12,7 @@ const client = new MercadoPagoConfig({
 
 export async function pagar(
   psicologo: Psicologo,
-  eventoElegido: Event,
+  eventoElegido: GoogleEvent,
   formData: FormData
 ) {
   const queryParams = new URLSearchParams();

@@ -68,6 +68,7 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
       }
 
       sendPOSTEmail(eventoJSON, query, sesionPagada);
+      sendPOSTCalendar(eventoJSON);
     }
 
     return true;
@@ -88,6 +89,19 @@ export function sendPOSTEmail(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ evento: eventoJSON, query, sesionPagada }),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log("Success:", data))
+    .catch((error) => console.error("Error:", error));
+}
+
+export function sendPOSTCalendar(eventoJSON: GoogleEvent) {
+  fetch("/api/calendar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ evento: eventoJSON }),
   })
     .then((response) => response.json())
     .then((data) => console.log("Success:", data))
