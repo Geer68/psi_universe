@@ -12,8 +12,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Psicologo } from "@/utils/types";
-import { Event } from "@/utils/calendar";
+import { GoogleEvent, Psicologo } from "@/utils/types";
 
 export function extractDateTime(fechaString: string) {
   if (fechaString === "") {
@@ -33,7 +32,7 @@ export default function ModalMercadoPago({
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   psicologo: Psicologo;
-  eventoElegido: Event | null;
+  eventoElegido: GoogleEvent | null;
 }) {
   const inicio = extractDateTime(eventoElegido?.start || "");
   const fin = extractDateTime(eventoElegido?.end || "");

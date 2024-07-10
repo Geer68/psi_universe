@@ -1,17 +1,6 @@
-import {
-  Event,
-  getEventByID,
-  getEvents,
-  setEventBooked,
-} from "@/utils/calendar";
-import {
-  getCookieEvento,
-  getCookieQuery,
-  getCookieSesion,
-} from "@/utils/mpLogic";
 import { getPsicologo } from "@/utils/psicologo";
 import { sendEmail } from "@/utils/sendEmail";
-import { PaymentURL, Sesion } from "@/utils/types";
+import { GoogleEvent, PaymentURL, Sesion } from "@/utils/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
 interface Request {
@@ -40,7 +29,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export async function sendEMailCliente(
-  evento: Event,
+  evento: GoogleEvent,
   query: PaymentURL,
   sesionPagada: Sesion
 ) {
@@ -53,7 +42,7 @@ export async function sendEMailCliente(
 }
 
 export async function sendEMailPsicologo(
-  evento: Event,
+  evento: GoogleEvent,
   query: PaymentURL,
   sesionPagada: Sesion
 ) {

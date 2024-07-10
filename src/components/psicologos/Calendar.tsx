@@ -1,9 +1,8 @@
-import { Event } from "@/utils/calendar";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
 import { useEffect, useState } from "react";
 import ModalMercadoPago from "../ModalMercadoPago";
-import { Psicologo } from "@/utils/types";
+import { GoogleEvent, Psicologo } from "@/utils/types";
 
 export default function Calendar({
   events,
@@ -13,7 +12,7 @@ export default function Calendar({
   psicologo: Psicologo;
 }) {
   const [openModal, setOpenModal] = useState(false);
-  const [eventoElegido, setEventoElegido] = useState<Event | null>(null);
+  const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
 
   useEffect(() => {
     // console.log(eventoElegido);
@@ -51,7 +50,7 @@ export default function Calendar({
             end: eventInfo.event.end.toLocaleString(),
             booked: eventClicked.extendedProperties?.private.booked || null,
             backgroundColor: eventClicked.backgroundColor || "",
-          } as Event);
+          } as GoogleEvent);
         }}
         height="auto"
         initialView="timeGridWeek"

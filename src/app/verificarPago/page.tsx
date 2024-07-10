@@ -6,7 +6,6 @@ import Container from "@/components/Container";
 import { fetchData } from "@/utils/paymentLogic";
 import { getPsicologo } from "@/utils/psicologo";
 import { sendEmail } from "@/utils/sendEmail";
-import { Event } from "@/utils/calendar";
 
 export default function VerificarPago() {
   const router = useRouter();

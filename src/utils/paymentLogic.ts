@@ -4,9 +4,8 @@ import {
   insertNewSesion,
   parseDateToTimestamp,
 } from "./sesion";
-import { Cliente, Pago, PaymentURL, Sesion } from "./types";
+import { Cliente, GoogleEvent, Pago, PaymentURL, Sesion } from "./types";
 import { getCookieEvento, getPaymentData } from "./mpLogic";
-import { Event } from "./calendar";
 
 export async function fetchData(id: string, query: PaymentURL) {
   try {
@@ -53,7 +52,7 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
       if (!event) {
         throw new Error("Error al obtener el evento");
       }
-      const eventoJSON: Event = JSON.parse(event.value);
+      const eventoJSON: GoogleEvent = JSON.parse(event.value);
 
       const sesionPagada: Sesion = {
         idCliente: parseInt(idCliente),
@@ -79,7 +78,7 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
 }
 
 export function sendPOSTEmail(
-  eventoJSON: Event,
+  eventoJSON: GoogleEvent,
   query: PaymentURL,
   sesionPagada: Sesion
 ) {

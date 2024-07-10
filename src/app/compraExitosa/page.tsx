@@ -2,10 +2,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { PaymentURL, Psicologo } from "@/utils/types";
+import { GoogleEvent, PaymentURL, Psicologo } from "@/utils/types";
 import Container from "@/components/Container";
 import { getPsicologo } from "@/utils/psicologo";
-import { Event } from "@/utils/calendar";
 import { getCookieEvento } from "@/utils/mpLogic";
 import { extractDateTime } from "@/components/ModalMercadoPago";
 
@@ -13,7 +12,7 @@ export default function CompraExitosa() {
   const searchParams = useSearchParams();
   const [queryParams, setQueryParams] = useState<PaymentURL | null>(null);
   const [psicologo, setPsicologo] = useState<Psicologo | null>(null);
-  const [evento, setEvento] = useState<Event | null>(null);
+  const [evento, setEvento] = useState<GoogleEvent | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +27,7 @@ export default function CompraExitosa() {
         if (!fetchEvento) {
           throw new Error("Error al obtener el evento");
         }
-        const eventoJSON: Event = JSON.parse(fetchEvento.value);
+        const eventoJSON: GoogleEvent = JSON.parse(fetchEvento.value);
         setEvento(eventoJSON);
       } catch (error) {
         console.error("Error fetching data:", error);
