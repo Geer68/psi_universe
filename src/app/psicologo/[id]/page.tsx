@@ -2,11 +2,11 @@
 
 import Container from "@/components/Container";
 import Calendar from "@/components/psicologos/Calendar";
-import { Psicologo } from "@/utils/types";
+import { GoogleEvent, Psicologo } from "@/utils/types";
 import { useEffect, useState } from "react";
 
 export default function Home({ params }: { params: { id: string } }) {
-  const [events, setEvents] = useState<Array<Object> | null>(null);
+  const [events, setEvents] = useState<Array<GoogleEvent> | null>(null);
   const [psicologo, setPsicologo] = useState<Psicologo | null>(null);
 
   useEffect(() => {
@@ -14,11 +14,10 @@ export default function Home({ params }: { params: { id: string } }) {
       const {
         psicologo,
         events,
-      }: { psicologo: Psicologo; events: Array<Object> } = await fetch(
+      }: { psicologo: Psicologo; events: Array<GoogleEvent> } = await fetch(
         `/api/psicologo?id=${params.id}`
       ).then((res) => res.json());
       setEvents(events);
-      console.log("Psicologo: ", psicologo);
       setPsicologo(psicologo);
     }
     fetchEvents();

@@ -42,7 +42,6 @@ export const listPsicologos = async (): Promise<Psicologo[] | null> => {
     }
 
     if (data) {
-      console.log("Listado de psicologos:", data);
       return data;
     }
 

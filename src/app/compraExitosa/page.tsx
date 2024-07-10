@@ -6,7 +6,7 @@ import { GoogleEvent, PaymentURL, Psicologo } from "@/utils/types";
 import Container from "@/components/Container";
 import { getPsicologo } from "@/utils/psicologo";
 import { getCookieEvento } from "@/utils/mpLogic";
-import { extractDateTime } from "@/components/ModalMercadoPago";
+import { extractDateTime } from "@/utils/dateFormater";
 
 export default function CompraExitosa() {
   const searchParams = useSearchParams();

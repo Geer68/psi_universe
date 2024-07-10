@@ -8,15 +8,15 @@ export default function Calendar({
   events,
   psicologo,
 }: {
-  events: Array<Object>;
+  events: Array<GoogleEvent>;
   psicologo: Psicologo;
 }) {
   const [openModal, setOpenModal] = useState(false);
   const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
 
   useEffect(() => {
-    console.log(eventoElegido);
-    console.log(events);
+    // console.log(eventoElegido);
+    // console.log(events);
   }, [eventoElegido]);
 
   return (
@@ -36,7 +36,7 @@ export default function Calendar({
         eventContent={renderEventContent}
         eventClick={(eventInfo) => {
           const eventClicked = eventInfo.event.extendedProps;
-          const isBooked = eventClicked.extendedProperties?.private.booked;
+          const isBooked = eventClicked.extendedProperties?.booked;
           if (
             isBooked == "true" ||
             eventInfo.event.start == null ||
@@ -46,12 +46,16 @@ export default function Calendar({
           }
           setOpenModal(true);
           setEventoElegido({
-            ...eventClicked,
-            start: eventInfo.event.start.toLocaleString(),
-            end: eventInfo.event.end.toLocaleString(),
+            id: eventInfo.event.id,
+            summary: eventInfo.event.title,
+            start: eventInfo.event.start.toISOString(),
+            end: eventInfo.event.end.toISOString(),
             booked: eventClicked.extendedProperties?.private.booked || null,
-            backgroundColor: eventClicked.backgroundColor || "",
-            id: eventClicked.id || "",
+            backgroundColor: eventInfo.event.backgroundColor || "",
+            htmlLink: eventClicked.htmlLink,
+            creator: eventClicked.creator,
+            organizer: eventClicked.organizer,
+            calendarId: eventClicked.calendarId,
           } as GoogleEvent);
         }}
         height="auto"

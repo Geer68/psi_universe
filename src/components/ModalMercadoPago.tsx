@@ -8,21 +8,14 @@ import {
   AlertDialog,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { GoogleEvent, Psicologo } from "@/utils/types";
+import { extractDateTime } from "@/utils/dateFormater";
 
-export function extractDateTime(fechaString: string) {
-  if (fechaString === "") {
-    return { date: "", time: "" };
-  } else {
-    const [datePart, timePart] = fechaString.split(", ");
-    const sinsegundos = timePart.slice(0, -3);
-    return { date: datePart, time: sinsegundos };
-  }
-}
 export default function ModalMercadoPago({
   open,
   setOpen,
@@ -57,19 +50,21 @@ export default function ModalMercadoPago({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Reserva de la sesión</AlertDialogTitle>
-          <div className="pb-4">
-            <p>
-              <span className="text-gray-500">Psicólogo</span>:{" "}
-              {psicologo.apellido}, {psicologo.nombre}
-            </p>
-            <p>
-              <span className="text-gray-500">Día</span>: {inicio.date}
-            </p>
-            <p>
-              <span className="text-gray-500">Hora</span>: {inicio.time} -{" "}
-              {fin.time}
-            </p>
-          </div>
+          <AlertDialogDescription>
+            <div className="pb-4">
+              <p>
+                <span className="text-gray-500">Psicólogo</span>:{" "}
+                {psicologo.apellido}, {psicologo.nombre}
+              </p>
+              <p>
+                <span className="text-gray-500">Día</span>: {inicio.date}
+              </p>
+              <p>
+                <span className="text-gray-500">Hora</span>: {inicio.time} -{" "}
+                {fin.time}
+              </p>
+            </div>
+          </AlertDialogDescription>
           <form
             action={(formData) => {
               if (eventoElegido !== null) {

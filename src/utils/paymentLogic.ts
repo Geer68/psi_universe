@@ -67,7 +67,7 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
         throw new Error("Error al insertar la sesión");
       }
 
-      // sendPOSTEmail(eventoJSON, query, sesionPagada);
+      sendPOSTEmail(eventoJSON, query, sesionPagada);
       sendPOSTCalendar(eventoJSON);
     }
 
@@ -91,12 +91,11 @@ export function sendPOSTEmail(
     body: JSON.stringify({ evento: eventoJSON, query, sesionPagada }),
   })
     .then((response) => response.json())
-    .then((data) => console.log("Success:", data))
+    // .then((data) => console.log("Success:", data))
     .catch((error) => console.error("Error:", error));
 }
 
 export function sendPOSTCalendar(eventoJSON: GoogleEvent) {
-  console.log("Evento a enviar:", eventoJSON);
   fetch("/api/calendar", {
     method: "POST",
     headers: {
@@ -105,6 +104,6 @@ export function sendPOSTCalendar(eventoJSON: GoogleEvent) {
     body: JSON.stringify({ evento: eventoJSON }),
   })
     .then((response) => response.json())
-    .then((data) => console.log("Success:", data))
+    // .then((data) => console.log("Success:", data))
     .catch((error) => console.error("Error:", error));
 }

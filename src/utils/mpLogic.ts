@@ -1,10 +1,10 @@
 "use server";
-// import crypto from "crypto";
 import { MercadoPagoConfig, Preference } from "mercadopago";
 import { redirect } from "next/navigation";
 import { Psicologo } from "./types";
 import { GoogleEvent } from "./types";
 import { cookies } from "next/headers";
+import { extractDateTime } from "./dateFormater";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
@@ -21,7 +21,6 @@ export async function pagar(
   queryParams.append("monto", psicologo.precioSesion.toString());
   console.log(eventoElegido);
   cookies().set("evento", JSON.stringify(eventoElegido), { httpOnly: true });
-  // queryParams.append("event", JSON.stringify(eventoElegido));
 
   formData.forEach((value, key) => {
     queryParams.append(key, value.toString());
@@ -29,32 +28,9 @@ export async function pagar(
 
   const successUrl = `http://localhost:3000/verificarPago?${queryParams.toString()}`;
 
-  let dateSesion = new Date(eventoElegido.start);
-
-  // Dia
-  function extractDateTime(fechaString: string) {
-    if (fechaString === "") {
-      return { date: "", time: "" };
-    } else {
-      const [datePart, timePart] = fechaString.split(", ");
-      const sinsegundos = timePart.slice(0, -3);
-      const formattedDate = datePart.replace(/\//g, "-");
-      return { date: formattedDate, time: sinsegundos };
-    }
-  }
+  // Dia y hora
   const inicio = extractDateTime(eventoElegido?.start || "");
   const fin = extractDateTime(eventoElegido?.end || "");
-  // const day = String(dateSesion.getDate()).padStart(2, "0");
-  // const month = String(dateSesion.getMonth() + 1).padStart(2, "0");
-  // const year = dateSesion.getFullYear();
-  // const formattedDate = `${day}.${month}.${year}`;
-
-  // // Hora
-  const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
 
   const inicioSesion = `${inicio.date} - ${inicio.time} ${fin.time}`;
 
@@ -66,7 +42,7 @@ export async function pagar(
     body: {
       items: [
         {
-          id: "donacion",
+          id: "sesion",
           title: tituloMP,
           quantity: 1,
           unit_price: psicologo.precioSesion,
