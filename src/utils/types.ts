@@ -80,3 +80,10 @@ export type PaymentURL = {
   site_id: string;
   status: string;
 };
+
+export type ItemsAccordion = {
+  title: string;
+  contentStart: string;
+  contentBold: string;
+  contentEnd: string;
+};
