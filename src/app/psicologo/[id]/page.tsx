@@ -3,7 +3,7 @@
 import Container from "@/components/Container";
 import Calendar from "@/components/psicologos/Calendar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Psicologo } from "@/utils/types";
+import { GoogleEvent, Psicologo } from "@/utils/types";
 import { Download, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
