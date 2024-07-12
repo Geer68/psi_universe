@@ -4,8 +4,8 @@ import {
   insertNewSesion,
   parseDateToTimestamp,
 } from "./sesion";
-import { Cliente, Pago, PaymentURL, Sesion } from "./types";
-import { getPaymentData } from "./mpLogic";
+import { Cliente, GoogleEvent, Pago, PaymentURL, Sesion } from "./types";
+import { getCookieEvento, getPaymentData } from "./mpLogic";
 
 export async function fetchData(id: string, query: PaymentURL) {
   try {
@@ -48,12 +48,18 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
         throw new Error("Error al insertar el pago");
       }
 
+      const event = await getCookieEvento();
+      if (!event) {
+        throw new Error("Error al obtener el evento");
+      }
+      const eventoJSON: GoogleEvent = JSON.parse(event.value);
+
       const sesionPagada: Sesion = {
         idCliente: parseInt(idCliente),
         idPago: parseInt(idPago),
         idPsicologo: parseInt(query.psicologoId!),
         sesion: parseDateToTimestamp(),
-        link: null,
+        link: eventoJSON.hangoutLink || "https://nohaylinkmalditogabi",
       };
 
       const idSesion = await insertNewSesion(sesionPagada);
@@ -61,12 +67,43 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
         throw new Error("Error al insertar la sesión");
       }
 
-      return true;
+      sendPOSTEmail(eventoJSON, query, sesionPagada);
+      sendPOSTCalendar(eventoJSON);
     }
 
-    return false;
+    return true;
   } catch (error: any) {
     console.error("Error en preparePaymentDB:", error.message);
-    throw error; // Propaga el error para ser manejado por el llamador
+    throw error;
   }
+}
+
+export function sendPOSTEmail(
+  eventoJSON: GoogleEvent,
+  query: PaymentURL,
+  sesionPagada: Sesion
+) {
+  fetch("/api/email", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ evento: eventoJSON, query, sesionPagada }),
+  })
+    .then((response) => response.json())
+    // .then((data) => console.log("Success:", data))
+    .catch((error) => console.error("Error:", error));
+}
+
+export function sendPOSTCalendar(eventoJSON: GoogleEvent) {
+  fetch("/api/calendar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ evento: eventoJSON }),
+  })
+    .then((response) => response.json())
+    // .then((data) => console.log("Success:", data))
+    .catch((error) => console.error("Error:", error));
 }

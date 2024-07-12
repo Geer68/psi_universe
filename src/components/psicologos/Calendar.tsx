@@ -1,23 +1,19 @@
-import { Event } from "@/utils/calendar";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
+import dayGrid from "@fullcalendar/daygrid";
 import { useEffect, useState } from "react";
 import ModalMercadoPago from "../ModalMercadoPago";
-import { Psicologo } from "@/utils/types";
+import { GoogleEvent, Psicologo } from "@/utils/types";
 
 export default function Calendar({
   events,
   psicologo,
 }: {
-  events: Array<Object>;
+  events: Array<GoogleEvent>;
   psicologo: Psicologo;
 }) {
   const [openModal, setOpenModal] = useState(false);
-  const [eventoElegido, setEventoElegido] = useState<Event | null>(null);
-
-  useEffect(() => {
-    console.log(eventoElegido);
-  }, [eventoElegido]);
+  const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
 
   return (
     <>
@@ -30,14 +26,13 @@ export default function Calendar({
       <FullCalendar
         locale="es"
         weekends={false}
-        plugins={[timeGridPlugin]}
+        plugins={[timeGridPlugin, dayGrid]}
         events={events}
         progressiveEventRendering={true}
         eventContent={renderEventContent}
         eventClick={(eventInfo) => {
           const eventClicked = eventInfo.event.extendedProps;
-          const isBooked = eventClicked.extendedProperties?.private.booked;
-          console.log(eventClicked);
+          const isBooked = eventClicked.extendedProperties?.booked;
           if (
             isBooked == "true" ||
             eventInfo.event.start == null ||
@@ -47,11 +42,17 @@ export default function Calendar({
           }
           setOpenModal(true);
           setEventoElegido({
-            ...eventClicked.extendedProps,
-            start: eventInfo.event.start.toLocaleString(),
-            end: eventInfo.event.end.toLocaleString(),
-            booked: eventClicked.extendedProps?.private.booked || null,
-          });
+            id: eventInfo.event.id,
+            summary: eventInfo.event.title,
+            start: eventInfo.event.start.toISOString(),
+            end: eventInfo.event.end.toISOString(),
+            booked: eventClicked.extendedProperties?.private.booked || null,
+            backgroundColor: eventInfo.event.backgroundColor || "",
+            htmlLink: eventClicked.htmlLink,
+            creator: eventClicked.creator,
+            organizer: eventClicked.organizer,
+            calendarId: eventClicked.calendarId,
+          } as GoogleEvent);
         }}
         height="auto"
         initialView="timeGridWeek"

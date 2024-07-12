@@ -1,5 +1,8 @@
 import { SendEmailCommand } from "@aws-sdk/client-ses";
 import { sesClient } from "./sesConfig";
+import { Pago, PaymentURL } from "./types";
+import { getPsicologo } from "./psicologo";
+import { Event } from "./calendar";
 
 const createSendEmailCommand = (
   subject: string,

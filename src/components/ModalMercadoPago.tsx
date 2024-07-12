@@ -1,28 +1,20 @@
 "use client";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { pagar } from "@/utils/mpLogic";
 import {
   AlertDialog,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { fetchPsicologos } from "@/utils/clientSupabase";
-import { Psicologo } from "@/utils/types";
-import { Event } from "@/utils/calendar";
+import { GoogleEvent, Psicologo } from "@/utils/types";
+import { extractDateTime } from "@/utils/dateFormater";
 
 export default function ModalMercadoPago({
   open,
@@ -33,20 +25,24 @@ export default function ModalMercadoPago({
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   psicologo: Psicologo;
-  eventoElegido: Event | null;
+  eventoElegido: GoogleEvent | null;
 }) {
-  let dateSesion: Date;
-  if (eventoElegido) {
-    console.log(eventoElegido);
-    dateSesion = new Date(eventoElegido.start);
-  } else {
-    dateSesion = new Date();
-  }
-  const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
+  const inicio = extractDateTime(eventoElegido?.start || "");
+  const fin = extractDateTime(eventoElegido?.end || "");
+
+  // let dateSesion: Date;
+  // console.log(eventoElegido?.start);
+  // if (eventoElegido) {
+  //   dateSesion = new Date(eventoElegido.start);
+  //   console.log(dateSesion);
+  // } else {
+  //   dateSesion = new Date();
+  // }
+  // const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  //   hour12: false,
+  // });
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -54,23 +50,25 @@ export default function ModalMercadoPago({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Reserva de la sesión</AlertDialogTitle>
-          <div className="pb-4">
-            <p>
-              <span className="text-gray-500">Psicólogo</span>:{" "}
-              {psicologo.apellido}, {psicologo.nombre}
-            </p>
-            <p>
-              <span className="text-gray-500">Día</span>:{" "}
-              {String(dateSesion.getDate()).padStart(2, "0")}/
-              {String(dateSesion.getMonth() + 1).padStart(2, "0")}
-            </p>
-            <p>
-              <span className="text-gray-500">Hora</span>: {formattedTime}
-            </p>
-          </div>
+          <AlertDialogDescription>
+            <div className="pb-4">
+              <p>
+                <span className="text-gray-500">Psicólogo</span>:{" "}
+                {psicologo.apellido}, {psicologo.nombre}
+              </p>
+              <p>
+                <span className="text-gray-500">Día</span>: {inicio.date}
+              </p>
+              <p>
+                <span className="text-gray-500">Hora</span>: {inicio.time} -{" "}
+                {fin.time}
+              </p>
+            </div>
+          </AlertDialogDescription>
           <form
             action={(formData) => {
               if (eventoElegido !== null) {
+                console.log("eventoElegido", eventoElegido);
                 pagar(psicologo, eventoElegido, formData);
               }
             }}

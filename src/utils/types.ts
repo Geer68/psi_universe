@@ -36,6 +36,32 @@ export type Psicologo = {
   idCalendario: string;
 };
 
+export interface GoogleEvent {
+  calendarId: string;
+  kind?: string;
+  etag?: string;
+  id?: string;
+  status?: string;
+  htmlLink?: string;
+  created?: string;
+  updated?: string;
+  summary?: string;
+  creator?: { email: string };
+  organizer?: { email: string; displayName: string; self: boolean };
+  recurringEventId?: string;
+  originalStartTime?: { dateTime: string; timeZone: string };
+  iCalUID?: string;
+  sequence?: number;
+  hangoutLink?: string; // tiene meet?
+  reminders?: { useDefault: boolean };
+  eventType?: string;
+  extendedProperties?: { private: { booked: boolean | string } };
+  backgroundColor: string;
+  start: string;
+  end: string;
+  booked?: boolean;
+}
+
 export type PaymentURL = {
   apellido: string;
   collection_id: string;
@@ -53,4 +79,11 @@ export type PaymentURL = {
   psicologoId: string;
   site_id: string;
   status: string;
+};
+
+export type ItemsAccordion = {
+  title: string;
+  contentStart: string;
+  contentBold: string;
+  contentEnd: string;
 };

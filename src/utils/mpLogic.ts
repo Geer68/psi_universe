@@ -1,9 +1,10 @@
 "use server";
-// import crypto from "crypto";
 import { MercadoPagoConfig, Preference } from "mercadopago";
 import { redirect } from "next/navigation";
 import { Psicologo } from "./types";
-import { Event } from "./calendar";
+import { GoogleEvent } from "./types";
+import { cookies } from "next/headers";
+import { extractDateTime } from "./dateFormater";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
@@ -11,44 +12,37 @@ const client = new MercadoPagoConfig({
 
 export async function pagar(
   psicologo: Psicologo,
-  eventoElegido: Event,
+  eventoElegido: GoogleEvent,
   formData: FormData
 ) {
   const queryParams = new URLSearchParams();
+
   queryParams.append("psicologoId", psicologo.id.toString());
   queryParams.append("monto", psicologo.precioSesion.toString());
+  console.log(eventoElegido);
+  cookies().set("evento", JSON.stringify(eventoElegido), { httpOnly: true });
+
   formData.forEach((value, key) => {
     queryParams.append(key, value.toString());
   });
 
   const successUrl = `http://localhost:3000/verificarPago?${queryParams.toString()}`;
 
-  let dateSesion = new Date(eventoElegido.start);
+  // Dia y hora
+  const inicio = extractDateTime(eventoElegido?.start || "");
+  const fin = extractDateTime(eventoElegido?.end || "");
 
-  // Dia
-  const day = String(dateSesion.getDate()).padStart(2, "0");
-  const month = String(dateSesion.getMonth() + 1).padStart(2, "0");
-  const year = dateSesion.getFullYear();
-  const formattedDate = `${day}.${month}.${year}`;
-
-  // Hora
-  const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-
-  const inicioSesion = `${formattedDate} - ${formattedTime}`;
+  const inicioSesion = `${inicio.date} - ${inicio.time} ${fin.time}`;
 
   const tituloMP = `
-    Sesión - ${psicologo.nombre} ${psicologo.apellido} ${inicioSesion}hs
+    Sesión - ${psicologo.nombre} ${psicologo.apellido} de ${inicioSesion}hs
   `;
 
   const preference = await new Preference(client).create({
     body: {
       items: [
         {
-          id: "donacion",
+          id: "sesion",
           title: tituloMP,
           quantity: 1,
           unit_price: psicologo.precioSesion,
@@ -108,6 +102,21 @@ export async function getPaymentData(idBody: string) {
     console.error(error);
     throw error;
   }
+}
+
+export async function getCookieEvento() {
+  const evento = cookies().get("evento");
+  return evento;
+}
+
+export async function getCookieSesion() {
+  const sesion = cookies().get("sesion");
+  return sesion;
+}
+
+export async function getCookieQuery() {
+  const query = cookies().get("query");
+  return query;
 }
 
 // export async function validateHMAC(body: any): Promise<boolean> {

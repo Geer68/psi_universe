@@ -1,32 +1,8 @@
 const { authenticate } = require("@google-cloud/local-auth");
 import { google } from "googleapis";
+import { GoogleEvent } from "./types";
 // If modifying these scopes, delete token.json.
 const SCOPES = ["https://www.googleapis.com/auth/calendar"];
-
-export interface Event {
-  kind?: string;
-  etag?: string;
-  id?: string;
-  status?: string;
-  htmlLink?: string;
-  created?: string;
-  updated?: string;
-  summary?: string;
-  creator?: { email: string };
-  organizer?: { email: string; displayName: string; self: boolean };
-  recurringEventId?: string;
-  originalStartTime?: { dateTime: string; timeZone: string };
-  iCalUID?: string;
-  sequence?: number;
-  hangoutLink?: string; // tiene meet?
-  reminders?: { useDefault: boolean };
-  eventType?: string;
-  extendedProperties?: { private: { booked: boolean | string } };
-  backgroundColor: string;
-  start: string;
-  end: string;
-  booked?: boolean;
-}
 
 async function getAuth() {
   const client = new google.auth.JWT(
@@ -68,7 +44,7 @@ export async function getEventByID(calendarId: string, eventId: string) {
 export async function getEvents(
   calendarId: string,
   maxResults: number = 40
-): Promise<Array<Event> | null> {
+): Promise<Array<GoogleEvent> | null> {
   try {
     const auth = await getAuth();
     const calendar = google.calendar({ version: "v3", auth });
@@ -96,6 +72,7 @@ export async function getEvents(
 
       return {
         ...event,
+        calendarId,
         start: startTime,
         end: endTime,
         backgroundColor,
@@ -107,7 +84,7 @@ export async function getEvents(
       console.log("No upcoming events found.");
       return [];
     }
-    return events as Array<Event>;
+    return events as Array<GoogleEvent>;
   } catch (e) {
     console.error("Error: ", e);
     return null;
