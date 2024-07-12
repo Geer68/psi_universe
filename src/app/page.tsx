@@ -5,7 +5,7 @@ import ModalMercadoPago from "@/components/ModalMercadoPago";
 
 export default function Home() {
   return (
-    <Container className="grid grid-cols-1 gap-10">
+    <Container>
       <HeroSection />
       <CardConFrase />
     </Container>

@@ -1,5 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
+import dayGrid from "@fullcalendar/daygrid";
 import { useEffect, useState } from "react";
 import ModalMercadoPago from "../ModalMercadoPago";
 import { GoogleEvent, Psicologo } from "@/utils/types";
@@ -14,11 +15,6 @@ export default function Calendar({
   const [openModal, setOpenModal] = useState(false);
   const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
 
-  useEffect(() => {
-    // console.log(eventoElegido);
-    // console.log(events);
-  }, [eventoElegido]);
-
   return (
     <>
       <ModalMercadoPago
@@ -30,7 +26,7 @@ export default function Calendar({
       <FullCalendar
         locale="es"
         weekends={false}
-        plugins={[timeGridPlugin]}
+        plugins={[timeGridPlugin, dayGrid]}
         events={events}
         progressiveEventRendering={true}
         eventContent={renderEventContent}
