@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import Container from "./Container";
 
 export default function NavBar() {
@@ -19,7 +19,7 @@ export default function NavBar() {
   return (
     <nav className="sticky top-0 left-0 w-full bg-white/70 backdrop-blur-md z-50">
       <Container>
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between py-3">
+        <div className="flex flex-wrap items-center justify-between py-3">
           <Link href={"/"} className="flex gap-4 items-center">
             <img src="/logoNegativo.png" alt="Logo" />
             <p className="text-[#7643BE] font-bold text-2xl font-satoshi">

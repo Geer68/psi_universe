@@ -36,7 +36,7 @@ export default function Calendar({
         eventContent={renderEventContent}
         eventClick={(eventInfo) => {
           const eventClicked = eventInfo.event.extendedProps;
-          const isBooked = eventClicked.extendedProperties?.booked;
+          const isBooked = eventClicked.extendedProperties?.private.booked;
           if (
             isBooked == "true" ||
             eventInfo.event.start == null ||
@@ -60,7 +60,7 @@ export default function Calendar({
         }}
         height="auto"
         initialView={
-          window.matchMedia("(max-width: 64 0px)").matches
+          window.matchMedia("(max-width: 640px)").matches
             ? "dayGridDay"
             : "timeGridWeek"
         }
