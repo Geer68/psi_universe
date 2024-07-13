@@ -1,9 +1,10 @@
+import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { GoogleEvent, Psicologo } from "@/utils/types";
+import dayGrid from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
-import dayGrid from "@fullcalendar/daygrid";
 import { useEffect, useState } from "react";
 import ModalMercadoPago from "../ModalMercadoPago";
-import { GoogleEvent, Psicologo } from "@/utils/types";
 
 export default function Calendar({
   events,
@@ -14,6 +15,9 @@ export default function Calendar({
 }) {
   const [openModal, setOpenModal] = useState(false);
   const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
+  const matches = useBreakpoint("sm-");
+
+  useEffect(() => console.log(matches), [matches]);
 
   return (
     <>
@@ -55,7 +59,11 @@ export default function Calendar({
           } as GoogleEvent);
         }}
         height="auto"
-        initialView="timeGridWeek"
+        initialView={
+          window.matchMedia("(max-width: 64 0px)").matches
+            ? "dayGridDay"
+            : "timeGridWeek"
+        }
         allDaySlot={false}
         slotMinTime={"07:00:00"}
         slotMaxTime={"24:00:00"}

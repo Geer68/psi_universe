@@ -2,8 +2,9 @@
 
 import Container from "@/components/Container";
 import Calendar from "@/components/psicologos/Calendar";
+import Descripcion from "@/components/psicologos/Descripcion";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Psicologo } from "@/utils/types";
+import { GoogleEvent, Psicologo } from "@/utils/types";
 import { Download, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -32,10 +33,10 @@ export default function Home({ params }: { params: { id: string } }) {
 
   return (
     <Container className="mt-10">
-      <div className="w-full rounded-3xl shadow-md min-h-20 px-16 py-10 gap-8 flex mb-5 flex-wrap">
+      <div className="w-full flex flex-wrap justify-center sm:justify-start text-center sm:text-left rounded-3xl shadow-md min-h-20 p-8 sm:px-16 py-10 gap-8 mb-5 ">
         <img
           src={psicologo.img || ""}
-          className="w-48 h-48 rounded-xl"
+          className="w-48 sm:h-48 rounded-xl"
           alt=""
         />
         <div className="flex-1 text-custom-violetaPrimario">
@@ -43,10 +44,11 @@ export default function Home({ params }: { params: { id: string } }) {
             {psicologo.nombre} {psicologo.apellido}
           </h1>
           <h2 className="text-2xl font-satoshi">{psicologo.especialidad}</h2>
-          <hr className="w-12 my-3 border-2 border-custom-violetaPrimario" />
-          <p className="text-lg text-[#282828]">{psicologo.descripcion}</p>
+          <hr className="w-12 border-2 border-custom-violetaPrimario my-3 m-auto sm:ml-0" />
+          <Descripcion descripcion={psicologo.descripcion} />
+          {/* <p className="text-lg text-[#282828]">{psicologo.descripcion}</p> */}
         </div>
-        <div className="w-full flex items-end flex-row justify-end lg:flex-col gap-3 text-custom-violetaPrimario font-medium">
+        <div className="w-full lg:w-28 flex justify-center sm:items-end flex-row sm:justify-end lg:flex-col gap-3 text-custom-violetaPrimario font-medium">
           <Link
             href={psicologo.linkCV || "https://www.google.com"}
             className="flex items-end gap-2"
