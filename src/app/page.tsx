@@ -1,13 +1,14 @@
 import CardConFrase from "@/components/CardConFrase";
 import Container from "@/components/Container";
 import HeroSection from "@/components/HeroSection";
-import ModalMercadoPago from "@/components/ModalMercadoPago";
+import PorQueNosotros from "@/components/PorQueNosotros";
 
 export default function Home() {
   return (
     <Container>
       <HeroSection />
       <CardConFrase />
+      <PorQueNosotros />
     </Container>
   );
 }

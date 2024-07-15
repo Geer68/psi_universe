@@ -17,7 +17,7 @@ export default function NavBar() {
   const isActive = (path: string) => pathname.includes(path);
 
   return (
-    <nav className="sticky top-0 left-0 w-full bg-white/70 backdrop-blur-md z-50">
+    <nav className="sticky top-0 left-0 w-full backdrop-blur-md z-50">
       <Container>
         <div className="flex flex-wrap items-center justify-between py-3">
           <Link href={"/"} className="flex gap-4 items-center">
@@ -34,7 +34,7 @@ export default function NavBar() {
             aria-expanded={menuOpen ? "true" : "false"}
             onClick={toggleMenu}
           >
-            <span className="sr-only">Open main menu</span>
+            <span className="sr-only">Abrir menu</span>
             <svg
               className="w-5 h-5"
               aria-hidden="true"

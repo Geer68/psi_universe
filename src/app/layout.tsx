@@ -1,9 +1,9 @@
+import Footer from "@/components/Footer";
+import NavBar from "@/components/NavBar";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
 
 const satoshi = localFont({
   src: [
@@ -88,7 +88,13 @@ export default function RootLayout({
       className={`${satoshi.variable} ${mortModern.variable} ${mortModernCondensed.variable}`}
       lang="es"
     >
-      <body className={`${inter.className} relative`}>
+      <body
+        className={`${inter.className} relative`}
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url(/background.png)",
+        }}
+      >
         <NavBar />
         {children}
         <Footer />
