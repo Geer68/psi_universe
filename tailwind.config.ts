@@ -61,6 +61,7 @@ const config = {
           violetaPrimario: "#7643BE",
           textClarito: "#414141",
           violetaFondoBTN: "#4C1D95",
+          negroClarito: "#000000/60",
         },
       },
       borderRadius: {

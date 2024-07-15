@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 const satoshi = localFont({
   src: [
@@ -73,7 +74,7 @@ const mortModernCondensed = localFont({
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PSIUniverse",
+  title: "psi•universe",
   description: "PSIUniverse",
 };
 
@@ -90,6 +91,7 @@ export default function RootLayout({
       <body className={`${inter.className} relative`}>
         <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );
