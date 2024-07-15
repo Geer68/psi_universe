@@ -6,6 +6,7 @@ import {
 } from "./sesion";
 import { Cliente, GoogleEvent, Pago, PaymentURL, Sesion } from "./types";
 import { getCookieEvento, getPaymentData } from "./mpLogic";
+import { extractDateTime } from "./dateFormater";
 
 export async function fetchData(id: string, query: PaymentURL) {
   try {
@@ -54,11 +55,13 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
       }
       const eventoJSON: GoogleEvent = JSON.parse(event.value);
 
+      const inicioSesion = extractDateTime(eventoJSON.start);
+
       const sesionPagada: Sesion = {
         idCliente: parseInt(idCliente),
         idPago: parseInt(idPago),
         idPsicologo: parseInt(query.psicologoId!),
-        sesion: parseDateToTimestamp(),
+        sesion: inicioSesion.date + " " + inicioSesion.time,
         link: eventoJSON.hangoutLink || "https://nohaylinkmalditogabi",
       };
 
