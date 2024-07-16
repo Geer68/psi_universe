@@ -27,19 +27,23 @@ export default function NuestraMision() {
           </p>
         </div>
         <img
+          alt="nube"
           className="absolute w-2/3 sm:w-1/2 lg:w-2/4 xl:w-auto -left-[7.3rem] sm:-left-56 -top-10 sm:-top-12"
           src="/img/nuestramision/nube1.png"
         />
         <img
+          alt="nube"
           className="absolute w-1/2 lg:w-2/5 xl:w-auto -right-12 sm:-right-36 -bottom-4 sm:-bottom-10"
           src="/img/nuestramision/nube3.png"
         />
       </div>
       <img
+        alt="nube"
         className="absolute w-3/5 sm:w-2/5 lg:w-2/6 xl:w-auto -right-6 sm:right-2 -top-10 sm:-top-14"
         src="/img/nuestramision/nube2.png"
       />
       <img
+        alt="nube"
         className="absolute w-1/2 sm:w-2/5 lg:w-2/6 xl:w-auto -left-3 sm:left-1 -bottom-8 sm:-bottom-16 xl:-bottom-10"
         src="/img/nuestramision/nube4.png"
       />

@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-export default function Descripcion({ descripcion }: { descripcion: string }) {
+export default function Descripcion({
+  descripcion,
+  caracteres,
+  className,
+}: {
+  descripcion: string;
+  caracteres: number;
+  className?: string;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
@@ -11,7 +19,7 @@ export default function Descripcion({ descripcion }: { descripcion: string }) {
     return <span>-</span>;
   }
 
-  if (descripcion.length < 280) return <p>{descripcion}</p>;
+  if (descripcion.length < caracteres) return <p>{descripcion}</p>;
 
   let descripcionBreve: string = "";
 
@@ -19,7 +27,7 @@ export default function Descripcion({ descripcion }: { descripcion: string }) {
   else descripcionBreve = descripcion.slice(0, 279);
 
   return (
-    <div className="text-left text-lg text-[#282828]">
+    <div className={` ${className || "text-left text-lg text-[#282828]"}`}>
       {!isOpen ? (
         <p onClick={toggleOpen}>
           {descripcionBreve}...{" "}

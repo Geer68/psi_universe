@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "./ui/button";
 
 export default function HeroSection() {
@@ -20,9 +21,11 @@ export default function HeroSection() {
           alta calidad en atención.
         </p>
       </div>
-      <Button className="bg-[#373737] rounded-2xl px-6 font-semibold font-satoshi ">
-        Encontralo hoy
-      </Button>
+      <Link href="/profesionales">
+        <Button className="bg-[#373737] rounded-2xl px-6 font-semibold font-satoshi ">
+          Encontralo hoy
+        </Button>
+      </Link>
     </div>
   );
 }

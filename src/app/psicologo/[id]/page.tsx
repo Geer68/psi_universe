@@ -45,7 +45,7 @@ export default function Home({ params }: { params: { id: string } }) {
           </h1>
           <h2 className="text-2xl font-satoshi">{psicologo.especialidad}</h2>
           <hr className="w-12 border-2 border-custom-violetaPrimario my-3 m-auto sm:ml-0" />
-          <Descripcion descripcion={psicologo.descripcion} />
+          <Descripcion descripcion={psicologo.descripcion} caracteres={280} />
           {/* <p className="text-lg text-[#282828]">{psicologo.descripcion}</p> */}
         </div>
         <div className="w-full lg:w-28 flex justify-center sm:items-end flex-row sm:justify-end lg:flex-col gap-3 text-custom-violetaPrimario font-medium">
@@ -74,7 +74,7 @@ export default function Home({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div className="rounded-xl p-8 shadow-lg">
-        <Calendar events={events} psicologo={psicologo} />
+        <Calendar events={events ?? []} psicologo={psicologo} />
       </div>
     </Container>
   );

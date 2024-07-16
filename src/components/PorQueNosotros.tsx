@@ -25,7 +25,7 @@ const cards: CardProps[] = [
     ),
     img: "/img/whyus/card1.png",
     linkText: "Consultá nuestras opciones",
-    link: "https://google.com",
+    link: "/consultas",
   },
   {
     title: "Disfrutá de la comodidad",
@@ -38,7 +38,7 @@ const cards: CardProps[] = [
     ),
     img: "/img/whyus/card2.png",
     linkText: "Mirá nuestros tips para una sesión",
-    link: "https://google.com",
+    link: "/consultas",
   },
   {
     title: "Sos nuestro compromiso",
@@ -57,7 +57,7 @@ const cards: CardProps[] = [
     ),
     img: "/img/whyus/card3.png",
     linkText: "Mirá todos nuestros tipos de terapia",
-    link: "https://google.com",
+    link: "/consultas",
   },
   {
     title: "Texto FALTANTE",
@@ -75,7 +75,7 @@ const cards: CardProps[] = [
     ),
     img: "/img/whyus/card4.png",
     linkText: "Mirá todos nuestros tipos de terapia",
-    link: "https://google.com",
+    link: "/consultas",
   },
 ];
 
@@ -86,8 +86,8 @@ export default function PorQueNosotros() {
         ¿Por qué nosotros?
       </h2>
       <div className="flex flex-wrap w-full justify-between gap-5 mt-6">
-        {cards.map((card) => (
-          <CardCaracteristica {...card} />
+        {cards.map((card, i) => (
+          <CardCaracteristica key={i} {...card} />
         ))}
       </div>
     </section>
@@ -104,6 +104,7 @@ function CardCaracteristica({
   return (
     <div className="w-full flex flex-col xl:flex-row justify-between min-h-64 md:max-w-[48%] 2xl:flex-auto 2xl:max-w-[48%] rounded-2xl bg-white shadow-sm overflow-hidden border border-1 border-custom-violetaPrimario/10">
       <img
+        alt="figura abstracta"
         src={img}
         className="mt-6 h-32 xl:h-full w-full xl:w-1/4 xl:-ml-2 object-contain xl:object-cover object-center xl:object-right"
       />

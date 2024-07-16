@@ -65,53 +65,51 @@ export default function CompraExitosa() {
   }
 
   return (
-    <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16 mt-20">
+    <section className="py-8 antialiased  md:py-16 mt-20">
       <div className="mx-auto max-w-2xl px-4 2xl:px-0">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
+        <h2 className="text-xl font-semibold text-gray-900  sm:text-2xl mb-2">
           ¡Gracias por reservar!
         </h2>
-        <p className="text-gray-500 dark:text-gray-400 mb-6 md:mb-8">
+        <p className="text-gray-500  mb-6 md:mb-8">
           Tu número de orden es{" "}
-          <strong className="font-medium text-gray-900 dark:text-white hover:underline">
+          <strong className="font-medium text-gray-900  hover:underline">
             #{queryParams.collection_id}
           </strong>{" "}
           , actualmente está siendo procesado y en unos minutos recibirás un
           correo con los detalles necesarios para tu sesión.
         </p>
-        <p className="text-gray-500 dark:text-gray-400 mb-6 md:mb-8">
+        <p className="text-gray-500  mb-6 md:mb-8">
           No dudes en escribirnos a psico@soporte.com ante cualquier
           inconveniente.
         </p>
-        <div className="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800 mb-6 md:mb-8">
+        <div className="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6  mb-6 md:mb-8">
           <dl className="sm:flex items-center justify-between gap-4">
-            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
+            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 ">
               Sesión para
             </dt>
-            <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
+            <dd className="font-medium text-gray-900  sm:text-end">
               {queryParams.nombre} {queryParams.apellido}
             </dd>
           </dl>
           <dl className="sm:flex items-center justify-between gap-4">
-            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
+            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 ">
               Fecha de la sesión
             </dt>
-            <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
+            <dd className="font-medium text-gray-900  sm:text-end">
               {extractDateTime(evento?.start || "").date}
             </dd>
           </dl>
           <dl className="sm:flex items-center justify-between gap-4">
-            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
-              Hora
-            </dt>
-            <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
+            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 ">Hora</dt>
+            <dd className="font-medium text-gray-900  sm:text-end">
               {extractDateTime(evento?.start || "").time}
             </dd>
           </dl>
           <dl className="sm:flex items-center justify-between gap-4">
-            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
+            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 ">
               Sesión reservada con
             </dt>
-            <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
+            <dd className="font-medium text-gray-900  sm:text-end">
               {psicologo?.nombre + " " + psicologo?.apellido}
             </dd>
           </dl>
@@ -119,7 +117,7 @@ export default function CompraExitosa() {
         <div className="flex items-center space-x-4">
           <Link
             href={"/"}
-            className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800  dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
             Volver al inicio
           </Link>
