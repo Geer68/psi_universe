@@ -15,7 +15,7 @@ const cards: CardProps[] = [
     description: (
       <>
         <span>
-          Te ofrecemos un <b>equipo multidisciplinario</b> para acompañarte.
+          Te ofrecemos un <b>equipo multidisciplinario</b> para acompañarte.{" "}
           <b>Terapia a tu medida</b>, desde cualquier lugar y en tu horario.
         </span>{" "}
         <span>
@@ -109,7 +109,7 @@ function CardCaracteristica({
         className="mt-6 h-32 xl:h-full w-full xl:w-1/4 xl:-ml-2 object-contain xl:object-cover object-center xl:object-right"
         alt=""
       />
-      <div className="flex-1 flex flex-col items-start justify-between p-5 text-[#504136]">
+      <div className="flex-1 gap-6 flex flex-col items-start justify-between p-5 text-[#504136]">
         <div className="w-full">
           <span className="block font-satoshi font-medium text-2xl text-center xl:text-left text-custom-violetaPrimario">
             {title}
