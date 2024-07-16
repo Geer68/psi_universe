@@ -28,7 +28,7 @@ export async function pagar(
     queryParams.append(key, value.toString());
   });
 
-  const successUrl = `http://localhost:${port}/verificarPago?${queryParams.toString()}`;
+  const successUrl = `https://www.psiuniverse.com:${port}/verificarPago?${queryParams.toString()}`;
 
   // Dia y hora
   const inicio = extractDateTime(eventoElegido?.start || "");
