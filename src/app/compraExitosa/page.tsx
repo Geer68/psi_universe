@@ -67,21 +67,19 @@ function CompraExitosaContent() {
   return (
     <section className="py-8 antialiased  md:py-16 mt-20">
       <div className="mx-auto max-w-2xl px-4 2xl:px-0 ">
-        <h2 className="text-xl font-semibold text-gray-900  sm:text-2xl mb-2">
-          ¡Gracias por reservar!
-        </h2>
-        <p className="text-gray-500  mb-6 md:mb-8">
-          Tu número de orden es{" "}
-          <strong className="font-medium text-gray-900  hover:underline">
-            #{queryParams.collection_id}
-          </strong>{" "}
-          , actualmente está siendo procesado y en unos minutos recibirás un
-          correo con los detalles necesarios para tu sesión.
-        </p>
-        <p className="text-gray-500  mb-6 md:mb-8">
-          No dudes en escribirnos a psico@soporte.com ante cualquier
-          inconveniente.
-        </p>
+        <div className="px-6 mb-6 sm:px-0">
+          <h2 className="text-xl font-semibold text-gray-900  sm:text-2xl mb-2">
+            ¡Gracias por reservar!
+          </h2>
+          <p className="text-gray-500  mb-6 md:mb-8">
+            Tu número de orden es{" "}
+            <strong className="font-medium text-gray-900  hover:underline">
+              #{queryParams.collection_id}
+            </strong>
+            , actualmente está siendo procesado y en unos minutos recibirás un
+            correo con los detalles necesarios para tu sesión.
+          </p>
+        </div>
         <div className="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-white  p-6  mb-6 md:mb-8">
           <dl className="sm:flex items-center justify-between gap-4">
             <dt className="font-normal mb-1 sm:mb-0 text-gray-500 ">
@@ -96,11 +94,13 @@ function CompraExitosaContent() {
               Fecha de la sesión
             </dt>
             <dd className="font-medium text-gray-900  sm:text-end">
-              {extractDateTime(evento?.start || "").date}
+              {extractDateTime(evento?.start || "", true).date}
             </dd>
           </dl>
           <dl className="sm:flex items-center justify-between gap-4">
-            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 ">Hora</dt>
+            <dt className="font-normal mb-1 sm:mb-0 text-gray-500 ">
+              Hora de inicio
+            </dt>
             <dd className="font-medium text-gray-900  sm:text-end">
               {extractDateTime(evento?.start || "").time}
             </dd>
@@ -114,6 +114,23 @@ function CompraExitosaContent() {
             </dd>
           </dl>
         </div>
+        <div className="px-6 mb-6 sm:px-0">
+          <p className="text-gray-500 md:mb-8">
+            Si no encuentras el correo en tu bandeja de entrada, por favor
+            verifica la carpeta de spam o correos no deseados.
+          </p>
+          <p className="text-gray-500 md:mb-8">
+            Para cualquier problema, no dudes en contactarnos escribiendo a{" "}
+            <a
+              href="mailto:soporte@psiuniverse.com"
+              className="text-gray-900 font-medium hover:underline"
+            >
+              soporte@psiuniverse.com
+            </a>
+            .
+          </p>
+        </div>
+
         <div className="flex items-center space-x-4">
           <Link
             href={"/"}

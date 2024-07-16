@@ -1,3 +1,4 @@
+import { extractDateTime } from "@/utils/dateFormater";
 import { getPsicologo } from "@/utils/psicologo";
 import { sendEmail } from "@/utils/sendEmail";
 import { GoogleEvent, PaymentURL, Sesion } from "@/utils/types";
@@ -35,8 +36,18 @@ export async function sendEMailCliente(
 ) {
   const psicologo = await getPsicologo(query.psicologoId!);
 
-  const asunto = `Sesión confirmada con ${psicologo?.nombre} ${psicologo?.apellido}`;
-  const mensaje = `Hola ${query.nombre} ${query.apellido},\n\nTu sesión con ${psicologo?.nombre} ${psicologo?.apellido} ha sido confirmada para el día ${evento.start}.\n\nEl link para tu sesión es: ${evento.hangoutLink} \n\n¡Nos vemos pronto!`;
+  const asunto = `Confirmación de sesión con ${psicologo?.nombre} ${psicologo?.apellido}`;
+  const mensaje = `Hola ${query.nombre} ${
+    query.apellido
+  },\n\nTe escribimos para confirmar que tu sesión con ${psicologo?.nombre} ${
+    psicologo?.apellido
+  } ha sido programada con éxito para el día ${
+    extractDateTime(evento.start, true).date
+  } a las ${
+    extractDateTime(evento.start, true).time
+  }.\n\nPara unirte a la sesión, utiliza el siguiente enlace: ${
+    evento.hangoutLink
+  } \n\n¡Esperamos que tengas una excelente sesión!\n\nSaludos cordiales,\nEl equipo de psi•universe ;)`;
 
   sendEmail(asunto, mensaje, query.email);
 }
@@ -48,8 +59,18 @@ export async function sendEMailPsicologo(
 ) {
   const psicologo = await getPsicologo(query.psicologoId!);
 
-  const asunto = `Sesión confirmada con ${query.nombre} ${query.apellido}`;
-  const mensaje = `Hola ${psicologo?.nombre},\n\nTu sesión con ${query.nombre} ${query.apellido} ha sido abonada para el día ${evento.start}.\n\nEl link para tu sesión es: ${evento.hangoutLink} \n\n¡Nos vemos pronto!`;
+  const asunto = `Confirmación de sesión con ${query.nombre} ${query.apellido}`;
+  const mensaje = `Hola ${
+    psicologo?.nombre
+  },\n\nQueremos informarte que la sesión con ${query.nombre} ${
+    query.apellido
+  } ha sido abonada y confirmada para el día ${
+    extractDateTime(evento.start, true).date
+  } a las ${
+    extractDateTime(evento.start, true).time
+  }.\n\nPara acceder a la sesión, utiliza el siguiente enlace: ${
+    evento.hangoutLink
+  } \n\n¡Esperamos que sea una sesión productiva!\n\nSaludos cordiales,\nEl equipo de psi•universe ;)`;
 
   sendEmail(asunto, mensaje, psicologo?.emailPersonal!);
 }

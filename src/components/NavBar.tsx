@@ -14,8 +14,6 @@ export default function NavBar() {
 
   if (!pathname) return null;
 
-  const isActive = (path: string) => pathname.includes(path);
-
   return (
     <nav className="sticky top-0 left-0 w-full backdrop-blur-md z-50 bg-white/90">
       <Container>
@@ -62,6 +60,7 @@ export default function NavBar() {
                 <Link
                   href={"/profesionales"}
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-custom-violetaPrimario md:p-0 "
+                  onClick={toggleMenu}
                 >
                   Profesionales
                 </Link>
@@ -70,6 +69,7 @@ export default function NavBar() {
                 <Link
                   href={"/consultas"}
                   className="block py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-custom-violetaPrimario md:p-0 border-t-2 border-custom-violetaPrimario/30"
+                  onClick={toggleMenu}
                 >
                   Consultas
                 </Link>
