@@ -15,10 +15,20 @@ export default function Profesionales() {
   }, []);
 
   return (
-    <Container className="grid grid-cols-4 gap-5 items-start mt-20">
-      {psicologos.map((psicologo) => (
-        <CardPsicologo key={psicologo.id} psicologo={psicologo} />
-      ))}
+    <Container>
+      <div className="mt-16 text-center">
+        <h1 className="text-5xl sm:text-6xl font-mort-modern">
+          Te presentamos a{" "}
+          <span className="text-custom-violetaPrimario font-mort-modern-condensed">
+            nuestros profesionales
+          </span>
+        </h1>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-4 sm:grid-rows-1 sm:gap-5 items-start">
+        {psicologos.map((psicologo) => (
+          <CardPsicologo key={psicologo.id} psicologo={psicologo} />
+        ))}
+      </div>
     </Container>
   );
 }

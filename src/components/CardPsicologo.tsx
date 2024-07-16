@@ -1,13 +1,13 @@
 import { Psicologo } from "@/utils/types";
+import { CalendarCheck2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { CalendarCheck2 } from "lucide-react";
 
 export default function CardPsicologo({ psicologo }: { psicologo: Psicologo }) {
   return (
-    <article className="flex items-center justify-center min-h-screen ">
+    <article className="flex items-center justify-center min-h-screen">
       <Link href={`/psicologo/${psicologo.id}`}>
-        <div className=" w-full group max-w-md min-w-0 mx-auto mt-6 mb-6 break-words bg-white border border-gray-300   md:max-w-sm rounded-xl">
+        <div className=" w-full group max-w-md min-w-0 mx-auto mt-6 mb-6 break-words bg-white border border-gray-300 md:max-w-sm rounded-t-xl">
           <div className="flex flex-wrap justify-center">
             <div className="flex justify-center w-full">
               <img
