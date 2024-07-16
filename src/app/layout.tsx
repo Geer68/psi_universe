@@ -75,7 +75,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "psi•universe",
-  description: "PSIUniverse",
+  description:
+    "Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional.",
 };
 
 export default function RootLayout({
@@ -88,6 +89,32 @@ export default function RootLayout({
       className={`${satoshi.variable} ${mortModern.variable} ${mortModernCondensed.variable}`}
       lang="es"
     >
+      <head>
+        <title>psi•universe</title>
+        <meta name="title" content="psi•universe" />
+        <meta
+          name="description"
+          content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://psiuniverse.com/" />
+        <meta property="og:title" content="psi•universe" />
+        <meta
+          property="og:description"
+          content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
+        />
+        <meta property="og:image" content="public/psiuniverse.png" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://psiuniverse.com/" />
+        <meta property="twitter:title" content="psi•universe" />
+        <meta
+          property="twitter:description"
+          content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
+        />
+        <meta property="twitter:image" content="public/psiuniverse.png" />
+      </head>
       <body
         className={`${inter.className} relative`}
         style={{
