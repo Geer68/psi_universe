@@ -6,11 +6,11 @@ export default function HeroSection() {
       <img
         src="/hero_bg.svg"
         alt=""
-        className="absolute top-0 left-0 w-full h-full -z-10"
+        className="absolute top-0 -translate-x-1/2 left-1/2 w-2/3 -z-10"
       />
       <section className="text-center text-[#373737]">
-        <p className="text-6xl font-mort-modern">Encontrá tu</p>
-        <p className="text-[#7643BE] text-7xl font-bold italic font-mort-modern-condensed">
+        <p className="text-5xl sm:text-6xl font-mort-modern">Encontrá tu</p>
+        <p className="text-[#7643BE] text-6xl sm:text-7xl font-bold italic font-mort-modern-condensed">
           psicólogo ideal
         </p>
       </section>

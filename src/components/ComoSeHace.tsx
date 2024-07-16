@@ -40,8 +40,8 @@ const cards: CardProps[] = [
 export default function ComoSeHace() {
   return (
     <section className="mt-40 w-full">
-      <h2 className="font-mort-modern text-center font-medium text-5xl">
-        Te mostramos cómo <br /> se hace...
+      <h2 className="font-mort-modern text-center font-medium text-5xl w-full md:w-1/2 xl:w-1/3 2xl:w-1/4 m-auto">
+        Te mostramos cómo se hace...
       </h2>
       <div className="relative flex flex-col sm:flex-row items-center gap-10 md:gap-4 lg:gap-0 sm:items-start justify-between mx-0 xl:mx-20 mt-14">
         {cards.map((card, index) => (
