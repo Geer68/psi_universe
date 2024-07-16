@@ -1,18 +1,7 @@
 const { authenticate } = require("@google-cloud/local-auth");
 import { google } from "googleapis";
+import { getAuth } from "./googleAuth";
 import { GoogleEvent } from "./types";
-// If modifying these scopes, delete token.json.
-const SCOPES = ["https://www.googleapis.com/auth/calendar"];
-
-async function getAuth() {
-  const client = new google.auth.JWT(
-    process.env.CLIENT_EMAIL,
-    undefined,
-    process.env.CLIENT_SECRET,
-    SCOPES
-  );
-  return client;
-}
 
 export async function setEventBooked(calendarId: string, eventId: string) {
   const auth = await getAuth();
@@ -89,8 +78,4 @@ export async function getEvents(
     console.error("Error: ", e);
     return null;
   }
-  //   events.map((event: any, i: number) => {
-  //     const start = event.start.dateTime || event.start.date;
-  //     console.log(`${start} - ${event.summary}`);
-  //   });
 }
