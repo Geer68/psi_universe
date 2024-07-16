@@ -82,7 +82,7 @@ const cards: CardProps[] = [
 
 export default function PorQueNosotros() {
   return (
-    <section className="mt-10 w-full">
+    <section className="mt-24 w-full">
       <h2 className="font-mort-modern font-medium text-4xl">
         ¿Por qué nosotros?
       </h2>

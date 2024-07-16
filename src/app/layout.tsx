@@ -92,7 +92,7 @@ export default function RootLayout({
         className={`${inter.className} relative`}
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url(/background.png)",
+            "linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url(/background.png)",
         }}
       >
         <NavBar />

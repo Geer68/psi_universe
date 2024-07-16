@@ -2,7 +2,7 @@ import { Button } from "./ui/button";
 
 export default function HeroSection() {
   return (
-    <div className="flex flex-col gap-6 items-center justify-center w-full h-[60vh]">
+    <div className="relative flex flex-col gap-6 items-center justify-center w-full h-[60vh]">
       <img
         src="/hero_bg.svg"
         alt=""
