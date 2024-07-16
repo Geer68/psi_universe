@@ -48,10 +48,12 @@ export default function ComoSeHace() {
           <CardAccion key={index} number={index + 1} {...card} />
         ))}
         <img
+          alt="flecha"
           className="hidden absolute md:block top-4 left-[23%] xl:left-[20%] w-1/5 xl:w-auto"
           src="/img/comosehace/flecha1.svg"
         />
         <img
+          alt="flecha"
           className="hidden absolute md:block top-2 xl:top-0 right-[23%] xl:right-[20%] w-1/5 xl:w-auto"
           src="/img/comosehace/flecha2.svg"
         />

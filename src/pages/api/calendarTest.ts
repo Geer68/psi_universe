@@ -1,5 +1,4 @@
 import { getEventByID, getEvents, setEventBooked } from "@/utils/calendar";
-import { sendEmail } from "@/utils/sendEmail";
 import { NextApiRequest, NextApiResponse } from "next";
 
 interface Request {
