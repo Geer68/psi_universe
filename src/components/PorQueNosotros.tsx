@@ -1,5 +1,4 @@
 import { ExternalLink } from "lucide-react";
-import React from "react";
 
 type CardProps = {
   title: string;
@@ -107,7 +106,6 @@ function CardCaracteristica({
       <img
         src={img}
         className="mt-6 h-32 xl:h-full w-full xl:w-1/4 xl:-ml-2 object-contain xl:object-cover object-center xl:object-right"
-        alt=""
       />
       <div className="flex-1 gap-6 flex flex-col items-start justify-between p-5 text-[#504136]">
         <div className="w-full">

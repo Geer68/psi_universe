@@ -1,5 +1,3 @@
-import React from "react";
-
 type CardProps = {
   title: string;
   titleColor: string;
@@ -41,23 +39,21 @@ const cards: CardProps[] = [
 
 export default function ComoSeHace() {
   return (
-    <section className="mt-32 w-full">
+    <section className="mt-40 w-full">
       <h2 className="font-mort-modern text-center font-medium text-5xl">
         Te mostramos cómo <br /> se hace...
       </h2>
-      <div className="relative flex flex-col sm:flex-row items-center gap-10 md:gap-4 lg:gap-0 sm:items-start justify-between mx-0 xl:mx-20 mt-10">
+      <div className="relative flex flex-col sm:flex-row items-center gap-10 md:gap-4 lg:gap-0 sm:items-start justify-between mx-0 xl:mx-20 mt-14">
         {cards.map((card, index) => (
           <CardAccion key={index} number={index + 1} {...card} />
         ))}
         <img
           className="hidden absolute md:block top-4 left-[23%] xl:left-[20%] w-1/5 xl:w-auto"
           src="/img/comosehace/flecha1.svg"
-          alt=""
         />
         <img
           className="hidden absolute md:block top-2 xl:top-0 right-[23%] xl:right-[20%] w-1/5 xl:w-auto"
           src="/img/comosehace/flecha2.svg"
-          alt=""
         />
       </div>
     </section>
