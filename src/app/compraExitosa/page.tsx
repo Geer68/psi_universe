@@ -66,7 +66,7 @@ function CompraExitosaContent() {
 
   return (
     <section className="py-8 antialiased  md:py-16 mt-20">
-      <div className="mx-auto max-w-2xl px-4 2xl:px-0">
+      <div className="mx-auto max-w-2xl px-4 2xl:px-0 ">
         <h2 className="text-xl font-semibold text-gray-900  sm:text-2xl mb-2">
           ¡Gracias por reservar!
         </h2>
@@ -82,7 +82,7 @@ function CompraExitosaContent() {
           No dudes en escribirnos a psico@soporte.com ante cualquier
           inconveniente.
         </p>
-        <div className="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6  mb-6 md:mb-8">
+        <div className="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-white  p-6  mb-6 md:mb-8">
           <dl className="sm:flex items-center justify-between gap-4">
             <dt className="font-normal mb-1 sm:mb-0 text-gray-500 ">
               Sesión para

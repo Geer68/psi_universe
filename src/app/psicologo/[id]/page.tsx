@@ -6,7 +6,6 @@ import Descripcion from "@/components/psicologos/Descripcion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { GoogleEvent, Psicologo } from "@/utils/types";
 import { Download, Linkedin } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home({ params }: { params: { id: string } }) {
@@ -22,6 +21,7 @@ export default function Home({ params }: { params: { id: string } }) {
         `/api/psicologo?id=${params.id}`
       ).then((res) => res.json());
       setEvents(events);
+      console.log(psicologo);
       setPsicologo(psicologo);
     }
     fetchEvents();
@@ -49,28 +49,32 @@ export default function Home({ params }: { params: { id: string } }) {
           {/* <p className="text-lg text-[#282828]">{psicologo.descripcion}</p> */}
         </div>
         <div className="w-full lg:w-28 flex justify-center sm:items-end flex-row sm:justify-end lg:flex-col gap-3 text-custom-violetaPrimario font-medium">
-          <Link
-            href={psicologo.linkCV || "https://www.google.com"}
-            className="flex items-end gap-2"
-            target="_blank"
-          >
-            <Download
-              className="text-custom-violetaPrimario/90"
-              strokeWidth="1"
-            />
-            <span>Curriculum</span>
-          </Link>
-          <Link
-            href={psicologo.linkedin || "https://www.google.com"}
-            className="flex items-end gap-2 "
-            target="_blank"
-          >
-            <Linkedin
-              className="text-custom-violetaPrimario/90"
-              strokeWidth="1"
-            />
-            <span className="">Linkedin</span>
-          </Link>
+          {psicologo.linkCV && (
+            <a
+              href={psicologo.linkCV}
+              className="flex items-end gap-2"
+              target="_blank"
+            >
+              <Download
+                className="text-custom-violetaPrimario/90"
+                strokeWidth="1"
+              />
+              <span>Curriculum</span>
+            </a>
+          )}
+          {psicologo.linkedin && (
+            <a
+              href={psicologo.linkedin}
+              className="flex items-end gap-2 "
+              target="_blank"
+            >
+              <Linkedin
+                className="text-custom-violetaPrimario/90"
+                strokeWidth="1"
+              />
+              <span className="">Linkedin</span>
+            </a>
+          )}
         </div>
       </div>
       <div className="rounded-xl p-8 shadow-lg">

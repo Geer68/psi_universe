@@ -3,8 +3,8 @@ import Container from "./Container";
 
 export default function Footer() {
   return (
-    <footer className="w-full relative flex align-middle justify-center h-48 py-4 mt-10">
-      <Container className="grid grid-cols-1 sm:flex justify-between w-[85%] my-4">
+    <footer className="w-full relative flex align-middle justify-center h-64 sm:h-48 py-4 my-10">
+      <Container className="grid grid-cols-1 gap-y-4 sm:flex justify-between w-[85%] my-4 ">
         <aside className="sm:w-1/2 flex flex-col gap-4 sm:gap-0 justify-between">
           <Link href={"/"} className="flex gap-4 items-center">
             <img src="/logoNegativo.png" alt="Logo" className="max-h-10" />
@@ -23,7 +23,7 @@ export default function Footer() {
             <Link href={"/consultas"}>Consultas</Link>
             <Link href={"/profesionales"}>Agendá</Link>
           </div>
-          <div className="text-custom-textClarito flex flex-col justify-between">
+          <div className="text-custom-textClarito flex flex-col gap-2 justify-between">
             <p className="font-medium">Nuestras redes</p>
             <p>Instagram</p>
             <p>Instagram</p>

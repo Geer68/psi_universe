@@ -10,8 +10,6 @@ function VerificarPagoContent() {
   const searchParams = useSearchParams();
   const [queryParams, setQueryParams] = useState<PaymentURL>();
 
-  //obtengo la data del pago y digo, es valido o no
-
   useEffect(() => {
     const fetchPaymentData = async () => {
       const query = Object.fromEntries(searchParams!.entries()) as PaymentURL;
@@ -61,7 +59,9 @@ function VerificarPagoContent() {
 }
 
 export default function VerificarPago() {
-  <Suspense>
-    <VerificarPagoContent />
-  </Suspense>;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerificarPagoContent />
+    </Suspense>
+  );
 }
