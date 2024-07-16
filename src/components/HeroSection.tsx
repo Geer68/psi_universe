@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import Link from "next/link";
 import { Button } from "./ui/button";
 
@@ -6,7 +7,6 @@ export default function HeroSection() {
     <div className="relative flex flex-col gap-6 items-center justify-center w-full h-[60vh]">
       <img
         src="/hero_bg.svg"
-        alt=""
         className="absolute top-0 -translate-x-1/2 left-1/2 w-2/3 -z-10"
       />
       <section className="text-center text-[#373737]">

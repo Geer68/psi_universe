@@ -37,7 +37,7 @@ export default function Home({ params }: { params: { id: string } }) {
         <img
           src={psicologo.img || ""}
           className="w-48 sm:h-48 rounded-xl"
-          alt=""
+          alt="Foto de perfil"
         />
         <div className="flex-1 text-custom-violetaPrimario">
           <h1 className="text-4xl font-mort-modern font-medium">

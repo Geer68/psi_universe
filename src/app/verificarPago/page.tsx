@@ -1,13 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Cliente, Pago, PaymentURL } from "@/utils/types";
+import { PaymentURL } from "@/utils/types";
 import Container from "@/components/Container";
 import { fetchData } from "@/utils/paymentLogic";
-import { getPsicologo } from "@/utils/psicologo";
-import { sendEmail } from "@/utils/sendEmail";
 
-export default function VerificarPago() {
+function VerificarPagoContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [queryParams, setQueryParams] = useState<PaymentURL>();
@@ -60,4 +58,10 @@ export default function VerificarPago() {
       </div>
     </Container>
   );
+}
+
+export default function VerificarPago() {
+  <Suspense>
+    <VerificarPagoContent />
+  </Suspense>;
 }
