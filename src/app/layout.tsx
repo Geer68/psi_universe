@@ -105,7 +105,7 @@ export default function RootLayout({
           property="og:description"
           content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
         />
-        <meta property="og:image" content="/psiuniverse.png" />
+        <meta property="og:image" content="/psiuniverse.jpg" />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://www.psiuniverse.com/" />
@@ -114,7 +114,7 @@ export default function RootLayout({
           property="twitter:description"
           content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
         />
-        <meta property="twitter:image" content="/psiuniverse.png" />
+        <meta property="twitter:image" content="/psiuniverse.jpg" />
       </head>
       <body
         className={`${inter.className} relative`}
