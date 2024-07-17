@@ -15,7 +15,7 @@ export default function NavBar() {
   if (!pathname) return null;
 
   return (
-    <nav className="sticky top-0 left-0 w-full backdrop-blur-md z-50 bg-white/90">
+    <nav className="sticky top-0 left-0 w-full backdrop-blur-md z-50 bg-gray-50/70">
       <Container>
         <div className="flex flex-wrap items-center justify-between py-3">
           <Link href={"/"} className="flex gap-4 items-center">
