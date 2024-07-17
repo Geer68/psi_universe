@@ -98,7 +98,8 @@ export default function RootLayout({
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://psiuniverse.com/" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:url" content="https://www.psiuniverse.com/" />
         <meta property="og:title" content="psi•universe" />
         <meta
           property="og:description"
@@ -107,7 +108,7 @@ export default function RootLayout({
         <meta property="og:image" content="/psiuniverse.png" />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://psiuniverse.com/" />
+        <meta property="twitter:url" content="https://www.psiuniverse.com/" />
         <meta property="twitter:title" content="psi•universe" />
         <meta
           property="twitter:description"

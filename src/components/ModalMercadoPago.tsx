@@ -27,8 +27,8 @@ export default function ModalMercadoPago({
   psicologo: Psicologo;
   eventoElegido: GoogleEvent | null;
 }) {
-  const inicio = extractDateTime(eventoElegido?.start || "");
-  const fin = extractDateTime(eventoElegido?.end || "");
+  const inicio = extractDateTime(eventoElegido?.start || "", true);
+  const fin = extractDateTime(eventoElegido?.end || "", true);
 
   // let dateSesion: Date;
   // console.log(eventoElegido?.start);
