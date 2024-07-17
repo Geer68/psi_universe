@@ -98,7 +98,7 @@ export default function RootLayout({
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:type" content="image/jpg" />
         <meta property="og:url" content="https://www.psiuniverse.com/" />
         <meta property="og:title" content="psi•universe" />
         <meta
