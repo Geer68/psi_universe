@@ -13,18 +13,25 @@ export default function Home({ params }: { params: { id: string } }) {
   const [psicologo, setPsicologo] = useState<Psicologo | null>(null);
 
   useEffect(() => {
-    async function fetchEvents() {
-      const {
-        psicologo,
-        events,
-      }: { psicologo: Psicologo; events: Array<GoogleEvent> } = await fetch(
-        `/api/psicologo?id=${params.id}`
-      ).then((res) => res.json());
-      setEvents(events);
+    async function fetchPsicologo() {
+      const response = await fetch(`/api/psicologo?id=${params.id}`);
+      const { psicologo }: { psicologo: Psicologo } = await response.json();
       setPsicologo(psicologo);
     }
-    fetchEvents();
+    fetchPsicologo();
   }, [params.id]);
+
+  useEffect(() => {
+    async function fetchEvents(hangoutLink: string) {
+      const { eventos }: { eventos: Array<GoogleEvent> } = await fetch(
+        `/api/events?idCalendario=${hangoutLink}`
+      ).then((res) => res.json());
+      setEvents(eventos);
+    }
+    if (psicologo) {
+      fetchEvents(psicologo.idCalendario);
+    }
+  }, [psicologo]);
 
   if (!psicologo) {
     return <SkeletonPage />;
@@ -77,7 +84,11 @@ export default function Home({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div className="rounded-xl p-8 shadow-lg">
-        <Calendar events={events ?? []} psicologo={psicologo} />
+        {events ? (
+          <Calendar events={events ?? []} psicologo={psicologo} />
+        ) : (
+          <Skeleton className="h-[40rem]" />
+        )}
       </div>
     </Container>
   );

@@ -16,7 +16,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   const { evento, query, sesionPagada } = req.body;
 
   if (!evento || !query || !sesionPagada) {
-    throw new Error("Error al evniar el correo");
+    throw new Error("Error al enviar el correo");
   }
 
   try {
@@ -37,18 +37,16 @@ export async function sendEMailCliente(
   const psicologo = await getPsicologo(query.psicologoId!);
 
   const asunto = `Confirmación de sesión con ${psicologo?.nombre} ${psicologo?.apellido}`;
-  const mensaje = `Hola ${query.nombre} ${
-    query.apellido
-  },\n\nTe escribimos para confirmar que tu sesión con ${psicologo?.nombre} ${
-    psicologo?.apellido
-  } ha sido programada con éxito para el día ${
-    extractDateTime(evento.start, true).date
-  } a las ${
-    extractDateTime(evento.start, true).time
-  }.\n\nPara unirte a la sesión, utiliza el siguiente enlace: ${
-    evento.hangoutLink
-  } \n\n¡Esperamos que tengas una excelente sesión!\n\nSaludos cordiales,\nEl equipo de psi•universe ;)`;
-
+  const mensaje = [
+    `Hola ${query.nombre} ${query.apellido}`,
+    `Te escribimos para confirmar que tu sesión con ${psicologo?.nombre} ${
+      psicologo?.apellido
+    } ha sido programada con éxito para el día ${
+      extractDateTime(evento.start, true).date
+    } a las ${extractDateTime(evento.start, true).time}.`,
+    `Para unirte a la sesión, utiliza el siguiente enlace: ${evento.hangoutLink}`,
+    `¡Esperamos que tengas una excelente sesión!`,
+  ];
   sendEmail(asunto, mensaje, query.email);
 }
 
@@ -60,17 +58,16 @@ export async function sendEMailPsicologo(
   const psicologo = await getPsicologo(query.psicologoId!);
 
   const asunto = `Confirmación de sesión con ${query.nombre} ${query.apellido}`;
-  const mensaje = `Hola ${
-    psicologo?.nombre
-  },\n\nQueremos informarte que la sesión con ${query.nombre} ${
-    query.apellido
-  } ha sido abonada y confirmada para el día ${
-    extractDateTime(evento.start, true).date
-  } a las ${
-    extractDateTime(evento.start, true).time
-  }.\n\nPara acceder a la sesión, utiliza el siguiente enlace: ${
-    evento.hangoutLink
-  } \n\n¡Esperamos que sea una sesión productiva!\n\nSaludos cordiales,\nEl equipo de psi•universe ;)`;
+  const mensaje = [
+    `Hola ${psicologo?.nombre},`,
+    `Queremos informarte que la sesión con ${query.nombre} ${
+      query.apellido
+    } ha sido abonada y confirmada para el día ${
+      extractDateTime(evento.start, true).date
+    } a las ${extractDateTime(evento.start, true).time}.`,
+    `Para acceder a la sesión, utiliza el siguiente enlace: ${evento.hangoutLink}`,
+    `¡Esperamos que sea una sesión productiva!`,
+  ];
 
   sendEmail(asunto, mensaje, psicologo?.emailPersonal!);
 }

@@ -1,4 +1,4 @@
-import { getEventByID, getEvents } from "@/utils/calendar";
+import { getEvents } from "@/utils/calendar";
 import { getPsicologo } from "@/utils/psicologo";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -8,15 +8,13 @@ interface Request {
 }
 
 export default async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const psicologo = await getPsicologo(req.query.id as string);
-  if (!psicologo) {
+  console.log("req.query.idCalendario", req.query.idCalendario);
+  const eventos = await getEvents(req.query.idCalendario as string);
+  if (!eventos) {
     res.send({ success: false });
     return;
   }
 
-  // const events = await getEvents(psicologo.idCalendario);
-
   // res.send({ success: true, events, event });
-  // res.send({ psicologo, events, success: true });
-  res.send({ psicologo, success: true });
+  res.send({ eventos, success: true });
 }
