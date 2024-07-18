@@ -3,7 +3,7 @@ import { MercadoPagoConfig } from "mercadopago";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const client = new MercadoPagoConfig({
-  accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
+  accessToken: process.env.MP_ACCESS_TK!,
 });
 
 export default async function POST(

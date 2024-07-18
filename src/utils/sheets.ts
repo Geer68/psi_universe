@@ -9,7 +9,7 @@ import { Cliente, Pago, Sesion } from "./types";
 // if (typeof window === "undefined") {
 //   sheets = google.sheets("v4");
 // }
-const SheetID = "1rh9idoALRzqV9Yktopfh2U16yoRLU1JCXCw7EyUUjw0";
+const SheetID = process.env.NEXT_PUBLIC_CALENDAR_ID;
 
 export async function getSheetClientes() {
   const auth = await getAuth();
