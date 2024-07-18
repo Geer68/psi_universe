@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import Head from "next/head";
 
 const satoshi = localFont({
   src: [
@@ -75,7 +76,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "psi•universe",
-  description: "PSIUniverse",
+  description:
+    "Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional.",
 };
 
 export default function RootLayout({
@@ -88,6 +90,7 @@ export default function RootLayout({
       className={`${satoshi.variable} ${mortModern.variable} ${mortModernCondensed.variable}`}
       lang="es"
     >
+      <IndexPage />
       <body
         className={`${inter.className} relative`}
         style={{
@@ -100,5 +103,37 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
+  );
+}
+
+function IndexPage() {
+  return (
+    <Head>
+      <title>psi•universe</title>
+      <meta name="title" content="psi•universe" />
+      <meta
+        name="description"
+        content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
+      />
+
+      <meta property="og:type" content="website" />
+      <meta property="og:image:type" content="image/jpg" />
+      <meta property="og:url" content="https://www.psiuniverse.com/" />
+      <meta property="og:title" content="psi•universe" />
+      <meta
+        property="og:description"
+        content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
+      />
+      <meta property="og:image" content="/psiuniverse.jpg" />
+
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content="https://www.psiuniverse.com/" />
+      <meta property="twitter:title" content="psi•universe" />
+      <meta
+        property="twitter:description"
+        content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
+      />
+      <meta property="twitter:image" content="/psiuniverse.jpg" />
+    </Head>
   );
 }

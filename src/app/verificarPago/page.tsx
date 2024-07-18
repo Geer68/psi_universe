@@ -1,18 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Cliente, Pago, PaymentURL } from "@/utils/types";
+import { PaymentURL } from "@/utils/types";
 import Container from "@/components/Container";
 import { fetchData } from "@/utils/paymentLogic";
-import { getPsicologo } from "@/utils/psicologo";
-import { sendEmail } from "@/utils/sendEmail";
 
-export default function VerificarPago() {
+function VerificarPagoContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [queryParams, setQueryParams] = useState<PaymentURL>();
-
-  //obtengo la data del pago y digo, es valido o no
 
   useEffect(() => {
     const fetchPaymentData = async () => {
@@ -59,5 +55,13 @@ export default function VerificarPago() {
         <span className="sr-only">Cargando...</span>
       </div>
     </Container>
+  );
+}
+
+export default function VerificarPago() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerificarPagoContent />
+    </Suspense>
   );
 }

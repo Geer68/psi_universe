@@ -6,8 +6,6 @@ import { GoogleEvent } from "./types";
 import { cookies } from "next/headers";
 import { extractDateTime } from "./dateFormater";
 
-const port = process.env.PORT || 3000;
-
 const client = new MercadoPagoConfig({
   accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
 });
@@ -28,7 +26,7 @@ export async function pagar(
     queryParams.append(key, value.toString());
   });
 
-  const successUrl = `http://localhost:${port}/verificarPago?${queryParams.toString()}`;
+  const successUrl = `http://localhost:3000/verificarPago?${queryParams.toString()}`;
 
   // Dia y hora
   const inicio = extractDateTime(eventoElegido?.start || "");

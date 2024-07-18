@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { ExternalLink } from "lucide-react";
 
 type CardProps = {
@@ -104,7 +105,6 @@ function CardCaracteristica({
   return (
     <div className="w-full flex flex-col xl:flex-row justify-between min-h-64 md:max-w-[48%] 2xl:flex-auto 2xl:max-w-[48%] rounded-2xl bg-white shadow-sm overflow-hidden border border-1 border-custom-violetaPrimario/10">
       <img
-        alt="figura abstracta"
         src={img}
         className="mt-6 h-32 xl:h-full w-full xl:w-1/4 xl:-ml-2 object-contain xl:object-cover object-center xl:object-right"
       />

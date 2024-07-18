@@ -17,7 +17,7 @@ export default function Calendar({
   const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
   const matches = useBreakpoint("sm-");
 
-  useEffect(() => console.log(matches), [matches]);
+  // useEffect(() => console.log(matches), [matches]);
 
   return (
     <>
@@ -61,7 +61,7 @@ export default function Calendar({
         height="auto"
         initialView={
           window.matchMedia("(max-width: 640px)").matches
-            ? "dayGridDay"
+            ? "timeGridDay"
             : "timeGridWeek"
         }
         allDaySlot={false}
