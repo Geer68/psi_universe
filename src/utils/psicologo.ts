@@ -3,7 +3,7 @@ import { Psicologo } from "./types";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_KEY!
+  process.env.SUPABASE_KEY!
 );
 
 export const getPsicologo = async (
