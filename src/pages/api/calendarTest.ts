@@ -1,4 +1,5 @@
 import { getEventByID, getEvents, setEventBooked } from "@/utils/calendar";
+import { sendEmail } from "@/utils/sendEmail";
 import { NextApiRequest, NextApiResponse } from "next";
 
 interface Request {
@@ -9,11 +10,13 @@ interface Request {
 // Same as above interface but all properties are optional
 
 export default async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const events = await getEvents(
-    "93017179a9fcdc0fa6c93be29c6c63e4ef00a591b9535d0fc09629de00194b9c@group.calendar.google.com"
-  );
-  console.log(events);
-
-  // res.send({ success: true, events, event });
-  res.send({ events, success: true });
+  const mensaje = [
+    "Hola Gabriel,",
+    "Queremos informarte que la sesión con ger ger ha sido abonada y confirmada para el día 16/8/2024 a las 09:00.",
+    "Para acceder a la sesión, utiliza el siguiente enlace: undefined",
+    "¡Esperamos que sea una sesión productiva!",
+    "`Saludos cordiales, El equipo de psiuniverse ;)",
+  ];
+  sendEmail("PSIUniverse Test", mensaje, "grperezdiez@gmail.com");
+  res.send({ mensaje, success: true });
 }
