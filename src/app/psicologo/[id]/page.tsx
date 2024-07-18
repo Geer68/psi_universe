@@ -23,10 +23,10 @@ export default function Home({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     async function fetchEvents(hangoutLink: string) {
-      const { events }: { events: Array<GoogleEvent> } = await fetch(
+      const { eventos }: { eventos: Array<GoogleEvent> } = await fetch(
         `/api/events?idCalendario=${hangoutLink}`
       ).then((res) => res.json());
-      setEvents(events);
+      setEvents(eventos);
     }
     if (psicologo) {
       fetchEvents(psicologo.idCalendario);
@@ -84,7 +84,11 @@ export default function Home({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div className="rounded-xl p-8 shadow-lg">
-        <Calendar events={events ?? []} psicologo={psicologo} />
+        {events ? (
+          <Calendar events={events ?? []} psicologo={psicologo} />
+        ) : (
+          <Skeleton className="h-[40rem]" />
+        )}
       </div>
     </Container>
   );

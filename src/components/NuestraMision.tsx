@@ -2,7 +2,7 @@
 export default function NuestraMision() {
   return (
     <section className="relative  bg-[#250C49] rounded-xl mt-40 mb-20">
-      <div className="relative h-full w-full py-20 px-5 sm:px-10 overflow-hidden text-center">
+      <div className="relative rounded-xl h-full w-full py-20 px-5 sm:px-10 overflow-hidden text-center">
         <h2 className="font-mort-modern text-white font-semibold text-5xl m-auto w-fit">
           Nuestra misión
         </h2>
