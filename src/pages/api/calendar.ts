@@ -11,7 +11,6 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 
   const eventoSeleccionado: GoogleEvent = evento;
 
-  console.log(eventoSeleccionado);
   try {
     await setEventBooked(eventoSeleccionado.calendarId, eventoSeleccionado.id!);
     res.send({ test: true });

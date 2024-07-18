@@ -2,8 +2,10 @@ import { google } from "googleapis";
 import { getAuth } from "./googleAuth";
 import { Cliente, Pago, Sesion } from "./types";
 
-const sheets = google.sheets("v4");
-
+// let sheets;
+// if (typeof window === "undefined") {
+//   sheets = google.sheets("v4");
+// }
 const SheetID = "1rh9idoALRzqV9Yktopfh2U16yoRLU1JCXCw7EyUUjw0";
 
 export async function getSheetClientes() {

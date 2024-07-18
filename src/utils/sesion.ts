@@ -1,15 +1,29 @@
 import { createClient } from "@supabase/supabase-js";
-import {
-  appendSheetClientes,
-  appendSheetPago,
-  appendSheetSesiones,
-} from "./sheets";
 import { Cliente, Pago, Sesion } from "./types";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_KEY!
 );
+
+const fetchAppendSheet = async (action: string, data: any) => {
+  const response = await fetch("/api/sheets", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ action, data }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(
+      `Error al interactuar con Google Sheets: ${errorData.message}`
+    );
+  }
+
+  return response.json();
+};
 
 export const insertNewClient = async (
   cliente: Cliente
@@ -40,7 +54,7 @@ export const insertNewClient = async (
 
     if (data) {
       const id = data[0].id;
-      await appendSheetClientes(id, cliente);
+      await fetchAppendSheet("appendSheetClientes", { id, cliente });
       return id;
     }
 
@@ -78,7 +92,7 @@ export const insertNewPayment = async (pago: Pago): Promise<string | null> => {
 
     if (data) {
       const id = data[0].id;
-      await appendSheetPago(id, pago);
+      await fetchAppendSheet("appendSheetPago", { id, pago });
       return id;
     }
 
@@ -119,7 +133,7 @@ export const insertNewSesion = async (
 
     if (data) {
       const id = data[0].id;
-      await appendSheetSesiones(id, sesion);
+      await fetchAppendSheet("appendSheetSesiones", { id, sesion });
       return id;
     }
 
