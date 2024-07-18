@@ -59,26 +59,32 @@ export async function getEvents(
 
     const fetchedEvents = res.data.items;
 
-    const events = fetchedEvents?.map((event) => {
-      let startTime = event.start?.dateTime;
-      let endTime = event.end?.dateTime;
+    if (fetchedEvents) {
+      console.log("fetchedEvents", fetchedEvents[0]);
+    }
 
-      let backgroundColor = "#7643BE";
-      let borderColor = "#e8e7e6";
+    const events = fetchedEvents
+      ?.map((event) => {
+        let startTime = event.start?.dateTime;
+        let endTime = event.end?.dateTime;
 
-      if (event.extendedProperties?.private?.booked) {
-        backgroundColor = "#D3D3D3";
-      }
+        let backgroundColor = "#7643BE";
+        let borderColor = "#e8e7e6";
 
-      return {
-        ...event,
-        calendarId,
-        start: startTime,
-        end: endTime,
-        backgroundColor,
-        borderColor,
-      };
-    });
+        if (event.extendedProperties?.private?.booked) {
+          backgroundColor = "#D3D3D3";
+        }
+
+        return {
+          ...event,
+          calendarId,
+          start: startTime,
+          end: endTime,
+          backgroundColor,
+          borderColor,
+        };
+      })
+      .filter((event) => event.hangoutLink) as Array<GoogleEvent>;
 
     if (!events || events.length === 0) {
       console.log("No upcoming events found.");
