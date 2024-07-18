@@ -13,18 +13,25 @@ export default function Home({ params }: { params: { id: string } }) {
   const [psicologo, setPsicologo] = useState<Psicologo | null>(null);
 
   useEffect(() => {
-    async function fetchEvents() {
-      const {
-        psicologo,
-        events,
-      }: { psicologo: Psicologo; events: Array<GoogleEvent> } = await fetch(
-        `/api/psicologo?id=${params.id}`
-      ).then((res) => res.json());
-      setEvents(events);
+    async function fetchPsicologo() {
+      const response = await fetch(`/api/psicologo?id=${params.id}`);
+      const { psicologo }: { psicologo: Psicologo } = await response.json();
       setPsicologo(psicologo);
     }
-    fetchEvents();
+    fetchPsicologo();
   }, [params.id]);
+
+  useEffect(() => {
+    async function fetchEvents(hangoutLink: string) {
+      const { events }: { events: Array<GoogleEvent> } = await fetch(
+        `/api/events?idCalendario=${hangoutLink}`
+      ).then((res) => res.json());
+      setEvents(events);
+    }
+    if (psicologo) {
+      fetchEvents(psicologo.idCalendario);
+    }
+  }, [psicologo]);
 
   if (!psicologo) {
     return <SkeletonPage />;
