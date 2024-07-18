@@ -1,4 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
+import {
+  appendSheetClientes,
+  appendSheetPago,
+  appendSheetSesiones,
+} from "./sheets";
 import { Cliente, Pago, Sesion } from "./types";
 
 const supabase = createClient(
@@ -54,7 +59,8 @@ export const insertNewClient = async (
 
     if (data) {
       const id = data[0].id;
-      await fetchAppendSheet("appendSheetClientes", { id, cliente });
+      await appendSheetClientes(id, cliente);
+      // await fetchAppendSheet("appendSheetClientes", { id, cliente });
       return id;
     }
 
@@ -92,7 +98,8 @@ export const insertNewPayment = async (pago: Pago): Promise<string | null> => {
 
     if (data) {
       const id = data[0].id;
-      await fetchAppendSheet("appendSheetPago", { id, pago });
+      await appendSheetPago(id, pago);
+      // await fetchAppendSheet("appendSheetPago", { id, pago });
       return id;
     }
 
@@ -133,7 +140,8 @@ export const insertNewSesion = async (
 
     if (data) {
       const id = data[0].id;
-      await fetchAppendSheet("appendSheetSesiones", { id, sesion });
+      await appendSheetSesiones(id, sesion);
+      // await fetchAppendSheet("appendSheetSesiones", { id, sesion });
       return id;
     }
 

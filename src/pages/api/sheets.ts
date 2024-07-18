@@ -1,5 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { formatToArgentinianTime } from "@/utils/dateFormater";
 import { google } from "googleapis";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { getAuth } from "../../utils/googleAuth";
 import { Cliente, Pago, Sesion } from "../../utils/types";
 
@@ -48,7 +49,7 @@ async function appendSheetClientes(
   id: string | number,
   cliente: Cliente
 ) {
-  const dateNow = new Date().toISOString();
+  const dateNow = formatToArgentinianTime(new Date().toISOString());
   const res = await sheets.spreadsheets.values.append({
     spreadsheetId: SheetID,
     range: "Clientes!A:E",
@@ -61,10 +62,10 @@ async function appendSheetClientes(
 }
 
 async function appendSheetPago(sheets: any, id: string | number, pago: Pago) {
-  const dateNow = new Date().toISOString();
+  const dateNow = formatToArgentinianTime(new Date().toISOString());
   const res = await sheets.spreadsheets.values.append({
     spreadsheetId: SheetID,
-    range: "Pago!A:E",
+    range: "Pago!A:H",
     valueInputOption: "USER_ENTERED",
     requestBody: {
       values: [
@@ -77,11 +78,11 @@ async function appendSheetPago(sheets: any, id: string | number, pago: Pago) {
           pago.comisiones,
           pago.neto,
           pago.fechaPago,
-          pago.payerMP,
         ],
       ],
     },
   });
+  console.log();
   return res.data;
 }
 
@@ -92,7 +93,7 @@ async function appendSheetSesiones(
 ) {
   const res = await sheets.spreadsheets.values.append({
     spreadsheetId: SheetID,
-    range: "Sesiones!A:E",
+    range: "Sesiones!A:F",
     valueInputOption: "USER_ENTERED",
     requestBody: {
       values: [
