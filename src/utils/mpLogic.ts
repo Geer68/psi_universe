@@ -1,12 +1,13 @@
 "use server";
 import { MercadoPagoConfig, Preference } from "mercadopago";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { Psicologo } from "./types";
+import { GoogleEvent } from "./types";
+import { cookies } from "next/headers";
 import { extractDateTime } from "./dateFormater";
-import { GoogleEvent, Psicologo } from "./types";
 
 const client = new MercadoPagoConfig({
-  accessToken: process.env.MP_ACCESS_TK!,
+  accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
 });
 
 export async function pagar(
@@ -25,9 +26,7 @@ export async function pagar(
     queryParams.append(key, value.toString());
   });
 
-  const successUrl = `${
-    process.env.NEXT_PUBLIC_SITE_URL
-  }/verificarPago?${queryParams.toString()}`;
+  const successUrl = `https://www.psiuniverse.com/verificarPago?${queryParams.toString()}`;
 
   // Dia y hora
   const inicio = extractDateTime(eventoElegido?.start || "");
@@ -67,7 +66,7 @@ export async function pagar(
 }
 
 const BASE_URL = "https://api.mercadopago.com/v1/payments";
-const TOKEN = process.env.MP_ACCESS_TK!;
+const TOKEN = process.env.NEXT_PUBLIC_MP_ACCESS_TK!;
 
 export async function getPaymentData(idBody: string) {
   const url = `${BASE_URL}/${idBody}?access_token=${TOKEN}`;

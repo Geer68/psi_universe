@@ -8,11 +8,13 @@ interface Request {
 }
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const query: PaymentURL = req.body;
+  const { query, evento } = req.body;
   const id = query.collection_id;
+  console.log("query", query);
+  console.log("evento", evento);
 
   try {
-    const payment = await fetchData(id, query);
+    const payment = await fetchData(query, evento);
     res.send({ payment, success: true });
   } catch (error: any) {
     console.log(error);

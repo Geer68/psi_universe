@@ -3,6 +3,7 @@ import { GoogleEvent } from "@/utils/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+  console.log("eventoRec", req.body);
   const { evento } = req.body;
 
   if (!evento) {

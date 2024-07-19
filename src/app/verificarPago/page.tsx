@@ -1,7 +1,9 @@
 "use client";
 import Container from "@/components/Container";
+import { getCookieEvento } from "@/utils/mpLogic";
 import { fetchData } from "@/utils/paymentLogic";
 import { PaymentURL } from "@/utils/types";
+import { get } from "http";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
@@ -15,6 +17,8 @@ function VerificarPagoContent() {
       const query = Object.fromEntries(searchParams!.entries()) as PaymentURL;
       setQueryParams(query);
 
+      const evento = await getCookieEvento();
+      console.log(evento);
       try {
         console.log(query);
         const validPayment = await fetch("/api/sesion", {
@@ -22,7 +26,10 @@ function VerificarPagoContent() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(query),
+          body: JSON.stringify({
+            query: query,
+            evento: evento,
+          }),
         });
         const payment = await validPayment.json();
         console.log(payment);

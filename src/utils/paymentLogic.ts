@@ -1,26 +1,26 @@
-import {
-  insertNewClient,
-  insertNewPayment,
-  insertNewSesion,
-  parseDateToTimestamp,
-} from "./sesion";
+import { insertNewClient, insertNewPayment, insertNewSesion } from "./sesion";
 import { Cliente, GoogleEvent, Pago, PaymentURL, Sesion } from "./types";
 import { getCookieEvento, getPaymentData } from "./mpLogic";
-import { extractDateTime, formatToArgentinianTime } from "./dateFormater";
+import { formatToArgentinianTime } from "./dateFormater";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
-export async function fetchData(id: string, query: PaymentURL) {
+export async function fetchData(query: PaymentURL, evento: RequestCookie) {
   try {
-    const payment = await getPaymentData(id);
+    const payment = await getPaymentData(query.collection_id);
     if (payment) {
-      await preparePaymentDB(payment, query);
+      const succcess = await preparePaymentDB(payment, query, evento);
+      return succcess;
     }
-    return payment;
   } catch (error: any) {
     throw error;
   }
 }
 
-async function preparePaymentDB(paymentData: any, query: PaymentURL) {
+async function preparePaymentDB(
+  paymentData: any,
+  query: PaymentURL,
+  evento: RequestCookie
+) {
   try {
     const client: Cliente = {
       nombre: query.nombre,
@@ -49,11 +49,7 @@ async function preparePaymentDB(paymentData: any, query: PaymentURL) {
         throw new Error("Error al insertar el pago");
       }
 
-      const event = await getCookieEvento();
-      if (!event) {
-        throw new Error("Error al obtener el evento");
-      }
-      const eventoJSON: GoogleEvent = JSON.parse(event.value);
+      const eventoJSON: GoogleEvent = JSON.parse(evento.value);
 
       const inicioSesion = formatToArgentinianTime(eventoJSON.start);
 
