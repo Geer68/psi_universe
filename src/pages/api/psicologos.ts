@@ -6,7 +6,7 @@ interface Request {
   title: string;
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export default async function GET(req: NextApiRequest, res: NextApiResponse) {
   const psicologos = await listPsicologos();
   res.send({ psicologos, success: true });
 }

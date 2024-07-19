@@ -11,9 +11,8 @@ export default function Profesionales() {
   useEffect(() => {
     async function getPsicologos() {
       const fetchPsicologos = await fetch("/api/psicologos");
-      // const { psicologos } = await fetchPsicologos.json();
-      // setPsicologos(psicologos || []);
-      setPsicologos([]);
+      const { psicologos } = await fetchPsicologos.json();
+      setPsicologos(psicologos || []);
     }
     getPsicologos();
   }, []);
