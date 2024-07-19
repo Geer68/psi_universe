@@ -18,7 +18,7 @@ function VerificarPagoContent() {
       setQueryParams(query);
 
       const evento = await getCookieEvento();
-      console.log(evento);
+
       try {
         console.log(query);
         const validPayment = await fetch("/api/sesion", {
@@ -31,14 +31,14 @@ function VerificarPagoContent() {
             evento: evento,
           }),
         });
-        const payment = await validPayment.json();
-        console.log(payment);
-        //fetchData(query.collection_id!, query);
-        if (payment) {
-          const queryString = new URLSearchParams(
-            query as Record<string, string>
-          ).toString();
+        const response = await validPayment.json();
+        const queryString = new URLSearchParams(
+          query as Record<string, string>
+        ).toString();
+        if (response.success) {
           router.push(`/compraExitosa?${queryString}`);
+        } else {
+          router.push(`/compraFallida?${queryString}`);
         }
       } catch (error: any) {
         console.log(error);

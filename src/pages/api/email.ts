@@ -1,39 +1,27 @@
 import { extractDateTime } from "@/utils/dateFormater";
 import { getPsicologo } from "@/utils/psicologo";
 import { sendEmail } from "@/utils/sendEmail";
-import { GoogleEvent, PaymentURL, Sesion } from "@/utils/types";
+import { GoogleEvent, PaymentURL } from "@/utils/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
-interface Request {
-  body: string;
-  title: string;
-}
-
-// Same as above interface but all properties are optional
-
-//será necesario enviar el pago?
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { evento, query, sesionPagada } = req.body;
+  const { evento, query } = req.body;
 
-  if (!evento || !query || !sesionPagada) {
+  if (!evento || !query) {
     throw new Error("Error al enviar el correo");
   }
 
   try {
-    await sendEMailCliente(evento, query, sesionPagada);
-    await sendEMailPsicologo(evento, query, sesionPagada);
-    res.send({ test: true });
+    await sendEMailCliente(evento, query);
+    await sendEMailPsicologo(evento, query);
+    res.send({ result: true });
   } catch (error: any) {
     console.log(error);
     res.status(500).send({ error: "Error al enviar el correo" });
   }
 }
 
-export async function sendEMailCliente(
-  evento: GoogleEvent,
-  query: PaymentURL,
-  sesionPagada: Sesion
-) {
+export async function sendEMailCliente(evento: GoogleEvent, query: PaymentURL) {
   const psicologo = await getPsicologo(query.psicologoId!);
 
   const asunto = `Confirmación de sesión con ${psicologo?.nombre} ${psicologo?.apellido}`;
@@ -52,8 +40,7 @@ export async function sendEMailCliente(
 
 export async function sendEMailPsicologo(
   evento: GoogleEvent,
-  query: PaymentURL,
-  sesionPagada: Sesion
+  query: PaymentURL
 ) {
   const psicologo = await getPsicologo(query.psicologoId!);
 

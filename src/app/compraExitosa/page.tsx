@@ -65,14 +65,14 @@ function CompraExitosaContent() {
   }
 
   return (
-    <section className="py-8 antialiased  md:py-16 mt-20">
+    <section className="py-8 antialiased  md:py-16 mt-20 font-satoshi">
       <div className="mx-auto max-w-2xl px-4 2xl:px-0 ">
         <div className="px-6 mb-6 sm:px-0">
-          <h2 className="text-xl font-semibold text-gray-900  sm:text-2xl mb-2">
+          <h2 className="text-xl font-semibold text-gray-900  sm:text-4xl mb-2">
             ¡Gracias por reservar!
           </h2>
-          <p className="text-gray-500  mb-6 md:mb-8">
-            Tu número de orden es{" "}
+          <p className="text-gray-500 mb-6 md:mb-8">
+            Tu número de operación es{" "}
             <strong className="font-medium text-gray-900  hover:underline">
               #{queryParams.collection_id}
             </strong>
@@ -80,7 +80,7 @@ function CompraExitosaContent() {
             correo con los detalles necesarios para tu sesión.
           </p>
         </div>
-        <div className="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-white  p-6  mb-6 md:mb-8">
+        <div className="space-y-4 sm:space-y-2 rounded-lg border shadow-[rgba(13,_38,_76,_0.05)_0px_9px_20px] border-gray-100 bg-white  p-6  mb-6 md:mb-8">
           <dl className="sm:flex items-center justify-between gap-4">
             <dt className="font-normal mb-1 sm:mb-0 text-gray-500 ">
               Sesión para
@@ -139,14 +139,6 @@ function CompraExitosaContent() {
             Volver al inicio
           </Link>
         </div>
-        {/* <ul>
-          {Object.entries(queryParams).map(([key, value]) => (
-            <li key={key}>
-              <strong>{key}: </strong>
-              {value}
-            </li>
-          ))}
-        </ul> */}
       </div>
     </section>
   );

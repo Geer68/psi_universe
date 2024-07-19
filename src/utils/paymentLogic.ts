@@ -96,7 +96,7 @@ export async function sendPOSTEmail(
       body: JSON.stringify({ evento: eventoJSON, query, sesionPagada }),
     });
     const result = await response.json();
-    return result.success;
+    return result.result;
   } catch (error: any) {
     console.error("Error in sendPOSTEmail:", error.message);
     return false;
@@ -113,7 +113,8 @@ export async function sendPOSTCalendar(eventoJSON: GoogleEvent) {
       body: JSON.stringify({ evento: eventoJSON }),
     });
     const result = await response.json();
-    return result.success;
+    console.log("sendPOSTCalendar result:", result);
+    return result.result;
   } catch (error: any) {
     console.error("Error in sendPOSTCalendar:", error.message);
     return false;
