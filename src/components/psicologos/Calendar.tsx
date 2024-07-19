@@ -53,6 +53,7 @@ export default function Calendar({
             booked: eventClicked.extendedProperties?.private.booked || null,
             backgroundColor: eventInfo.event.backgroundColor || "",
             htmlLink: eventClicked.htmlLink,
+            hangoutLink: eventClicked.hangoutLink,
             creator: eventClicked.creator,
             organizer: eventClicked.organizer,
             calendarId: eventClicked.calendarId,

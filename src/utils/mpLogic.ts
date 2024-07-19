@@ -18,7 +18,6 @@ export async function pagar(
 
   queryParams.append("psicologoId", psicologo.id.toString());
   queryParams.append("monto", psicologo.precioSesion.toString());
-  console.log(eventoElegido);
   cookies().set("evento", JSON.stringify(eventoElegido), { httpOnly: true });
 
   formData.forEach((value, key) => {
