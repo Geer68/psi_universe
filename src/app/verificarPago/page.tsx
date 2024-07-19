@@ -17,10 +17,13 @@ function VerificarPagoContent() {
       const query = Object.fromEntries(searchParams!.entries()) as PaymentURL;
       setQueryParams(query);
 
+      console.log("🚀 Query:", query);
+
       const evento = await getCookieEvento();
 
+      console.log("👌 Evento:", evento);
+
       try {
-        console.log(query);
         const validPayment = await fetch("/api/sesion", {
           method: "POST",
           headers: {

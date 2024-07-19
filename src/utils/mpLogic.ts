@@ -1,10 +1,9 @@
 "use server";
 import { MercadoPagoConfig, Preference } from "mercadopago";
-import { redirect } from "next/navigation";
-import { Psicologo } from "./types";
-import { GoogleEvent } from "./types";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { extractDateTime } from "./dateFormater";
+import { GoogleEvent, Psicologo } from "./types";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TK!,
@@ -26,7 +25,9 @@ export async function pagar(
     queryParams.append(key, value.toString());
   });
 
-  const successUrl = `https://www.psiuniverse.com/verificarPago?${queryParams.toString()}`;
+  const successUrl = `${
+    process.env.NEXT_PUBLIC_SITE_URL
+  }/verificarPago?${queryParams.toString()}`;
 
   // Dia y hora
   const inicio = extractDateTime(eventoElegido?.start || "");
