@@ -2,7 +2,6 @@
 import CardPsicologo from "@/components/CardPsicologo";
 import Container from "@/components/Container";
 import { Skeleton } from "@/components/ui/skeleton";
-import { listPsicologos } from "@/utils/psicologo";
 import { Psicologo } from "@/utils/types";
 import { useEffect, useState } from "react";
 
@@ -10,9 +9,12 @@ export default function Profesionales() {
   const [psicologos, setPsicologos] = useState<Psicologo[]>([]);
 
   useEffect(() => {
-    listPsicologos().then((listadoPsicologos) => {
-      setPsicologos(listadoPsicologos || []);
-    });
+    async function getPsicologos() {
+      const fetchPsicologos = await fetch("/api/psicologos");
+      const { psicologos } = await fetchPsicologos.json();
+      setPsicologos(psicologos || []);
+    }
+    getPsicologos();
   }, []);
 
   return (

@@ -1,8 +1,9 @@
+"use server";
 import { createClient } from "@supabase/supabase-js";
 import { Psicologo } from "./types";
 
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_URL!,
   process.env.SUPABASE_KEY!
 );
 

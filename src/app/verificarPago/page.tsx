@@ -1,9 +1,9 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { PaymentURL } from "@/utils/types";
 import Container from "@/components/Container";
 import { fetchData } from "@/utils/paymentLogic";
+import { PaymentURL } from "@/utils/types";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 function VerificarPagoContent() {
   const router = useRouter();
@@ -16,8 +16,15 @@ function VerificarPagoContent() {
       setQueryParams(query);
 
       try {
-        const validPayment = await fetchData(query.collection_id!, query);
-        if (validPayment) {
+        const validPayment = await fetch("/api/sesion", {
+          method: "POST",
+          body: JSON.stringify({
+            query,
+          }),
+        });
+        const payment = await validPayment.json();
+        //fetchData(query.collection_id!, query);
+        if (payment) {
           const queryString = new URLSearchParams(
             query as Record<string, string>
           ).toString();

@@ -7,28 +7,9 @@ import {
 import { Cliente, Pago, Sesion } from "./types";
 
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_URL!,
   process.env.SUPABASE_KEY!
 );
-
-const fetchAppendSheet = async (action: string, data: any) => {
-  const response = await fetch("/api/sheets", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ action, data }),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(
-      `Error al interactuar con Google Sheets: ${errorData.message}`
-    );
-  }
-
-  return response.json();
-};
 
 export const insertNewClient = async (
   cliente: Cliente
