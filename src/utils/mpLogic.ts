@@ -66,7 +66,7 @@ export async function pagar(
 }
 
 const BASE_URL = "https://api.mercadopago.com/v1/payments";
-const TOKEN = process.env.NEXT_PUBLIC_MP_ACCESS_TK!;
+const TOKEN = process.env.MP_ACCESS_TK!;
 
 export async function getPaymentData(idBody: string) {
   const url = `${BASE_URL}/${idBody}?access_token=${TOKEN}`;
