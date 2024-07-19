@@ -1,5 +1,4 @@
 import { fetchData } from "@/utils/paymentLogic";
-import { listPsicologos } from "@/utils/psicologo";
 import { PaymentURL } from "@/utils/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
