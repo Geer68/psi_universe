@@ -10,10 +10,12 @@ interface Request {
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   const id = req.query.id as string;
   const query = req.query as PaymentURL;
-  const payment = await fetchData(id, query);
-  // const events = await getEvents(psicologo.idCalendario);
 
-  // res.send({ success: true, events, event });
-  // res.send({ psicologo, events, success: true });
-  res.send({ payment, success: true });
+  try {
+    const payment = await fetchData(id, query);
+    res.send({ payment, success: true });
+  } catch (error: any) {
+    console.log(error);
+    res.status(500).send({ error: "Error en el pago de sesión" });
+  }
 }
