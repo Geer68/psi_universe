@@ -8,7 +8,7 @@ interface Request {
 }
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { query }: { query: PaymentURL } = req.body;
+  const query: PaymentURL = req.body;
   const id = query.collection_id;
 
   try {

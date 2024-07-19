@@ -16,13 +16,16 @@ function VerificarPagoContent() {
       setQueryParams(query);
 
       try {
+        console.log(query);
         const validPayment = await fetch("/api/sesion", {
           method: "POST",
-          body: JSON.stringify({
-            query,
-          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(query),
         });
         const payment = await validPayment.json();
+        console.log(payment);
         //fetchData(query.collection_id!, query);
         if (payment) {
           const queryString = new URLSearchParams(
