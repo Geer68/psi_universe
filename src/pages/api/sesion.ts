@@ -8,8 +8,8 @@ interface Request {
 }
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const id = req.query.id as string;
-  const query = req.query as PaymentURL;
+  const { query }: { query: PaymentURL } = req.body;
+  const id = query.collection_id;
 
   try {
     const payment = await fetchData(id, query);
