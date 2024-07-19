@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 import { extractDateTime } from "./dateFormater";
 
 const client = new MercadoPagoConfig({
-  accessToken: process.env.NEXT_PUBLIC_MP_ACCESS_TK!,
+  accessToken: process.env.MP_ACCESS_TK!,
 });
 
 export async function pagar(
