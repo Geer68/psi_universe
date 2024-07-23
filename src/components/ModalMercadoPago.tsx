@@ -88,12 +88,13 @@ export default function ModalMercadoPago({
               <span>Email</span>
               <Input name="email" type="email" required />
             </Label>
-            <Button type="submit">Pagar</Button>
+            <Button type="submit" className="bg-custom-violetaFondoBTN">
+              Reservar
+            </Button>
           </form>
         </AlertDialogHeader>
         <AlertDialogFooter className="w-full">
           <AlertDialogCancel className="w-full">Cancelar</AlertDialogCancel>
-          {/* <AlertDialogAction>Continue</AlertDialogAction> */}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

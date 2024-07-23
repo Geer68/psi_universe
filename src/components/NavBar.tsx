@@ -19,7 +19,11 @@ export default function NavBar() {
       <Container>
         <div className="flex flex-wrap items-center justify-between py-3">
           <Link href={"/"} className="flex gap-4 items-center">
-            <img src="/logoNegativo.png" alt="Logo" />
+            <img
+              src="/logoNegativo.png"
+              alt="Logo"
+              className="rounded-full h-12"
+            />
             <p className="text-[#7643BE] font-bold text-2xl font-satoshi">
               psi•universe
             </p>

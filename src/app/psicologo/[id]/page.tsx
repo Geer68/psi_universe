@@ -76,7 +76,7 @@ export default function Home({ params }: { params: { id: string } }) {
             >
               <Linkedin
                 className="text-custom-violetaPrimario/90"
-                strokeWidth="1"
+                strokeWidth="1.5"
               />
               <span className="">Linkedin</span>
             </a>

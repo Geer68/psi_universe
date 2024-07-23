@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Container from "./Container";
+import { Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -23,11 +24,19 @@ export default function Footer() {
             <Link href={"/consultas"}>Consultas</Link>
             <Link href={"/profesionales"}>Agendá</Link>
           </div>
-          <div className="text-custom-textClarito flex flex-col gap-2 justify-between">
+          <div className="text-custom-textClarito flex flex-col gap-2 justify-start">
             <p className="font-medium">Nuestras redes</p>
-            <p>Instagram</p>
-            <p>Instagram</p>
-            <p>Instagram</p>
+            <a href="https://www.instagram.com/psiuniverse/" className="flex">
+              <Instagram className="mr-2" strokeWidth="1.7" />
+              Instagram
+            </a>
+            <a
+              href="https://www.linkedin.com/company/psiuniverse/"
+              className="flex"
+            >
+              <Linkedin className="mr-2" strokeWidth="1.5" />
+              Linkedin
+            </a>
           </div>
         </aside>
       </Container>
