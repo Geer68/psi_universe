@@ -88,13 +88,16 @@ export async function sendPOSTEmail(
   sesionPagada: Sesion
 ) {
   try {
-    const response = await fetch(`http://localhost:3000/api/email`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ evento: eventoJSON, query, sesionPagada }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/email`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ evento: eventoJSON, query, sesionPagada }),
+      }
+    );
     const result = await response.json();
     return result.result;
   } catch (error: any) {
@@ -105,13 +108,16 @@ export async function sendPOSTEmail(
 
 export async function sendPOSTCalendar(eventoJSON: GoogleEvent) {
   try {
-    const response = await fetch(`http://localhost:3000/api/calendar`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ evento: eventoJSON }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/calendar`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ evento: eventoJSON }),
+      }
+    );
     const result = await response.json();
     return result.result;
   } catch (error: any) {
