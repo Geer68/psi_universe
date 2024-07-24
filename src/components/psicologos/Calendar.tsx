@@ -17,6 +17,7 @@ export default function Calendar({
   const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
   const matches = useBreakpoint("sm-");
 
+  console.log(events);
   return (
     <>
       <ModalMercadoPago
@@ -27,6 +28,7 @@ export default function Calendar({
       />
       <FullCalendar
         locale="es"
+        // timeZone="America/Argentina/Buenos_Aires"
         weekends={false}
         plugins={[timeGridPlugin, dayGrid]}
         events={events}
@@ -46,8 +48,8 @@ export default function Calendar({
           setEventoElegido({
             id: eventInfo.event.id,
             summary: eventInfo.event.title,
-            start: eventInfo.event.start.toISOString(),
-            end: eventInfo.event.end.toISOString(),
+            start: eventInfo.event.start.toString(),
+            end: eventInfo.event.end.toString(),
             booked: eventClicked.extendedProperties?.private.booked || null,
             backgroundColor: eventInfo.event.backgroundColor || "",
             htmlLink: eventClicked.htmlLink,
