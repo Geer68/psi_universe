@@ -24,9 +24,7 @@ export async function pagar(
     queryParams.append(key, value.toString());
   });
 
-  const successUrl = `${
-    process.env.NEXT_PUBLIC_SITE_URL
-  }/verificarPago?${queryParams.toString()}`;
+  const successUrl = `http://localhost:3000/verificarPago?${queryParams.toString()}`;
 
   // Dia y hora
   const inicio = extractDateTime(eventoElegido?.start || "");

@@ -84,12 +84,13 @@ const cards: AccordionProp[] = [
     body: (
       <>
         Ofrecemos una variedad de terapias adaptadas a las necesidades
-        individuales de cada cliente. Para el apoyo académico y el estrés
-        académico, ofrecemos terapias cognitivo-conductuales, terapia de
-        aceptación y compromiso, terapia de manejo del estrés, entre otras.
-        Estas terapias pueden ayudar a desarrollar habilidades de manejo del
-        tiempo, técnicas de estudio, manejo del estrés y a mejorar la autoestima
-        y la confianza en las habilidades académicas.
+        individuales de cada cliente. Para el apoyo{" "}
+        <b>académico y el estrés académico</b>, ofrecemos terapias
+        cognitivo-conductuales, terapia de aceptación y compromiso, terapia de
+        manejo del estrés, entre otras. Estas terapias pueden ayudar a
+        desarrollar habilidades de manejo del tiempo, técnicas de estudio,
+        manejo del estrés y a mejorar la autoestima y la confianza en las
+        habilidades académicas.
       </>
     ),
   },

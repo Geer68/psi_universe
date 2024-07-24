@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Head from "next/head";
+import WhatsApp from "@/components/WhatsApp";
 
 const satoshi = localFont({
   src: [
@@ -100,6 +101,7 @@ export default function RootLayout({
       >
         <NavBar />
         {children}
+        <WhatsApp />
         <Footer />
       </body>
     </html>

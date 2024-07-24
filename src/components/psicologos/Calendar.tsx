@@ -17,8 +17,6 @@ export default function Calendar({
   const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
   const matches = useBreakpoint("sm-");
 
-  // useEffect(() => console.log(matches), [matches]);
-
   return (
     <>
       <ModalMercadoPago

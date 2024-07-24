@@ -7,8 +7,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   const { evento, query } = req.body;
 
-  console.log("📧 Email", query.email);
-
   if (!evento || !query) {
     throw new Error("Error al enviar el correo");
   }

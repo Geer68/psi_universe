@@ -33,7 +33,7 @@ const cards: CardProps[] = [
     description: (
       <span>
         Conectate <b>desde la comodidad de tu hogar</b> o cualquier lugar. Tu
-        tiempo, tus reglas. <b>Elige tu el horario</b> que mejor se adapte a tu
+        tiempo, tus reglas. <b>Elegí vos el horario</b> que mejor se adapte a tu
         rutina y reprogramá citas con facilidad.
       </span>
     ),

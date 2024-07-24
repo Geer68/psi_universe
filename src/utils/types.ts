@@ -52,7 +52,7 @@ export interface GoogleEvent {
   originalStartTime?: { dateTime: string; timeZone: string };
   iCalUID?: string;
   sequence?: number;
-  hangoutLink?: string; // tiene meet?
+  hangoutLink: string;
   reminders?: { useDefault: boolean };
   eventType?: string;
   extendedProperties?: { private: { booked: boolean | string } };

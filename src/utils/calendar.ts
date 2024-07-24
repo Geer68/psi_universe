@@ -48,10 +48,6 @@ export async function getEvents(
 
     const fetchedEvents = res.data.items;
 
-    if (fetchedEvents) {
-      console.log("fetchedEvents", fetchedEvents[0]);
-    }
-
     const events = fetchedEvents
       ?.map((event) => {
         let startTime = event.start?.dateTime;

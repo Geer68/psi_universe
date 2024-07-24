@@ -5,7 +5,6 @@ import { insertNewClient, insertNewPayment, insertNewSesion } from "./sesion";
 import { Cliente, GoogleEvent, Pago, PaymentURL, Sesion } from "./types";
 
 export async function fetchData(query: PaymentURL, evento: RequestCookie) {
-  // console.log("query:", query);
   try {
     const payment = await getPaymentData(query.collection_id);
     if (payment) {
@@ -59,7 +58,7 @@ async function preparePaymentDB(
         idPago: parseInt(idPago),
         idPsicologo: parseInt(query.psicologoId!),
         sesion: inicioSesion,
-        link: eventoJSON.hangoutLink || "https://nohaylinkmalditogabi",
+        link: eventoJSON.hangoutLink,
       };
 
       const idSesion = await insertNewSesion(sesionPagada);
@@ -89,16 +88,13 @@ export async function sendPOSTEmail(
   sesionPagada: Sesion
 ) {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/email`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ evento: eventoJSON, query, sesionPagada }),
-      }
-    );
+    const response = await fetch(`http://localhost:3000/api/email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ evento: eventoJSON, query, sesionPagada }),
+    });
     const result = await response.json();
     return result.result;
   } catch (error: any) {
@@ -109,18 +105,14 @@ export async function sendPOSTEmail(
 
 export async function sendPOSTCalendar(eventoJSON: GoogleEvent) {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/calendar`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ evento: eventoJSON }),
-      }
-    );
+    const response = await fetch(`http://localhost:3000/api/calendar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ evento: eventoJSON }),
+    });
     const result = await response.json();
-    console.log("sendPOSTCalendar result:", result);
     return result.result;
   } catch (error: any) {
     console.error("Error in sendPOSTCalendar:", error.message);

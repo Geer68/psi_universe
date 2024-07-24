@@ -41,7 +41,7 @@ export default function CardPsicologo({ psicologo }: { psicologo: Psicologo }) {
           </div>
         </div>
         <div className="flex justify-center my-2">
-          <Button className="bg-custom-violetaPrimario rounded-xl">
+          <Button className="bg-custom-violetaPrimario rounded-xl hover:bg-custom-violetaFondoBTN">
             Ver disponibilidad
             <CalendarCheck2 className="ml-2" />
           </Button>

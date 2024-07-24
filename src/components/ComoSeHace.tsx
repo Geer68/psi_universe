@@ -11,7 +11,7 @@ const cards: CardProps[] = [
     titleColor: "text-[#BE49D1]",
     body: (
       <>
-        <b>Conéctate con el psicólogo perfecto</b> para tus necesidades y
+        <b>Conectate con el psicólogo perfecto</b> para tus necesidades y
         comienza tu camino hacia una vida más plena.
       </>
     ),
@@ -21,7 +21,7 @@ const cards: CardProps[] = [
     titleColor: "text-[#0067DD]",
     body: (
       <>
-        <b>Elige el día, la hora y el profesional</b> que mejor se adapte a ti.
+        <b>Elegí el día, la hora y el profesional</b> que mejor se adapte a ti.
         ¡en solo unos pocos clics!
       </>
     ),

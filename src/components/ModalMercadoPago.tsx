@@ -88,7 +88,10 @@ export default function ModalMercadoPago({
               <span>Email</span>
               <Input name="email" type="email" required />
             </Label>
-            <Button type="submit" className="bg-custom-violetaFondoBTN">
+            <Button
+              type="submit"
+              className="bg-custom-violetaFondoBTN hover:bg-[#391b67]"
+            >
               Reservar
             </Button>
           </form>
