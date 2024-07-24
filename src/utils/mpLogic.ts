@@ -26,7 +26,7 @@ export async function pagar(
 
   const successUrl = `${
     process.env.NEXT_PUBLIC_SITE_URL
-  }verificarPago?${queryParams.toString()}`;
+  }/verificarPago?${queryParams.toString()}`;
 
   // Dia y hora
   const inicio = extractDateTime(eventoElegido?.start || "");
