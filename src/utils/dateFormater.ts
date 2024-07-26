@@ -1,19 +1,21 @@
+import { format, toZonedTime } from "date-fns-tz";
+
 export function extractDateTime(fechaString: string, conBarra?: boolean) {
   if (!fechaString) {
     return { date: "", time: "" };
   } else {
+    const timeZone = "America/Montevideo";
     const date = new Date(fechaString);
-    const datePart = date.toLocaleDateString("es-ES");
-    // Replace datePart / with .
-    let datePartReplaced = datePart.replace(/\//g, ".");
+    const zonedDate = toZonedTime(date, timeZone);
+
+    const datePart = format(zonedDate, "dd.MM.yyyy", { timeZone });
+    let datePartReplaced = datePart.replace(/\./g, "/");
+
     if (conBarra) {
       datePartReplaced = datePartReplaced.replace(/\./g, "/");
     }
-    const timePart = date.toLocaleTimeString("es-ES", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
+
+    const timePart = format(zonedDate, "HH:mm", { timeZone });
     return { date: datePartReplaced, time: timePart };
   }
 }
