@@ -29,6 +29,8 @@ export async function pagar(
   }/verificarPago?${queryParams.toString()}`;
 
   // Dia y hora
+  console.log(eventoElegido.start);
+
   const inicio = extractDateTime(eventoElegido?.start || "");
   const fin = extractDateTime(eventoElegido?.end || "");
 
