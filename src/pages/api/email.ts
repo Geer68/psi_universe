@@ -16,7 +16,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     await sendEMailPsicologo(evento, query);
     res.send({ result: true });
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
     res.status(500).send({ error: "Error al enviar el correo" });
   }
 }

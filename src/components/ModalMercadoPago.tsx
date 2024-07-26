@@ -1,11 +1,12 @@
 "use client";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { pagar } from "@/utils/mpLogic";
 import {
   AlertDialog,
+  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -15,6 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { GoogleEvent, Psicologo } from "@/utils/types";
 import { extractDateTime } from "@/utils/dateFormater";
+import { CustomAlert } from "./CustomAlert";
 
 export default function ModalMercadoPago({
   open,
@@ -27,47 +29,58 @@ export default function ModalMercadoPago({
   psicologo: Psicologo;
   eventoElegido: GoogleEvent | null;
 }) {
-  console.log("MP", eventoElegido);
+  const [showAlert, setShowAlert] = useState(false); // Estado para mostrar CustomAlert
   const inicio = extractDateTime(eventoElegido?.start || "", true);
   const fin = extractDateTime(eventoElegido?.end || "", true);
 
-  // let dateSesion: Date;
-  // console.log(eventoElegido?.start);
-  // if (eventoElegido) {
-  //   dateSesion = new Date(eventoElegido.start);
-  //   console.log(dateSesion);
-  // } else {
-  //   dateSesion = new Date();
-  // }
-  // const formattedTime = dateSesion.toLocaleTimeString("es-ES", {
-  //   hour: "2-digit",
-  //   minute: "2-digit",
-  //   hour12: false,
-  // });
+  useEffect(() => {
+    async function checkEventBooked(calendarId: string, id: string) {
+      const eventoBooked = await fetch(
+        `/api/eventBooked?calendarId=${calendarId}&eventId=${id}`
+      ).then((res) => res.json());
+      if (eventoBooked.booked) {
+        setOpen(false);
+        setShowAlert(true); // Mostrar el alert en lugar de renderizarlo directamente
+      }
+    }
+    if (eventoElegido) {
+      checkEventBooked(eventoElegido.calendarId || "", eventoElegido.id || "");
+    }
+  }, [eventoElegido, setOpen]);
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      {/* <AlertDialogTrigger>Pagar</AlertDialogTrigger> */}
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Reserva de la sesión</AlertDialogTitle>
+    <>
+      <CustomAlert
+        isOpen={showAlert}
+        onClose={() => setShowAlert(false)}
+        title="¡La sesión ha sido reservada!"
+        description="La sesión que estás intentando reservar acaba de ser ocupada. Por favor, seleccioná una nueva para continuar con el proceso de reserva."
+      />
+
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Reservá tu sesión</AlertDialogTitle>
+          </AlertDialogHeader>
           <AlertDialogDescription>
             <div className="pb-4">
               <p>
-                <span className="text-gray-500">Psicólogo</span>:{" "}
+                <span className="text-gray-500">Psicólogo:</span>{" "}
                 {psicologo.apellido}, {psicologo.nombre}
               </p>
               <p>
-                <span className="text-gray-500">Día</span>: {inicio.date}
+                <span className="text-gray-500">Día:</span> {inicio.date}
               </p>
               <p>
-                <span className="text-gray-500">Hora</span>: {inicio.time} -{" "}
+                <span className="text-gray-500">Hora:</span> {inicio.time} -{" "}
                 {fin.time}
               </p>
             </div>
           </AlertDialogDescription>
           <form
-            action={(formData) => {
+            onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target as HTMLFormElement);
               if (eventoElegido !== null) {
                 console.log("eventoElegido", eventoElegido);
                 pagar(psicologo, eventoElegido, formData);
@@ -96,11 +109,11 @@ export default function ModalMercadoPago({
               Reservar
             </Button>
           </form>
-        </AlertDialogHeader>
-        <AlertDialogFooter className="w-full">
-          <AlertDialogCancel className="w-full">Cancelar</AlertDialogCancel>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="w-full">Cancelar</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

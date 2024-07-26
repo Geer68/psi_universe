@@ -1,9 +1,8 @@
-import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { GoogleEvent, Psicologo } from "@/utils/types";
 import dayGrid from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
-import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
-import { useEffect, useState } from "react";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import { useState } from "react";
 import ModalMercadoPago from "../ModalMercadoPago";
 
 export default function Calendar({
@@ -15,9 +14,7 @@ export default function Calendar({
 }) {
   const [openModal, setOpenModal] = useState(false);
   const [eventoElegido, setEventoElegido] = useState<GoogleEvent | null>(null);
-  const matches = useBreakpoint("sm-");
 
-  console.log(events);
   return (
     <>
       <ModalMercadoPago
@@ -28,7 +25,6 @@ export default function Calendar({
       />
       <FullCalendar
         locale="es"
-        // timeZone="America/Argentina/Buenos_Aires"
         weekends={false}
         plugins={[timeGridPlugin, dayGrid]}
         events={events}

@@ -29,11 +29,10 @@ export async function pagar(
   }/verificarPago?${queryParams.toString()}`;
 
   // Dia y hora
-  console.log(eventoElegido.start);
 
-  const inicio = extractDateTime(eventoElegido?.start || "");
+  const inicio = extractDateTime(eventoElegido?.start || "", false);
   console.log("postfn:", inicio);
-  const fin = extractDateTime(eventoElegido?.end || "");
+  const fin = extractDateTime(eventoElegido?.end || "", false);
   console.log("finpost:", fin);
   const inicioSesion = `${inicio.date} - ${inicio.time} ${fin.time}`;
   console.log("total:", inicio);

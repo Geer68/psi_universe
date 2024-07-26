@@ -6,7 +6,7 @@ import Descripcion from "./psicologos/Descripcion";
 
 export default function CardPsicologo({ psicologo }: { psicologo: Psicologo }) {
   return (
-    <Link href={`/psicologo/${psicologo.id}`} className="h-full">
+    <article className="h-full ">
       <div className=" w-full group max-w-md min-w-0 mx-auto mt-6 mb-6 break-words bg-white border border-gray-300 md:max-w-sm rounded-t-xl">
         <div className="flex flex-wrap justify-center">
           <div className="flex justify-center w-full">
@@ -30,21 +30,22 @@ export default function CardPsicologo({ psicologo }: { psicologo: Psicologo }) {
         <div className="pt-6 mx-4 mt-6 text-center border-t border-gray-200 ">
           <div className="flex flex-wrap justify-center">
             <div className="w-full">
-              <p className="mb-4 font-normal font-satoshi leading-relaxed text-custom-textClarito">
-                <Descripcion
-                  descripcion={psicologo.descripcion}
-                  caracteres={120}
-                  className="text-custom-textClarito text-center"
-                />
-              </p>
+              <Descripcion
+                descripcion={psicologo.descripcion}
+                caracteres={120}
+                className="text-custom-textClarito text-center mb-4 font-normal font-satoshi leading-relaxed "
+              />
             </div>
           </div>
         </div>
         <div className="flex justify-center my-2">
-          <Button className="bg-custom-violetaPrimario rounded-xl hover:bg-custom-violetaFondoBTN">
+          <Link
+            href={`/psicologo/${psicologo.id}`}
+            className="bg-custom-violetaPrimario rounded-xl hover:bg-custom-violetaFondoBTN text-white flex px-3 py-2"
+          >
             Ver disponibilidad
             <CalendarCheck2 className="ml-2" />
-          </Button>
+          </Link>
         </div>
         <div className="relative h-6 overflow-hidden translate-y-6 rounded-b-xl">
           <div className="absolute flex -space-x-12 rounded-b-2xl">
@@ -56,6 +57,6 @@ export default function CardPsicologo({ psicologo }: { psicologo: Psicologo }) {
           </div>
         </div>
       </div>
-    </Link>
+    </article>
   );
 }

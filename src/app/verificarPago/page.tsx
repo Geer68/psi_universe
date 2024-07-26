@@ -40,7 +40,7 @@ function VerificarPagoContent() {
           router.push(`/compraFallida?${queryString}`);
         }
       } catch (error: any) {
-        console.log(error);
+        console.error(error);
         router.push(`/compraFallida`);
       }
     };
@@ -49,7 +49,7 @@ function VerificarPagoContent() {
   }, [searchParams, router]);
 
   return (
-    <Container className="mt-20 flex flex-col items-center gap-5">
+    <Container className="mt-20 flex flex-col items-center gap-5 h-full">
       <p>Verificando pago...</p>
       <div role="status">
         <svg

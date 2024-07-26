@@ -81,3 +81,15 @@ export async function getEvents(
     return null;
   }
 }
+
+export async function checkEvent(calendarId: string, id: string) {
+  const auth = await getAuth();
+  const events = await getEvents(calendarId);
+  const bookedEvent = events?.find(
+    (event) =>
+      event.id === id && event.extendedProperties?.private?.booked === "true"
+  );
+  if (bookedEvent) {
+    return true;
+  }
+}

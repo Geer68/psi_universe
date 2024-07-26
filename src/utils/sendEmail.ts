@@ -34,7 +34,7 @@ const createSendEmailCommand = (
                             ><img
                               alt="Marketbase"
                               src="https://www.psiuniverse.com/logoNegativo.png"
-                              style="outline:none;border:none;text-decoration:none;vertical-align:middle;display:inline-block;max-width:24px;max-height:24px;border-radius:50%;"
+                              style="outline:none;border:none;text-decoration:none;vertical-align:middle;display:inline-block;max-width:32px;max-height:32px;border-radius:50%;"
                           /></a>
                         </div>
                         ${body
