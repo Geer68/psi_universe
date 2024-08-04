@@ -61,17 +61,16 @@ const cards: CardProps[] = [
     link: "/consultas",
   },
   {
-    title: "Texto FALTANTE",
+    title: "Atención Accesible",
     description: (
       <>
         <span className="block">
-          Te ofrecemos un <b>equipo multidisciplinario</b> para acompañarte.
-          <b>Terapia a tu medida</b>, desde cualquier lugar y en tu horario.
+          Ofrecemos atención psicológica <b>integral y accesible</b> con{" "}
+          <b>alta calidad</b> y <b>precios justos</b>. Nos enfocamos en la{" "}
+          <b>salud mental</b> y el <b>bienestar financiero</b>, brindando
+          servicios <b>personalizados</b> para promover el{" "}
+          <b>bienestar emocional</b> de manera <b>sostenible</b>.
         </span>{" "}
-        <span>
-          Tu <b>bienestar integral es nuestra prioridad</b>: promovemos tu salud
-          física, mental y emocional.
-        </span>
       </>
     ),
     img: "/img/whyus/card4.png",
