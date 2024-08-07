@@ -7,7 +7,7 @@ export default function HeroSection() {
     <div className="relative flex flex-col gap-6 items-center justify-center w-full h-[60vh]">
       <img
         src="/hero_bg.svg"
-        className="absolute top-0 -translate-x-1/2 left-1/2 w-2/3 -z-10"
+        className="absolute top-0 -translate-x-1/2 left-1/2 w-full -z-10"
       />
       <section className="text-center text-[#373737]">
         <p className="text-5xl sm:text-6xl font-mort-modern">Encontrá tu</p>

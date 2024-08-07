@@ -27,20 +27,6 @@ const cards: AccordionProp[] = [
     ),
   },
   {
-    title:
-      "¿Es posible tener una conversación inicial con el psicólogo/a antes de reservar mi primera sesión?",
-    body: (
-      <>
-        Sí, ofrecemos una{" "}
-        <b className="text-custom-violetaPrimario ">
-          consulta inicial gratuita
-        </b>{" "}
-        para que puedas conocer al psicólogo y discutir tus expectativas y
-        necesidades antes de comprometerte a una terapia.
-      </>
-    ),
-  },
-  {
     title: "¿Con qué frecuencia debo asistir a las sesiones de terapia?",
     body: (
       <>

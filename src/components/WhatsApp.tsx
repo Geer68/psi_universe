@@ -4,7 +4,7 @@ export default function WhatsApp() {
   return (
     <Container className="fixed sm:bottom-6 bottom-4 right-4 sm:right-10 z-50">
       <a
-        href="https://wa.me/59891201239?text=Hola!%20Me%20gustaría%20consultar%20sobre:"
+        href="https://wa.me/598092260775?text=Hola!%20Me%20gustaría%20consultar%20sobre:"
         target="_blank"
         rel="noreferrer"
         className="flex items-center justify-center w-12 h-12 rounded-full bg-white "

@@ -15,17 +15,21 @@ const cards: CardProps[] = [
     description: (
       <>
         <span>
-          Te ofrecemos un <b>equipo multidisciplinario</b> para acompañarte.{" "}
-          <b>Terapia a tu medida</b>, desde cualquier lugar y en tu horario.
-        </span>{" "}
-        <span>
-          Tu <b>bienestar integral es nuestra prioridad</b>: promovemos tu salud
-          física, mental y emocional.
+          Ofrecemos un servicio accesible en nuestra comunidad de manera
+          <b> sostenible y equitativa</b>, priorizando la{" "}
+          <b>atención de alta calidad a un costo razonable</b>.
         </span>
+        <span>
+          Nuestro equipo se encuentra conformado por profesionales altamente
+          capacitados que cuentan con{" "}
+          <b>maestrías, posgrados y especializaciones</b>
+          que nos permiten cubrir una amplia variedad de orientaciones
+          psicológicas.
+        </span>{" "}
       </>
     ),
     img: "/img/whyus/card1.png",
-    linkText: "Consultá nuestras opciones",
+    linkText: "Conocé más",
     link: "/consultas",
   },
   {
@@ -38,7 +42,7 @@ const cards: CardProps[] = [
       </span>
     ),
     img: "/img/whyus/card2.png",
-    linkText: "Mirá nuestros tips para una sesión",
+    linkText: "Conocé más",
     link: "/consultas",
   },
   {
@@ -57,24 +61,35 @@ const cards: CardProps[] = [
       </>
     ),
     img: "/img/whyus/card3.png",
-    linkText: "Mirá todos nuestros tipos de terapia",
+    linkText: "Conocé más",
     link: "/consultas",
   },
   {
-    title: "Atención Accesible",
+    title: "Atención de Calidad",
     description: (
       <>
         <span className="block">
-          Ofrecemos atención psicológica <b>integral y accesible</b> con{" "}
-          <b>alta calidad</b> y <b>precios justos</b>. Nos enfocamos en la{" "}
-          <b>salud mental</b> y el <b>bienestar financiero</b>, brindando
-          servicios <b>personalizados</b> para promover el{" "}
-          <b>bienestar emocional</b> de manera <b>sostenible</b>.
+          Ofrecemos un servicio accesible, garantizando atención de alta calidad
+          a un costo razonable.{" "}
+          <b>
+            Entendemos la importancia de la salud mental y brindamos servicios
+            efectivos y personalizados sin afectar la estabilidad económica de
+            nuestros pacientes.
+          </b>
         </span>{" "}
+        <span>
+          Con una política de precios justa y transparente, facilitamos el
+          acceso y{" "}
+          <b>
+            promovemos el bienestar emocional en nuestra comunidad de manera
+            sostenible y equitativa
+          </b>
+          .
+        </span>
       </>
     ),
     img: "/img/whyus/card4.png",
-    linkText: "Mirá todos nuestros tipos de terapia",
+    linkText: "Conocé más",
     link: "/consultas",
   },
 ];
