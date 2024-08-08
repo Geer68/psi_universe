@@ -31,11 +31,9 @@ export async function pagar(
   // Dia y hora
 
   const inicio = extractDateTime(eventoElegido?.start || "", false);
-  console.log("postfn:", inicio);
   const fin = extractDateTime(eventoElegido?.end || "", false);
-  console.log("finpost:", fin);
   const inicioSesion = `${inicio.date} - ${inicio.time} ${fin.time}`;
-  console.log("total:", inicio);
+
 
   const tituloMP = `
     Sesión - ${psicologo.nombre} ${psicologo.apellido} de ${inicioSesion}hs

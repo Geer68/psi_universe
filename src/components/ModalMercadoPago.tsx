@@ -82,7 +82,6 @@ export default function ModalMercadoPago({
               e.preventDefault();
               const formData = new FormData(e.target as HTMLFormElement);
               if (eventoElegido !== null) {
-                console.log("eventoElegido", eventoElegido);
                 pagar(psicologo, eventoElegido, formData);
               }
             }}

@@ -72,7 +72,6 @@ export async function getEvents(
       .filter((event) => event.hangoutLink) as Array<GoogleEvent>;
 
     if (!events || events.length === 0) {
-      console.log("No upcoming events found.");
       return [];
     }
     return events as Array<GoogleEvent>;

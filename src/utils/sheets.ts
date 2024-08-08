@@ -5,10 +5,6 @@ import { formatToArgentinianTime } from "./dateFormater";
 import { getAuth } from "./googleAuth";
 import { Cliente, Pago, Sesion } from "./types";
 
-// let sheets;
-// if (typeof window === "undefined") {
-//   sheets = google.sheets("v4");
-// }
 const SheetID = process.env.NEXT_PUBLIC_CALENDAR_ID;
 
 export async function getSheetClientes() {
@@ -19,7 +15,6 @@ export async function getSheetClientes() {
     range: "Clientes!A:E",
   });
 
-  console.log(res.data);
   return res.data;
 }
 
@@ -64,7 +59,6 @@ export async function appendSheetPago(id: string | number, pago: Pago) {
       ],
     },
   });
-  console.log();
   return res.data;
 }
 
