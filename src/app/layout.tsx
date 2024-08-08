@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Head from "next/head";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const satoshi = localFont({
@@ -101,6 +102,7 @@ export default function RootLayout({
       >
         <NavBar />
         {children}
+        <Analytics />
         <WhatsApp />
         <Footer />
       </body>
