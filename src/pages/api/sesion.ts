@@ -1,6 +1,8 @@
 import { fetchData } from "@/utils/paymentLogic";
 import { NextApiRequest, NextApiResponse } from "next";
 
+export const maxDuration = 60;
+
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   const { query, evento } = req.body;
   console.log("query:", query);
