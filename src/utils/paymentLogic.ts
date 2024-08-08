@@ -1,3 +1,4 @@
+export const maxDuration = 60;
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { formatToArgentinianTime } from "./dateFormater";
 import { getPaymentData } from "./mpLogic";
