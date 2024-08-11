@@ -22,9 +22,8 @@ const cards: CardProps[] = [
         <span>
           Nuestro equipo se encuentra conformado por profesionales altamente
           capacitados que cuentan con{" "}
-          <b>maestrías, posgrados y especializaciones</b>
-          que nos permiten cubrir una amplia variedad de orientaciones
-          psicológicas.
+          <b>maestrías, posgrados y especializaciones</b> que nos permiten
+          cubrir una amplia variedad de orientaciones psicológicas.
         </span>{" "}
       </>
     ),
