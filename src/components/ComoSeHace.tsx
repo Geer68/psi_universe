@@ -51,10 +51,12 @@ export default function ComoSeHace() {
         <img
           className="hidden absolute md:block top-4 left-[23%] xl:left-[20%] w-1/5 xl:w-auto"
           src="/img/comosehace/flecha1.svg"
+          alt="flecha"
         />
         <img
           className="hidden absolute md:block top-2 xl:top-0 right-[23%] xl:right-[20%] w-1/5 xl:w-auto"
           src="/img/comosehace/flecha2.svg"
+          alt="flecha"
         />
       </div>
     </section>

@@ -77,9 +77,9 @@ const mortModernCondensed = localFont({
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "psi•universe",
+  title: "psiuniverse",
   description:
-    "Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional.",
+    "Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psiuniverse. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional.",
 };
 
 export default function RootLayout({
@@ -113,16 +113,16 @@ export default function RootLayout({
 function Metatags() {
   return (
     <Head>
-      <title>psi•universe</title>
-      <meta name="title" content="psi•universe" />
+      <title>psiuniverse</title>
+      <meta name="title" content="psiuniverse" />
       <meta
         name="description"
-        content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
+        content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psiuniverse. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
       />
       <meta name="robots" content="index, follow" />
       <meta
         name="keywords"
-        content="psicología, terapia, bienestar mental, salud emocional"
+        content="psicología, terapia, bienestar mental, salud emocional, profesionales, calidad, psiuniverse, atención, mejor, psicólogo, terapeuta, terapias, personalizadas, flexibles, integral, bienestar, físico, mental, emocional"
       />
       <meta name="author" content="psiuniverse" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -130,10 +130,10 @@ function Metatags() {
       <meta property="og:type" content="website" />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="og:url" content="https://www.psiuniverse.com/" />
-      <meta property="og:title" content="psi•universe" />
+      <meta property="og:title" content="psiuniverse" />
       <meta
         property="og:description"
-        content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
+        content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psiuniverse. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
       />
       <meta
         property="og:image"
@@ -142,15 +142,16 @@ function Metatags() {
 
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content="https://www.psiuniverse.com/" />
-      <meta property="twitter:title" content="psi•universe" />
+      <meta property="twitter:title" content="psiuniverse" />
       <meta
         property="twitter:description"
-        content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psi•universe. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
+        content="Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psiuniverse. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional."
       />
       <meta
         property="twitter:image"
         content="https://www.psiuniverse.com/psiuniverse.jpg"
       />
+      <link rel="icon" href="https://www.psiuniverse.com/favicon.ico" />
     </Head>
   );
 }

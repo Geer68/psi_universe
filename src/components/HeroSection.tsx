@@ -11,9 +11,9 @@ export default function HeroSection() {
       />
       <section className="text-center text-[#373737]">
         <p className="text-5xl sm:text-6xl font-mort-modern">Encontrá tu</p>
-        <p className="text-[#7643BE] text-6xl sm:text-7xl font-bold italic font-mort-modern-condensed">
+        <h1 className="text-[#7643BE] text-6xl sm:text-7xl font-bold italic font-mort-modern-condensed">
           psicólogo ideal
-        </p>
+        </h1>
       </section>
       <div className="text-center w-3/4 md:w-1/2 lg:w-1/3 font-satoshi text-xl">
         <p className="text-[#666666]">

@@ -4,6 +4,7 @@ import { ExternalLink } from "lucide-react";
 type CardProps = {
   title: string;
   description: React.ReactNode;
+  alt?: string;
   img: string;
   linkText: string;
   link: string;
@@ -28,6 +29,7 @@ const cards: CardProps[] = [
       </>
     ),
     img: "/img/whyus/card1.png",
+    alt: "Figura abstracta",
     linkText: "Conocé más",
     link: "/consultas",
   },
@@ -41,6 +43,7 @@ const cards: CardProps[] = [
       </span>
     ),
     img: "/img/whyus/card2.png",
+    alt: "Figura abstracta",
     linkText: "Conocé más",
     link: "/consultas",
   },
@@ -60,6 +63,7 @@ const cards: CardProps[] = [
       </>
     ),
     img: "/img/whyus/card3.png",
+    alt: "Figura abstracta",
     linkText: "Conocé más",
     link: "/consultas",
   },
@@ -88,6 +92,7 @@ const cards: CardProps[] = [
       </>
     ),
     img: "/img/whyus/card4.png",
+    alt: "Figura abstracta",
     linkText: "Conocé más",
     link: "/consultas",
   },
@@ -114,12 +119,14 @@ function CardCaracteristica({
   img,
   linkText,
   link,
+  alt,
 }: CardProps) {
   return (
     <div className="w-full flex flex-col xl:flex-row justify-between min-h-64 md:max-w-[48%] 2xl:flex-auto 2xl:max-w-[48%] rounded-2xl bg-white shadow-sm overflow-hidden border border-1 border-custom-violetaPrimario/10">
       <img
         src={img}
         className="mt-6 h-32 xl:h-full w-full xl:w-1/4 xl:-ml-2 object-contain xl:object-cover object-center xl:object-right"
+        alt={alt}
       />
       <div className="flex-1 gap-6 flex flex-col items-start justify-between p-5 text-[#504136]">
         <div className="w-full">
