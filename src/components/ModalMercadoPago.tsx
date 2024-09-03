@@ -62,20 +62,18 @@ export default function ModalMercadoPago({
           <AlertDialogHeader>
             <AlertDialogTitle>Reservá tu sesión</AlertDialogTitle>
           </AlertDialogHeader>
-          <AlertDialogDescription>
-            <div className="pb-4">
-              <p>
-                <span className="text-gray-600">Psicólogo:</span>{" "}
-                {psicologo.apellido}, {psicologo.nombre}
-              </p>
-              <p>
-                <span className="text-gray-600">Día:</span> {inicio.date}
-              </p>
-              <p>
-                <span className="text-gray-600">Hora:</span> {inicio.time} -{" "}
-                {fin.time}
-              </p>
-            </div>
+          <AlertDialogDescription className="pb-4">
+            <p>
+              <span className="text-gray-600">Psicólogo:</span>{" "}
+              {psicologo.apellido}, {psicologo.nombre}
+            </p>
+            <p>
+              <span className="text-gray-600">Día:</span> {inicio.date}
+            </p>
+            <p>
+              <span className="text-gray-600">Hora:</span> {inicio.time} -{" "}
+              {fin.time}
+            </p>
           </AlertDialogDescription>
           <form
             onSubmit={(e) => {

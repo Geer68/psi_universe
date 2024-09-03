@@ -3,8 +3,10 @@ import Container from "./Container";
 import { Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="w-full relative flex align-middle justify-center h-64 sm:h-48 py-4 my-10">
+    <footer className="w-full relative flex flex-col align-middle justify-center h-64 sm:h-48 py-4 mb-10 mt-20">
       <Container className="grid grid-cols-1 gap-y-4 sm:flex justify-between w-[85%] my-4 ">
         <aside className="sm:w-1/2 flex flex-col gap-4 sm:gap-0 justify-between">
           <Link href={"/"} className="flex gap-4 items-center">
@@ -13,9 +15,10 @@ export default function Footer() {
               psi•universe
             </p>
           </Link>
-          <p className="text-custom-textClarito text-sm">
-            <strong>© 2024 psi•universe</strong>. Todos los derechos reservados
-          </p>
+          <div className="text-custom-textClarito text-sm">
+            <strong>© {currentYear} psi•universe</strong>. Todos los derechos
+            reservados.
+          </div>
         </aside>
         <aside className="flex sm:w-1/2 justify-between sm:justify-end gap-8">
           <div className="text-custom-textClarito flex flex-col justify-between">
@@ -39,6 +42,15 @@ export default function Footer() {
             </a>
           </div>
         </aside>
+      </Container>
+      <Container className="py-8 mt-4 flex justify-center">
+        <div className="text-sm">
+          © {currentYear}. Orgullosamente{" "}
+          <span className="font-medium text-custom-textClarito">
+            diseñado y desarrollado
+          </span>{" "}
+          por <span className="text-pink-500 font-semibold">Aftercode.</span>
+        </div>
       </Container>
     </footer>
   );
