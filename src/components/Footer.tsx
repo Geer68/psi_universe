@@ -49,7 +49,14 @@ export default function Footer() {
           <span className="font-medium text-custom-textClarito">
             diseñado y desarrollado
           </span>{" "}
-          por <span className="text-pink-500 font-semibold">Aftercode.</span>
+          por{" "}
+          <a
+            className="text-pink-500 font-semibold"
+            target="_blank"
+            href="https://www.aftercode.dev/"
+          >
+            Aftercode.
+          </a>
         </div>
       </Container>
     </footer>

@@ -77,3 +77,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media (max-width: 640px) {
+  .fc .fc-toolbar-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .fc .fc-toolbar-chunk {
+    font-size: 0.875rem;
+    display: flex;
+  }
+
+  .fc .fc-header-toolbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

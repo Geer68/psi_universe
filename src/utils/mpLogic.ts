@@ -21,7 +21,9 @@ export async function pagar(
   cookies().set("evento", JSON.stringify(eventoElegido), { httpOnly: true });
 
   formData.forEach((value, key) => {
-    queryParams.append(key, value.toString());
+    if (key !== "cupon") {
+      queryParams.append(key, value.toString());
+    }
   });
 
   const successUrl = `${
@@ -33,7 +35,6 @@ export async function pagar(
   const inicio = extractDateTime(eventoElegido?.start || "", false);
   const fin = extractDateTime(eventoElegido?.end || "", false);
   const inicioSesion = `${inicio.date} - ${inicio.time} ${fin.time}`;
-
 
   const tituloMP = `
     Sesión - ${psicologo.nombre} ${psicologo.apellido} de ${inicioSesion}hs
