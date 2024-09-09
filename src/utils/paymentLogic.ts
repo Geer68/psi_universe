@@ -28,8 +28,10 @@ async function preparePaymentDB(
       apellido: query.apellido,
       email: query.email,
     };
+    console.log("client", client);
 
     const idCliente = await insertNewClient(client);
+    console.log("idCliente", idCliente);
     if (!idCliente) {
       throw new Error("Error al insertar el cliente");
     }
@@ -44,15 +46,25 @@ async function preparePaymentDB(
         fechaPago: paymentData?.fechaPago,
         payerMP: paymentData?.payerMP,
       };
+      console.log("pago", pago);
 
       const idPago = await insertNewPayment(pago);
+      console.log("idPago", idPago);
       if (!idPago) {
         throw new Error("Error al insertar el pago");
       }
 
+      if (!evento || !evento.value) {
+        throw new Error(
+          "Evento is undefined or does not have a value property"
+        );
+      }
+
       const eventoJSON: GoogleEvent = JSON.parse(evento.value);
+      console.log("eventoJSON", eventoJSON);
 
       const inicioSesion = formatToArgentinianTime(eventoJSON.start);
+      console.log("inicioSesion", inicioSesion);
 
       const sesionPagada: Sesion = {
         idCliente: parseInt(idCliente),
@@ -61,6 +73,7 @@ async function preparePaymentDB(
         sesion: inicioSesion,
         link: eventoJSON.hangoutLink,
       };
+      console.log("sesionPagada", sesionPagada);
 
       const idSesion = await insertNewSesion(sesionPagada);
       if (!idSesion) {
