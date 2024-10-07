@@ -49,7 +49,7 @@ export async function sendEMailPsicologo(
     `Hola ${psicologo?.nombre},`,
     `Queremos informarte que la sesión con ${query.nombre} ${
       query.apellido
-    } ha sido abonada y confirmada para el día ${
+    } ha sido confirmada para el día ${
       extractDateTime(evento.start, true).date
     } a las ${extractDateTime(evento.start, true).time}.`,
     `Para acceder a la sesión, utiliza el siguiente enlace: ${evento.hangoutLink}`,
