@@ -1,11 +1,11 @@
 import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
 import WhatsApp from "@/components/WhatsApp";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Head from "next/head";
-import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const satoshi = localFont({
@@ -79,7 +79,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "psiuniverse",
   description:
-    "Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psiuniverse. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional.",
+    "Conéctate con psicólogos de alta calidad y agenda tu sesión en minutos con psiuniverse. Terapias personalizadas desde cualquier lugar, con opciones flexibles y atención integral para tu bienestar físico, mental y emocional. ",
 };
 
 export default function RootLayout({
